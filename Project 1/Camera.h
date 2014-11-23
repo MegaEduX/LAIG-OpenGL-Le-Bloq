@@ -77,9 +77,6 @@ class PerspectiveCamera : public Camera {
     float _far;
     float _angle;
     
-    Coordinate3D _position;
-    Coordinate3D _target;
-    
 public:
     
     PerspectiveCamera(std::string anId, float near, float far, float angle, Coordinate3D position, Coordinate3D target) : Camera(anId) {
@@ -87,11 +84,17 @@ public:
         _far = far;
         _angle = angle;
         
-        _position = position;
-        _target = target;
+        CGFcamera::position[0] = position.x;
+        CGFcamera::position[1] = position.y;
+        CGFcamera::position[2] = position.z;
+        
+        CGFcamera::target[0] = target.x;
+        CGFcamera::target[1] = target.y;
+        CGFcamera::target[2] = target.z;
     }
     
     void updateProjectionMatrix(int, int);
+    
     void applyView();
     
 };

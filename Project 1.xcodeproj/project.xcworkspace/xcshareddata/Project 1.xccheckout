@@ -12,20 +12,24 @@
 	<dict>
 		<key>2F3D2FB659CECA5BBEF0F561BDFE573AA9EF9D1B</key>
 		<string>ssh://git.edr.io:7999/laig/project-1.git</string>
+		<key>7D769C9306DC48976378A4C3368DAC98CC87DF84</key>
+		<string>ssh://git.edr.io:7999/laig/project-3.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Project 1.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>2F3D2FB659CECA5BBEF0F561BDFE573AA9EF9D1B</key>
+		<string>../../../Project%201</string>
+		<key>7D769C9306DC48976378A4C3368DAC98CC87DF84</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://git.edr.io:7999/laig/project-1.git</string>
+	<string>ssh://git.edr.io:7999/laig/project-3.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>2F3D2FB659CECA5BBEF0F561BDFE573AA9EF9D1B</string>
+	<string>7D769C9306DC48976378A4C3368DAC98CC87DF84</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>2F3D2FB659CECA5BBEF0F561BDFE573AA9EF9D1B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Project%201</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7D769C9306DC48976378A4C3368DAC98CC87DF84</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Project%203</string>
 		</dict>
 	</array>
 </dict>

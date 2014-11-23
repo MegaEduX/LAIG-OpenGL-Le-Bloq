@@ -18,7 +18,7 @@
 
 #include "Interface.h"
 
-#define kUseDefaultPath 0
+#define kUseDefaultPath 1
 
 int main(int argc, const char * argv[]) {
     
@@ -26,7 +26,7 @@ int main(int argc, const char * argv[]) {
     
 #if kUseDefaultPath
     
-    ANFLoader::getInstance().setANFPath("/Users/MegaEduX/ANF/Sample.anf");
+    ANFLoader::getInstance().setANFPath("/Users/MegaEduX/anf-for-project-2/Sample.anf");
 
 	//  ANFLoader::getInstance().setANFPath("C:\\Users\\ASUS\\FEUP\\Ano 3\\1º Semestre\\LAIG\\anf-for-project-2-master\\Sample.anf");
     
