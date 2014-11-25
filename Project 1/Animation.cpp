@@ -109,8 +109,6 @@ void CircularAnimation::animate(float delta) {
     Coordinate3D res = _center + _distanceToCentralPoint(angleRad);
     
     _lastAnimationResult = new Coordinate3D(res.x, res.y, res.z);
-    
-    //  std::cout << "Animate! " << res.x << ", " << res.y << ", " << res.z << std::endl;
 }
 
 void CompositeAnimation::animate(float delta) {

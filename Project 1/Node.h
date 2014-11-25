@@ -244,6 +244,9 @@ public:
                     glMultMatrixf(&_matrix[0][0]);
                 }
                 
+                if (!(Globals::getInstance().getDrawingSettings()->useDisplayLists()))
+                    glMultMatrixf(&_matrix[0][0]);
+                
                 glBindTexture(GL_TEXTURE_2D, 0);
                 
                 if (getAppearance() != nullptr) {
