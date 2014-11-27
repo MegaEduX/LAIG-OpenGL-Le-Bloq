@@ -28,7 +28,7 @@ int main(int argc, const char * argv[]) {
     
     game->newGame(10, 10);
     
-    game->performPlay(game->getCurrentGameState().getBoard(), 1, 'v', Coordinate2D(3, 3));
+    game->performPlay(1, 'v', Coordinate2D(3, 3));
     
     delete game;
     

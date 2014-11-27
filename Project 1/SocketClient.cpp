@@ -18,10 +18,7 @@
 #include <unistd.h>
 #include <ctype.h>
 
-#define BUFS	1024
-#define NAMS	64
-
-char nclient[NAMS];
+char nclient[64];
 
 SocketClient::SocketClient(std::string host, int port) {
     struct sockaddr_in server;

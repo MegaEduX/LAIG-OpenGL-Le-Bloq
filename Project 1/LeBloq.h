@@ -50,9 +50,7 @@ public:
         return _boardRepresentation;
     }
     
-    std::vector<LeBloqPiece> getPieces() {
-        return std::vector<LeBloqPiece>();
-    }
+    std::vector<LeBloqPiece> getPieces();
     
 };
 
@@ -112,7 +110,7 @@ public:
     
     LeBloqState getCurrentGameState();
     
-    LeBloqState performPlay(LeBloqBoard b, int pieceType, char pieceOrientation, Coordinate2D piecePos);
+    LeBloqState performPlay(int pieceType, char pieceOrientation, Coordinate2D piecePos);
     
 };
 

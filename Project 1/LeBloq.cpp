@@ -10,6 +10,14 @@
 
 #include "PrologParser.h"
 
+std::vector<LeBloqPiece> LeBloqBoard::getPieces() {
+    std::vector<LeBloqPiece> pieces;
+    
+    for (
+    
+    return std::vector<LeBloqPiece>();
+}
+
 LeBloqState LeBloq::_parseOK(std::string answer) {
     answer.erase(0, 3);
     
@@ -46,9 +54,8 @@ LeBloqState LeBloq::getCurrentGameState() {
     return _gameStates.top();
 }
 
-LeBloqState LeBloq::performPlay(LeBloqBoard b, int pieceType, char pieceOrientation, Coordinate2D piecePos) {
-    /*  Yadda yadda! */
-    std::string message = (_gameStates.size() == 1 ? "playFT(" : "play(") + PrologParser::boardRepresentationToProlog(b.getBoardRepresentation()) + "," + std::to_string(pieceType) + "," + pieceOrientation + "," + std::to_string((int) piecePos.x) + "," + std::to_string((int) piecePos.y) + ").";
+LeBloqState LeBloq::performPlay(int pieceType, char pieceOrientation, Coordinate2D piecePos) {
+    std::string message = (_gameStates.size() == 1 ? "playFT(" : "play(") + PrologParser::boardRepresentationToProlog(getCurrentGameState().getBoard().getBoardRepresentation()) + "," + std::to_string(pieceType) + "," + pieceOrientation + "," + std::to_string((int) piecePos.x) + "," + std::to_string((int) piecePos.y) + "," + std::to_string(getCurrentGameState().getPlayer()) + "," + std::to_string(_boardSizeX) + "," + std::to_string(_boardSizeY) + ").";
     
     _conn->write(message);
     
