@@ -30,6 +30,9 @@
 		6F9B4FE219D2F74800B0A240 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9B4FE019D2F74800B0A240 /* libtinyxml.a */; };
 		6F9B4FE519D2FA1D00B0A240 /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F9B4FE319D2FA1D00B0A240 /* MainScene.cpp */; };
 		6FF7A29D19DDA77300372B39 /* Interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FF7A29B19DDA77300372B39 /* Interface.cpp */; };
+		6FFE09001A27774900831802 /* LeBloq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FFE08FE1A27774900831802 /* LeBloq.cpp */; };
+		6FFE09031A27785F00831802 /* SocketClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FFE09011A27785F00831802 /* SocketClient.cpp */; };
+		6FFE09061A27840B00831802 /* PrologParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FFE09041A27840B00831802 /* PrologParser.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -108,6 +111,12 @@
 		6FED239419D84C560007A9D9 /* GraphicalMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphicalMath.h; sourceTree = "<group>"; };
 		6FF7A29B19DDA77300372B39 /* Interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Interface.cpp; sourceTree = "<group>"; };
 		6FF7A29C19DDA77300372B39 /* Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interface.h; sourceTree = "<group>"; };
+		6FFE08FE1A27774900831802 /* LeBloq.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeBloq.cpp; sourceTree = "<group>"; };
+		6FFE08FF1A27774900831802 /* LeBloq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeBloq.h; sourceTree = "<group>"; };
+		6FFE09011A27785F00831802 /* SocketClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SocketClient.cpp; sourceTree = "<group>"; };
+		6FFE09021A27785F00831802 /* SocketClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketClient.h; sourceTree = "<group>"; };
+		6FFE09041A27840B00831802 /* PrologParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PrologParser.cpp; sourceTree = "<group>"; };
+		6FFE09051A27840B00831802 /* PrologParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrologParser.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +179,7 @@
 		6F9B4F7C19D1D45C00B0A240 /* Project 1 */ = {
 			isa = PBXGroup;
 			children = (
+				6FFE08FD1A27772700831802 /* Game Engine */,
 				6F86FE9919DAE6AD00FC9C52 /* External */,
 				6F9B4FE719D2FA7400B0A240 /* A New Format (ANF) */,
 				6F9B4FE619D2FA6000B0A240 /* Graphical Engine */,
@@ -277,6 +287,19 @@
 			name = "A New Format (ANF)";
 			sourceTree = "<group>";
 		};
+		6FFE08FD1A27772700831802 /* Game Engine */ = {
+			isa = PBXGroup;
+			children = (
+				6FFE08FF1A27774900831802 /* LeBloq.h */,
+				6FFE08FE1A27774900831802 /* LeBloq.cpp */,
+				6FFE09021A27785F00831802 /* SocketClient.h */,
+				6FFE09011A27785F00831802 /* SocketClient.cpp */,
+				6FFE09051A27840B00831802 /* PrologParser.h */,
+				6FFE09041A27840B00831802 /* PrologParser.cpp */,
+			);
+			name = "Game Engine";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -334,9 +357,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F1AAAC019D7411D00EB4950 /* Light.cpp in Sources */,
+				6FFE09061A27840B00831802 /* PrologParser.cpp in Sources */,
 				6F9B4FE519D2FA1D00B0A240 /* MainScene.cpp in Sources */,
 				6F86FE9F19DAEF8800FC9C52 /* ReferenceParser.cpp in Sources */,
+				6FFE09031A27785F00831802 /* SocketClient.cpp in Sources */,
 				6F0E0EAA19ED62840098F4B0 /* ANFLoader.cpp in Sources */,
+				6FFE09001A27774900831802 /* LeBloq.cpp in Sources */,
 				6F9B4FCF19D1EB9800B0A240 /* Transform.cpp in Sources */,
 				6F9B4FD219D1EBD800B0A240 /* Primitive.cpp in Sources */,
 				6F9B4F8F19D1D5E600B0A240 /* ANFParser.cpp in Sources */,

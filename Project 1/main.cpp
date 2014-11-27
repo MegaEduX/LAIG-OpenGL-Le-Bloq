@@ -18,9 +18,19 @@
 
 #include "Interface.h"
 
+#include "LeBloq.h"
+
 #define kUseDefaultPath 1
 
 int main(int argc, const char * argv[]) {
+    
+    LeBloq *game = new LeBloq();
+    
+    game->newGame(10, 10);
+    
+    game->performPlay(game->getCurrentGameState().getBoard(), 1, 'v', Coordinate2D(3, 3));
+    
+    delete game;
     
     ANFResult *result = nullptr;
     
