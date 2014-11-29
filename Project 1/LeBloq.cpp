@@ -8,15 +8,11 @@
 
 #include "LeBloq.h"
 
-#include "PrologParser.h"
+#include "LeBloqBoard.h"
 
-std::vector<LeBloqPiece> LeBloqBoard::getPieces() {
-    std::vector<LeBloqPiece> pieces;
-    
-    for (
-    
-    return std::vector<LeBloqPiece>();
-}
+#include "LeBloqState.h"
+
+#include "PrologParser.h"
 
 LeBloqState LeBloq::_parseOK(std::string answer) {
     answer.erase(0, 3);
@@ -27,11 +23,32 @@ LeBloqState LeBloq::_parseOK(std::string answer) {
     
     auto board = LeBloqBoard(boardRep);
     
-    auto state = LeBloqState(board, 1, true);
+    int nextPlayer = (_gameStates.size() ? (getCurrentGameState().getPlayer() == 1 ? 2 : 1) : 2);
+    
+    int winner = 0;
+    
+    bool playing = true;
+    
+    if (_gameStates.size())
+        if (( winner = _checkWinner() )) {
+            nextPlayer = winner;
+            
+            playing = false;
+        }
+    
+    auto state = LeBloqState(board, nextPlayer, playing);
     
     _gameStates.push(state);
     
     return state;
+}
+
+int LeBloq::_checkWinner() {
+    std::string message = "checkWinner(" + PrologParser::boardRepresentationToProlog(getCurrentGameState().getBoard().getBoardRepresentation()) + "," + std::to_string(_boardSizeX) + "," + std::to_string(_boardSizeY) + ").";
+    
+    _conn->write(message);
+    
+    return atoi(_conn->read().c_str());
 }
 
 LeBloqState LeBloq::newGame(int x, int y) {

@@ -24,21 +24,34 @@
 
 int main(int argc, const char * argv[]) {
     
-    LeBloq *game = new LeBloq();
-    
-    game->newGame(10, 10);
-    
-    game->performPlay(1, 'v', Coordinate2D(3, 3));
-    
-    delete game;
+    try {
+        
+        LeBloq *game = new LeBloq();
+        
+        game->newGame(10, 10);
+        
+        game->performPlay(1, 'h', Coordinate2D(1, 1));
+        
+        auto pieces = game->getCurrentGameState().getBoard().getPieces();
+        
+        auto gs = game->getCurrentGameState();
+        
+        if (!gs.getPlaying())
+            std::cout << "Game Over! Winner: " << gs.getPlayer() << std::endl;
+        
+        delete game;
+        
+    } catch (SocketCreationException *exception) {
+        
+        cout << "Couldn't connect to SICStus Le Bloq. Proceeding anyway..." << endl;
+        
+    }
     
     ANFResult *result = nullptr;
     
 #if kUseDefaultPath
     
     ANFLoader::getInstance().setANFPath("/Users/MegaEduX/anf-for-project-2/Sample.anf");
-
-	//  ANFLoader::getInstance().setANFPath("C:\\Users\\ASUS\\FEUP\\Ano 3\\1º Semestre\\LAIG\\anf-for-project-2-master\\Sample.anf");
     
     result = ANFLoader::getInstance().loadANF();
 

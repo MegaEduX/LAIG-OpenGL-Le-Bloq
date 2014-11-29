@@ -267,40 +267,9 @@ public:
     
 };
 
-/*	static const GLfloat _vehiclePoints[16][3] = {
-    { -0.5, 0, -0.5},
-    { -0.5, 0, -0.25},
-    { -0.5, 0, 0.25},
-    { -0.5, 0, 0.5},
-    { -0.25, 0, -0.5},
-    { -0.25, 1, -0.25},
-    { -0.25, 1, 0.25},
-    { -0.25, 0, 0.5},
-    { 0.25, 0, -0.5},
-    { 0.25, 1, -0.25},
-    { 0.25, 1, 0.25},
-    { 0.25, 0, 0.5},
-    { 0.5, 0, -0.5},
-    { 0.5, 0, -0.25},
-    { 0.5, 0, 0.25},
-    { 0.5, 0, 0.5}};	*/
-
 class Vehicle : public Primitive {
     
-    //	Plane *_side;
-    
-    //	Patch *_top;
-    
 public:
-    
-    Vehicle() : Primitive() {
-        /*	_side = new Plane(10);
-        
-        _top = new Patch(3, Coordinate2D(10, 10), kPatchComputeFill);
-        
-        for (int i = 0; i < 16; i++)
-            _top->addControlPoint(Coordinate3D(_vehiclePoints[i][0], _vehiclePoints[i][1], _vehiclePoints[i][2]));	*/
-    }
     
     void draw();
     

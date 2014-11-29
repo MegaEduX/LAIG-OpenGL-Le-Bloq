@@ -40,4 +40,6 @@ public:
                                                                 }   \
                                                         };
 
+_BUILD_GRAPHICAL_EXCEPTION(LeBloqException, GraphicalException);
+
 #endif

@@ -13,9 +13,11 @@
 #include "Animation.h"
 
 void Interface::initGUI() {
-    GLUI_Panel *drawingPanel = addPanel(const_cast<char *>(std::string("Drawing Style").c_str()), 1);
-    
     int id = 0;
+    
+    /*
+     
+    GLUI_Panel *drawingPanel = addPanel(const_cast<char *>(std::string("Drawing Style").c_str()), 1);
     
     addButtonToPanel(drawingPanel, const_cast<char *>(std::string("Point").c_str()), kDrawingModePoint);
     
@@ -89,6 +91,66 @@ void Interface::initGUI() {
     GLUI_Checkbox *checkbox = addCheckboxToPanel(dpPanel, const_cast<char *>("Use"), nullptr, id);
     
     checkbox->set_int_val(1);
+    
+    addColumn();
+    
+    */
+    
+    id = 500;
+    
+    GLUI_Panel *levelPanel = addPanel(const_cast<char *>(std::string("Difficulty").c_str()), 1);
+    
+    GLUI_RadioGroup *radioGroup = addRadioGroupToPanel(levelPanel);
+    
+    radioGroup->set_id(id);
+    
+    GLUI_RadioButton *PvAI_Easy = addRadioButtonToGroup(radioGroup, const_cast<char *>(std::string("Player vs AI (Easy)").c_str()));
+    
+    PvAI_Easy->set_int_val(1);
+    
+    PvAI_Easy->set_id(++id);
+    
+    GLUI_RadioButton *PvAI_Hard = addRadioButtonToGroup(radioGroup, const_cast<char *>(std::string("Player vs AI (Hard)").c_str()));
+    
+    PvAI_Hard->set_int_val(0);
+    
+    PvAI_Hard->set_id(++id);
+    
+    GLUI_RadioButton *PvP = addRadioButtonToGroup(radioGroup, const_cast<char *>(std::string("Player vs Player").c_str()));
+    
+    PvP->set_int_val(0);
+    
+    PvP->set_id(++id);
+    
+    GLUI_RadioButton *AIvAI = addRadioButtonToGroup(radioGroup, const_cast<char *>(std::string("AI vs AI").c_str()));
+    
+    AIvAI->set_int_val(0);
+    
+    AIvAI->set_id(id++);
+    
+    addColumn();
+    
+    id = 600;
+    
+    GLUI_Panel *gcPanel = addPanel(const_cast<char *>(std::string("Control").c_str()), 1);
+    
+    addButtonToPanel(gcPanel, const_cast<char *>(std::string("New Game").c_str()), id++);
+    
+    addButtonToPanel(gcPanel, const_cast<char *>(std::string("Undo Move").c_str()), id++);
+    
+    GLUI_Panel *rcPanel = addPanel(const_cast<char *>(std::string("Replays").c_str()), 1);
+    
+    addButtonToPanel(rcPanel, const_cast<char *>(std::string("Load Replay").c_str()), id++);
+    
+    addButtonToPanel(rcPanel, const_cast<char *>(std::string("Save Replay").c_str()), id++);
+    
+    addColumn();
+    
+    id = 700;
+    
+    GLUI_Panel *ccPanel = addPanel(const_cast<char *>(std::string("Camera Control").c_str()), 1);
+    
+    addRotationToPanel(ccPanel, const_cast<char *>(std::string("Board").c_str()));
 }
 
 void Interface::processGUI(GLUI_Control *ctrl) {

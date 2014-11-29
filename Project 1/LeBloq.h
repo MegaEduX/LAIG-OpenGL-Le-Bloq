@@ -19,70 +19,18 @@
 
 #include "GraphicalException.h"
 
-_BUILD_GRAPHICAL_EXCEPTION(LeBloqException, GraphicalException);
+#include "LeBloqState.h"
 
 _BUILD_GRAPHICAL_EXCEPTION(LeBloqBoardCreationException, LeBloqException);
 _BUILD_GRAPHICAL_EXCEPTION(LeBloqBoardPlayException, LeBloqException);
 
-class LeBloqPiece {
+typedef enum {
     
-    Coordinate2D position;
+    kLeBloqGameTypePlayerVsAI,
+    kLeBloqGameTypePlayerVsPlayer,
+    kLeBloqGameTypeAIVsAI
     
-    int type;
-    
-};
-
-class LeBloqBoard {
-    
-    std::vector<std::vector<int>> _boardRepresentation;
-    
-public:
-    
-    LeBloqBoard() {
-        
-    }
-    
-    LeBloqBoard(std::vector<std::vector<int>> boardRepresentation) {
-        _boardRepresentation = boardRepresentation;
-    }
-    
-    std::vector<std::vector<int>> getBoardRepresentation() {
-        return _boardRepresentation;
-    }
-    
-    std::vector<LeBloqPiece> getPieces();
-    
-};
-
-class LeBloqState {
-    
-    LeBloqBoard _board;
-    
-    int _player;
-    
-    bool _playing;
-    
-public:
-    
-    LeBloqState(LeBloqBoard b, int p, bool r) {
-        _board = b;
-        _player = p;
-        _playing = r;
-    }
-    
-    LeBloqBoard getBoard() {
-        return _board;
-    }
-    
-    int getPlayer() {
-        return _player;
-    }
-    
-    bool getPlaying() {
-        return _playing;
-    }
-    
-};
+} kLeBloqGameType;
 
 class LeBloq {
     
@@ -96,14 +44,28 @@ class LeBloq {
     
     LeBloqState _parseOK(std::string);
     
+    int _checkWinner();
+    
+    kLeBloqGameType _gameType;
+    
 public:
     
     LeBloq() {
         _conn = new SocketClient("127.0.0.1", 60001);
+        
+        _gameType = kLeBloqGameTypePlayerVsAI;
     }
     
-    LeBloq(std::string host, int port) {
+    LeBloq(kLeBloqGameType gameType) {
+        _conn = new SocketClient("127.0.0.1", 60001);
+        
+        _gameType = gameType;
+    }
+    
+    LeBloq(kLeBloqGameType gameType, std::string host, int port) {
         _conn = new SocketClient(host, port);
+        
+        _gameType = gameType;
     }
     
     LeBloqState newGame(int boardSizeX, int boardSizeY);

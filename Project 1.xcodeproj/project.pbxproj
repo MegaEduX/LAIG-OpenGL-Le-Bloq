@@ -29,6 +29,7 @@
 		6F9B4FE119D2F74800B0A240 /* libCGF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9B4FDF19D2F74800B0A240 /* libCGF.a */; };
 		6F9B4FE219D2F74800B0A240 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9B4FE019D2F74800B0A240 /* libtinyxml.a */; };
 		6F9B4FE519D2FA1D00B0A240 /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F9B4FE319D2FA1D00B0A240 /* MainScene.cpp */; };
+		6FDDCFF51A2A21DB0090CEFA /* LeBloqBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FDDCFF31A2A21DB0090CEFA /* LeBloqBoard.cpp */; };
 		6FF7A29D19DDA77300372B39 /* Interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FF7A29B19DDA77300372B39 /* Interface.cpp */; };
 		6FFE09001A27774900831802 /* LeBloq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FFE08FE1A27774900831802 /* LeBloq.cpp */; };
 		6FFE09031A27785F00831802 /* SocketClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FFE09011A27785F00831802 /* SocketClient.cpp */; };
@@ -108,6 +109,10 @@
 		6F9B4FE319D2FA1D00B0A240 /* MainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainScene.cpp; sourceTree = "<group>"; };
 		6F9B4FE419D2FA1D00B0A240 /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScene.h; sourceTree = "<group>"; };
 		6FDC469C19D32B5B00FF0C61 /* ANFResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANFResult.h; sourceTree = "<group>"; };
+		6FDDCFF31A2A21DB0090CEFA /* LeBloqBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeBloqBoard.cpp; sourceTree = "<group>"; };
+		6FDDCFF41A2A21DB0090CEFA /* LeBloqBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeBloqBoard.h; sourceTree = "<group>"; };
+		6FDDCFF71A2A22150090CEFA /* LeBloqPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeBloqPiece.h; sourceTree = "<group>"; };
+		6FDDCFFA1A2A22900090CEFA /* LeBloqState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeBloqState.h; sourceTree = "<group>"; };
 		6FED239419D84C560007A9D9 /* GraphicalMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphicalMath.h; sourceTree = "<group>"; };
 		6FF7A29B19DDA77300372B39 /* Interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Interface.cpp; sourceTree = "<group>"; };
 		6FF7A29C19DDA77300372B39 /* Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interface.h; sourceTree = "<group>"; };
@@ -287,11 +292,23 @@
 			name = "A New Format (ANF)";
 			sourceTree = "<group>";
 		};
-		6FFE08FD1A27772700831802 /* Game Engine */ = {
+		6FDDCFFC1A2A22A90090CEFA /* Le Bloq */ = {
 			isa = PBXGroup;
 			children = (
 				6FFE08FF1A27774900831802 /* LeBloq.h */,
 				6FFE08FE1A27774900831802 /* LeBloq.cpp */,
+				6FDDCFF41A2A21DB0090CEFA /* LeBloqBoard.h */,
+				6FDDCFF31A2A21DB0090CEFA /* LeBloqBoard.cpp */,
+				6FDDCFF71A2A22150090CEFA /* LeBloqPiece.h */,
+				6FDDCFFA1A2A22900090CEFA /* LeBloqState.h */,
+			);
+			name = "Le Bloq";
+			sourceTree = "<group>";
+		};
+		6FFE08FD1A27772700831802 /* Game Engine */ = {
+			isa = PBXGroup;
+			children = (
+				6FDDCFFC1A2A22A90090CEFA /* Le Bloq */,
 				6FFE09021A27785F00831802 /* SocketClient.h */,
 				6FFE09011A27785F00831802 /* SocketClient.cpp */,
 				6FFE09051A27840B00831802 /* PrologParser.h */,
@@ -372,6 +389,7 @@
 				6F86FE9719DAE27500FC9C52 /* Color.cpp in Sources */,
 				6F707C2A19DC3F8800A238AC /* Coordinate.cpp in Sources */,
 				6F1AAAC319D742F900EB4950 /* Camera.cpp in Sources */,
+				6FDDCFF51A2A21DB0090CEFA /* LeBloqBoard.cpp in Sources */,
 				6F9B4FDE19D1F9E900B0A240 /* Global.cpp in Sources */,
 				6F6F2EDA19D5CAB600982CC9 /* Appearance.cpp in Sources */,
 				6F99464A19FE73E800664F17 /* Animation.cpp in Sources */,
