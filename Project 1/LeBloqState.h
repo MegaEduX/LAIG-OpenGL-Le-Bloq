@@ -9,6 +9,8 @@
 #ifndef __Project_1__LeBloqState__
 #define __Project_1__LeBloqState__
 
+#include <cereal/archives/json.hpp>
+
 #include "LeBloqBoard.h"
 
 class LeBloqState {
@@ -19,7 +21,13 @@ class LeBloqState {
     
     bool _playing;
     
+    friend cereal::access;
+    
 public:
+    
+    LeBloqState() {
+        _board = LeBloqBoard();
+    }
     
     LeBloqState(LeBloqBoard b, int p, bool r) {
         _board = b;
@@ -38,6 +46,10 @@ public:
     bool getPlaying() {
         return _playing;
     }
+    
+    template <class Archive> void serialize(Archive &archive) {
+        archive(_board, _player, _playing);
+    };
     
 };
 

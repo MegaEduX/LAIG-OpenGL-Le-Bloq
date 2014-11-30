@@ -13,8 +13,11 @@
 
 #include <vector>
 
+#include <cereal/types/vector.hpp>
+
 #include "Coordinate.h"
 
+#include "LeBloqTile.h"
 #include "LeBloqPiece.h"
 
 #include "GraphicalException.h"
@@ -43,7 +46,34 @@ public:
         return _boardRepresentation;
     }
     
+    LeBloqBoard operator-(LeBloqBoard rhs) {
+        std::vector<std::vector<int>> boardRep;
+        
+        for (int col = 0; col < _boardRepresentation.size(); col++) {
+            auto line = _boardRepresentation[col];
+            
+            for (int p = 0; p < line.size(); p++) {
+                auto piece = line[p];
+                
+                if (rhs.getBoardRepresentation()[col][p] != piece) {
+                    if (rhs.getBoardRepresentation()[col][p] != 0)
+                        boardRep[col][p] = rhs.getBoardRepresentation()[col][p];
+                    else
+                        boardRep[col][p] = piece;
+                }
+            }
+        }
+        
+        return LeBloqBoard(boardRep);
+    }
+    
     std::vector<LeBloqPiece> getPieces();
+    
+    std::vector<LeBloqTile> getScoredTiles();
+    
+    template <class Archive> void serialize(Archive &archive) {
+        archive(_boardRepresentation);
+    };
     
 };
 

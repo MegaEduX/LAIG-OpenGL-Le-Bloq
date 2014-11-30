@@ -32,6 +32,8 @@ void Interface::initGUI() {
     addButtonToPanel(drawingPanel, const_cast<char *>(std::string("Fill").c_str()), kDrawingModeFill);
     
     addColumn();
+     
+    */
     
     GLUI_Panel *lightsPanel = addPanel(const_cast<char *>(std::string("Lights").c_str()), 1);
     
@@ -48,6 +50,8 @@ void Interface::initGUI() {
     }
     
     addColumn();
+    
+    /*
     
     GLUI_Panel *camerasPanel = addPanel(const_cast<char *>(std::string("Camera").c_str()), 1);
     
@@ -156,7 +160,9 @@ void Interface::initGUI() {
     
     GLUI_Panel *ccPanel = addPanel(const_cast<char *>(std::string("Camera Control").c_str()), 1);
     
-    addRotationToPanel(ccPanel, const_cast<char *>(std::string("Board").c_str()));
+    _cameraRotationControl = addRotationToPanel(ccPanel, const_cast<char *>(std::string("Board").c_str()));
+    
+    _cameraRotationControl->set_id(700);
 }
 
 void Interface::processGUI(GLUI_Control *ctrl) {
@@ -198,6 +204,15 @@ void Interface::processGUI(GLUI_Control *ctrl) {
         
         _result->cameras[camPos]->setEnabled(true);
         
+    } else if (ctrl->user_id < 300) {
+            
+        int aniPos = (int)(ctrl->user_id - 200);
+            
+        if (_result->animations.size() <= aniPos)
+            throw new AnimationNotFoundException("Animation not found!");
+            
+        _result->animations[aniPos]->start();
+        
     } else if (ctrl->user_id == 300)
         
         Globals::getInstance().getShadingSettings()->setWind(ctrl->int_val);
@@ -205,16 +220,34 @@ void Interface::processGUI(GLUI_Control *ctrl) {
     else if (ctrl->user_id == 400)
         
         Globals::getInstance().getDrawingSettings()->setUseDisplayLists(ctrl->int_val ? true : false);
-
-    else {
+    
+    else if (ctrl->user_id < 600) {
         
-        int aniPos = (int)(ctrl->user_id - 200);
+        //  set difficulty
         
-        if (_result->animations.size() <= aniPos)
-            throw new AnimationNotFoundException("Animation not found!");
+        std::cout << "difficulty control" << std::endl;
         
-        _result->animations[aniPos]->start();
-    }
+    } else if (ctrl->user_id < 700) {
+        
+        //  game control
+        
+        std::cout << "game control" << std::endl;
+        
+    } else if (ctrl->user_id < 800) {
+        
+        //  camera control
+        
+        std::cout << "camera control" << std::endl;
+        
+        float ballRotation[16];
+        
+        _cameraRotationControl->get_float_array_val(ballRotation);
+        
+        std::cout << "rot" << std::endl;
+        
+    } else
+        
+        throw new InternalInconsistencyException("Unknown ctrl->user_id!");
 }
 
 void Interface::processMouse(int button, int state, int x, int y) {

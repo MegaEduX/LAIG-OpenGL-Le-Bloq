@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6F0E0EAA19ED62840098F4B0 /* ANFLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F0E0EA819ED62840098F4B0 /* ANFLoader.cpp */; };
+		6F14270E1A2B7BEC0044C1CA /* LeBloqReplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F14270C1A2B7BEC0044C1CA /* LeBloqReplay.cpp */; };
 		6F1AAAC019D7411D00EB4950 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F1AAABE19D7411D00EB4950 /* Light.cpp */; };
 		6F1AAAC319D742F900EB4950 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F1AAAC119D742F900EB4950 /* Camera.cpp */; };
 		6F2523E71A13C1B30013E362 /* libGLEW.1.11.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2523E61A13C1B30013E362 /* libGLEW.1.11.0.dylib */; };
@@ -51,6 +52,10 @@
 /* Begin PBXFileReference section */
 		6F0E0EA819ED62840098F4B0 /* ANFLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ANFLoader.cpp; sourceTree = "<group>"; };
 		6F0E0EA919ED62840098F4B0 /* ANFLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFLoader.h; sourceTree = "<group>"; };
+		6F14270C1A2B7BEC0044C1CA /* LeBloqReplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeBloqReplay.cpp; sourceTree = "<group>"; };
+		6F14270D1A2B7BEC0044C1CA /* LeBloqReplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeBloqReplay.h; sourceTree = "<group>"; };
+		6F14270F1A2B85B70044C1CA /* StackReverse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StackReverse.h; sourceTree = "<group>"; };
+		6F1427101A2B86EC0044C1CA /* LeBloqTile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeBloqTile.h; sourceTree = "<group>"; };
 		6F1893FF19D313B30014FD93 /* GraphicalEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphicalEngine.h; sourceTree = "<group>"; };
 		6F1AAABA19D466B600EB4950 /* GraphicalObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicalObject.h; sourceTree = "<group>"; };
 		6F1AAABE19D7411D00EB4950 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
@@ -301,6 +306,9 @@
 				6FDDCFF31A2A21DB0090CEFA /* LeBloqBoard.cpp */,
 				6FDDCFF71A2A22150090CEFA /* LeBloqPiece.h */,
 				6FDDCFFA1A2A22900090CEFA /* LeBloqState.h */,
+				6F14270D1A2B7BEC0044C1CA /* LeBloqReplay.h */,
+				6F14270C1A2B7BEC0044C1CA /* LeBloqReplay.cpp */,
+				6F1427101A2B86EC0044C1CA /* LeBloqTile.h */,
 			);
 			name = "Le Bloq";
 			sourceTree = "<group>";
@@ -313,6 +321,7 @@
 				6FFE09011A27785F00831802 /* SocketClient.cpp */,
 				6FFE09051A27840B00831802 /* PrologParser.h */,
 				6FFE09041A27840B00831802 /* PrologParser.cpp */,
+				6F14270F1A2B85B70044C1CA /* StackReverse.h */,
 			);
 			name = "Game Engine";
 			sourceTree = "<group>";
@@ -382,6 +391,7 @@
 				6FFE09001A27774900831802 /* LeBloq.cpp in Sources */,
 				6F9B4FCF19D1EB9800B0A240 /* Transform.cpp in Sources */,
 				6F9B4FD219D1EBD800B0A240 /* Primitive.cpp in Sources */,
+				6F14270E1A2B7BEC0044C1CA /* LeBloqReplay.cpp in Sources */,
 				6F9B4F8F19D1D5E600B0A240 /* ANFParser.cpp in Sources */,
 				6F86FE9C19DAE6B600FC9C52 /* Additions.cpp in Sources */,
 				6FF7A29D19DDA77300372B39 /* Interface.cpp in Sources */,
@@ -482,6 +492,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"/usr/local/Cellar/glui/2.36/include/**",
 					"/usr/local/Cellar/glew/1.10.0/include/**",
+					"$(PROJECT_DIR)/include/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -504,6 +515,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"/usr/local/Cellar/glui/2.36/include/**",
 					"/usr/local/Cellar/glew/1.10.0/include/**",
+					"$(PROJECT_DIR)/include/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

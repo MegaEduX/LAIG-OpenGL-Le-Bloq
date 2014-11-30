@@ -118,3 +118,21 @@ std::vector<LeBloqPiece> LeBloqBoard::getPieces() {
     
     return pieces;
 }
+
+std::vector<LeBloqTile> LeBloqBoard::getScoredTiles() {
+    std::vector<LeBloqTile> tiles;
+    
+    for (int i = 0; i < _boardRepresentation.size(); i++) {
+        auto line = _boardRepresentation[i];
+        
+        for (int j = 0; j < line.size(); j++, line = _boardRepresentation[i]) {
+            auto tile = line[j];
+            
+            if (tile > 3)
+                tiles.push_back(LeBloqTile(Coordinate2D(j, i), tile - 4));
+        }
+        
+    }
+    
+    return tiles;
+}

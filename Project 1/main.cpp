@@ -19,6 +19,7 @@
 #include "Interface.h"
 
 #include "LeBloq.h"
+#include "LeBloqReplay.h"
 
 #define kUseDefaultPath 1
 
@@ -38,6 +39,10 @@ int main(int argc, const char * argv[]) {
         
         if (!gs.getPlaying())
             std::cout << "Game Over! Winner: " << gs.getPlayer() << std::endl;
+        
+        std::string replayData = LeBloqReplay::createReplayData(game->getGameStates());
+        
+        std::cout << replayData << std::endl;
         
         delete game;
         
