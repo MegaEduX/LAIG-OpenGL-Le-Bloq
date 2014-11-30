@@ -136,7 +136,7 @@ void Interface::initGUI() {
     
     AIvAI->set_int_val(0);
     
-    AIvAI->set_id(id++);
+    AIvAI->set_id(++id);
     
     addColumn();
     
@@ -223,9 +223,9 @@ void Interface::processGUI(GLUI_Control *ctrl) {
     
     else if (ctrl->user_id < 600) {
         
-        //  set difficulty
+        _selectedDifficulty = (int)(ctrl->user_id - 500);
         
-        std::cout << "difficulty control" << std::endl;
+        std::cout << ctrl->user_id << " Selected Difficulty: " << _selectedDifficulty << std::endl;
         
     } else if (ctrl->user_id < 700) {
         

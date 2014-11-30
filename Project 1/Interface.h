@@ -36,6 +36,8 @@ class Interface : public CGFinterface {
     
     GLUI_Rotation *_cameraRotationControl;
     
+    int _selectedDifficulty;
+    
 public:
     
     Interface(MainScene *s, ANFResult *r) {
