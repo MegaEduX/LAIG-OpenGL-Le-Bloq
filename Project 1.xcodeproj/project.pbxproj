@@ -15,6 +15,7 @@
 		6F6F2EDA19D5CAB600982CC9 /* Appearance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F6F2ED819D5CAB600982CC9 /* Appearance.cpp */; };
 		6F707C2A19DC3F8800A238AC /* Coordinate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F707C2919DC3F8800A238AC /* Coordinate.cpp */; };
 		6F72E9891A140D0800BD596D /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F72E9871A140D0800BD596D /* Shader.cpp */; };
+		6F7F7E3B1A33A3BD001A6A1D /* ExampleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F7E3A1A33A3BD001A6A1D /* ExampleObject.cpp */; };
 		6F86FE9719DAE27500FC9C52 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F86FE9619DAE27500FC9C52 /* Color.cpp */; };
 		6F86FE9C19DAE6B600FC9C52 /* Additions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F86FE9A19DAE6B600FC9C52 /* Additions.cpp */; };
 		6F86FE9F19DAEF8800FC9C52 /* ReferenceParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F86FE9D19DAEF8800FC9C52 /* ReferenceParser.cpp */; };
@@ -72,6 +73,8 @@
 		6F707C2919DC3F8800A238AC /* Coordinate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Coordinate.cpp; sourceTree = "<group>"; };
 		6F72E9871A140D0800BD596D /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		6F72E9881A140D0800BD596D /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		6F7F7E391A33A3B5001A6A1D /* ExampleObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExampleObject.h; sourceTree = "<group>"; };
+		6F7F7E3A1A33A3BD001A6A1D /* ExampleObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExampleObject.cpp; sourceTree = "<group>"; };
 		6F86FE9619DAE27500FC9C52 /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color.cpp; sourceTree = "<group>"; };
 		6F86FE9A19DAE6B600FC9C52 /* Additions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Additions.cpp; sourceTree = "<group>"; };
 		6F86FE9B19DAE6B600FC9C52 /* Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Additions.h; sourceTree = "<group>"; };
@@ -256,6 +259,8 @@
 		6F9B4FE619D2FA6000B0A240 /* Graphical Engine */ = {
 			isa = PBXGroup;
 			children = (
+				6F7F7E391A33A3B5001A6A1D /* ExampleObject.h */,
+				6F7F7E3A1A33A3BD001A6A1D /* ExampleObject.cpp */,
 				6F86FE9819DAE4F700FC9C52 /* Header-Only Classes */,
 				6F99464919FE73E800664F17 /* Animation.h */,
 				6F99464819FE73E800664F17 /* Animation.cpp */,
@@ -398,6 +403,7 @@
 				6F72E9891A140D0800BD596D /* Shader.cpp in Sources */,
 				6F86FE9719DAE27500FC9C52 /* Color.cpp in Sources */,
 				6F707C2A19DC3F8800A238AC /* Coordinate.cpp in Sources */,
+				6F7F7E3B1A33A3BD001A6A1D /* ExampleObject.cpp in Sources */,
 				6F1AAAC319D742F900EB4950 /* Camera.cpp in Sources */,
 				6FDDCFF51A2A21DB0090CEFA /* LeBloqBoard.cpp in Sources */,
 				6F9B4FDE19D1F9E900B0A240 /* Global.cpp in Sources */,

@@ -19,6 +19,18 @@
 
 #define DRAW_AXIS           1
 
+#define kPickingTest        1
+
+#if kPickingTest
+
+#include "ExampleObject.h"
+
+#define NUM_OBJS 7
+#define NUM_ROWS 5
+#define NUM_COLS 4
+
+#endif
+
 MainScene::MainScene(ANFResult *result) {
     _anf = result;
     
@@ -142,6 +154,45 @@ void MainScene::display() {
 #if DRAW_AXIS
     
     axis.draw();
+    
+#endif
+    
+#if kPickingTest
+    
+    ExampleObject *obj = new ExampleObject();
+    
+    glPushMatrix();
+    
+    glPushName(-1);		// Load a default name
+    
+    for (int i=0; i< NUM_OBJS;i++)
+    {
+        glPushMatrix();
+        glTranslatef(i*5,0,0);
+        glLoadName(i);		//replaces the value on top of the name stack
+        obj->draw();
+        glPopMatrix();
+    }
+    glPopMatrix();
+    
+    // example 2: structured naming
+    for (int r=0; r < NUM_ROWS; r++)
+    {
+        glPushMatrix();
+        glTranslatef(0, r*4, 0);
+        glLoadName(r);
+        for (int c=0; c < NUM_COLS; c++)
+        {
+            glPushMatrix();
+            glTranslatef(0,0,(c+1)*5);
+            glRotatef(90,0,1,0);
+            glPushName(c);
+            obj->draw();
+            glPopName();
+            glPopMatrix();
+        }
+        glPopMatrix();
+    }
     
 #endif
     
