@@ -23,11 +23,8 @@
 
 #if kPickingTest
 
-#include "ExampleObject.h"
-
-#define NUM_OBJS 7
-#define NUM_ROWS 5
-#define NUM_COLS 4
+#define NUM_ROWS            12
+#define NUM_COLS            12
 
 #endif
 
@@ -157,45 +154,6 @@ void MainScene::display() {
     
 #endif
     
-#if kPickingTest
-    
-    ExampleObject *obj = new ExampleObject();
-    
-    glPushMatrix();
-    
-    glPushName(-1);		// Load a default name
-    
-    for (int i=0; i< NUM_OBJS;i++)
-    {
-        glPushMatrix();
-        glTranslatef(i*5,0,0);
-        glLoadName(i);		//replaces the value on top of the name stack
-        obj->draw();
-        glPopMatrix();
-    }
-    glPopMatrix();
-    
-    // example 2: structured naming
-    for (int r=0; r < NUM_ROWS; r++)
-    {
-        glPushMatrix();
-        glTranslatef(0, r*4, 0);
-        glLoadName(r);
-        for (int c=0; c < NUM_COLS; c++)
-        {
-            glPushMatrix();
-            glTranslatef(0,0,(c+1)*5);
-            glRotatef(90,0,1,0);
-            glPushName(c);
-            obj->draw();
-            glPopName();
-            glPopMatrix();
-        }
-        glPopMatrix();
-    }
-    
-#endif
-    
 #if NO_ANF_TEST_MODE
     
 	Vehicle *veic = new Vehicle();
@@ -203,6 +161,7 @@ void MainScene::display() {
 	veic -> draw();
 	
 	/*
+     
     Rectangle *rect = new Rectangle(Coordinate2D(1, 2), Coordinate2D(7, 5));
     
     rect -> draw();
@@ -226,7 +185,9 @@ void MainScene::display() {
     delete sph;
     
     delete torus;
+     
     */
+    
 #else
     
     glMatrixMode(GL_MODELVIEW);
@@ -255,6 +216,53 @@ void MainScene::display() {
         
         glPopMatrix();
     }
+    
+#endif
+    
+    glRotated(-90, 0, 0, 1);
+    
+#if kPickingTest
+    
+    Rectangle *obj = new Rectangle(Coordinate2D(0, 0), Coordinate2D(2, 2));
+
+    glPushMatrix();
+    
+    {
+        glTranslated(-2, 2, 2);
+        
+        glPushName(-1);     //  Default Name
+        
+        for (int r = 0; r < NUM_ROWS; r++) {
+            glPushMatrix();
+            
+            {
+                glTranslatef(0, r * 2.2, 0);
+                glLoadName(r);
+                
+                for (int c=0; c < NUM_COLS; c++) {
+                    glPushMatrix();
+                    
+                    {
+                        glTranslatef(0, 0, (c + 1) * 2.2);
+                        glRotatef(90, 0, 1, 0);
+                        glPushName(c);
+                        
+                        obj->draw();
+                        
+                        glPopName();
+                    }
+                    
+                    glPopMatrix();
+                }
+            }
+            
+            glPopMatrix();
+        }
+    }
+    
+    glPopMatrix();
+    
+    delete obj;
     
 #endif
     

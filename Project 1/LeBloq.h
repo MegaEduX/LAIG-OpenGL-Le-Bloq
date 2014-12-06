@@ -21,6 +21,9 @@
 
 #include "LeBloqState.h"
 
+#define kDefaultAddress "127.0.0.1"
+#define kDefaultPort    60001
+
 _BUILD_GRAPHICAL_EXCEPTION(LeBloqBoardCreationException, LeBloqException);
 _BUILD_GRAPHICAL_EXCEPTION(LeBloqBoardPlayException, LeBloqException);
 
@@ -51,13 +54,13 @@ class LeBloq {
 public:
     
     LeBloq() {
-        _conn = new SocketClient("127.0.0.1", 60001);
+        _conn = new SocketClient(kDefaultAddress, kDefaultPort);
         
         _gameType = kLeBloqGameTypePlayerVsAI;
     }
     
     LeBloq(kLeBloqGameType gameType) {
-        _conn = new SocketClient("127.0.0.1", 60001);
+        _conn = new SocketClient(kDefaultAddress, kDefaultPort);
         
         _gameType = gameType;
     }
