@@ -219,8 +219,6 @@ void MainScene::display() {
     
 #endif
     
-    glRotated(-90, 0, 0, 1);
-    
 #if kPickingTest
     
     Rectangle *obj = new Rectangle(Coordinate2D(0, 0), Coordinate2D(2, 2));
@@ -228,9 +226,19 @@ void MainScene::display() {
     glPushMatrix();
     
     {
+        glRotated(-90, 0, 0, 1);
+        
         glTranslated(-2, 2, 2);
         
         glPushName(-1);     //  Default Name
+        
+        for (int i=0; i< 3;i++) {
+            glPushMatrix();
+            glTranslatef(i*5,0,0);
+            glLoadName(i*500);		//replaces the value on top of the name stack
+            obj->draw();
+            glPopMatrix();
+        }
         
         for (int r = 0; r < NUM_ROWS; r++) {
             glPushMatrix();

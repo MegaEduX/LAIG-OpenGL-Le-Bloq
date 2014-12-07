@@ -95,6 +95,18 @@ public:
     
 };
 
+class UnitCube : public Primitive {
+    
+public:
+    
+    UnitCube() {
+        
+    }
+    
+    void draw();
+    
+};
+
 class Cylinder : public Primitive {
     
     float _base;
@@ -295,6 +307,24 @@ public:
         _shader = nullptr;
         
         _appWait = 15;
+    }
+    
+    void draw();
+    
+};
+
+class Table : public Primitive {
+    
+    UnitCube *cube = new UnitCube();
+    
+public:
+    
+    Table() {
+        
+    }
+    
+    ~Table() {
+        delete cube;
     }
     
     void draw();

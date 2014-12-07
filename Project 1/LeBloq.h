@@ -21,6 +21,8 @@
 
 #include "LeBloqState.h"
 
+#include "LeBloqPiece.h"
+
 #define kDefaultAddress "127.0.0.1"
 #define kDefaultPort    60001
 
@@ -51,15 +53,27 @@ class LeBloq {
     
     kLeBloqGameType _gameType;
     
-public:
-    
     LeBloq() {
         _conn = new SocketClient(kDefaultAddress, kDefaultPort);
         
         _gameType = kLeBloqGameTypePlayerVsAI;
     }
     
-    LeBloq(kLeBloqGameType gameType) {
+    LeBloq(LeBloq const &);
+    
+    void operator=(LeBloq const &);
+    
+public:
+    
+    static LeBloq& getInstance() {
+        static LeBloq instance;
+        
+        return instance;
+    }
+    
+    /*  
+     
+     LeBloq(kLeBloqGameType gameType) {
         _conn = new SocketClient(kDefaultAddress, kDefaultPort);
         
         _gameType = gameType;
@@ -69,6 +83,16 @@ public:
         _conn = new SocketClient(host, port);
         
         _gameType = gameType;
+    }   
+     
+     */
+    
+    void setGameType(kLeBloqGameType gt) {
+        _gameType = gt;
+    }
+    
+    kLeBloqGameType getGameType() {
+        return _gameType;
     }
     
     LeBloqState newGame(int boardSizeX, int boardSizeY);
@@ -79,7 +103,13 @@ public:
         return _gameStates;
     }
     
+    LeBloqState performPlay();
+    
+    LeBloqState performPlay(LeBloqPiece);
+    
     LeBloqState performPlay(int pieceType, char pieceOrientation, Coordinate2D piecePos);
+    
+    LeBloqPiece workingPiece;
     
 };
 

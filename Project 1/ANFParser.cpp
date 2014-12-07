@@ -1135,9 +1135,16 @@ std::vector<Primitive *> ANFParser::parsePrimitives(TiXmlElement *primitives) {
                 ((Patch *) prim)->addControlPoint(_parseControlPoint(cp));
             
             if (expectedControlPoints != cps)
-                //throw new ANFNodeParserException(std::string("Expected ") + std::to_string(expectedControlPoints) + std::string(" control points, found ") + std::to_string(cps) + std::string("!"));
-				throw new ANFNodeParserException("[redacted]");
-
+            throw new ANFNodeParserException(std::string("Expected ") + std::to_string(expectedControlPoints) + std::string(" control points, found ") + std::to_string(cps) + std::string("!"));
+            
+        } else if (!strcmp(primitive->Value(), "table")) {
+            
+            prim = new Table();
+            
+        } else if (!strcmp(primitive->Value(), "cube")) {
+            
+            prim = new UnitCube();
+            
         } else if (!strcmp(primitive->Value(), "flag")) {
             
             const char *tex = primitive->Attribute("texture");

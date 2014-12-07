@@ -6,11 +6,15 @@
 //  Copyright (c) 2014 Eduardo Almeida and Pedro Santiago. All rights reserved.
 //
 
+#include <map>
+
 #include "Interface.h"
 
 #include "Global.h"
 
 #include "Animation.h"
+
+#include "LeBloq.h"
 
 //  Picking Buffer
 
@@ -326,17 +330,20 @@ void Interface::processHits(GLint hits, GLuint buffer[]) {
             ptr++;
     }
     
-    // if there were hits, the one selected is in "selected", and it consist of nselected "names" (integer ID's)
-    if (selected!=NULL)
-    {
-        // this should be replaced by code handling the picked object's ID's (stored in "selected"),
-        // possibly invoking a method on the scene class and passing "selected" and "nselected"
-        printf("Picked ID's: ");
-        for (int i=0; i<nselected; i++)
-            printf("%d ",selected[i]);
-        printf("\n");
+    if (selected!=NULL) {
+        if (nselected == 1) {
+            
+            if (selected[0] == 500)
+                LeBloq::getInstance().workingPiece.toggleType();
+            else if (selected[0] == 1000)
+                LeBloq::getInstance().workingPiece.toggleOrientation();
+                
+        } else if (nselected == 2) {
+            std::cout << "Clicked on Coordinate2D(" << selected[0] << ", " << selected[1] << ")." << std::endl;
+            
+            LeBloq::getInstance().workingPiece.position = Coordinate2D(selected[0], selected[1]);
+            
+            LeBloq::getInstance().performPlay();
+        }
     }
-    else
-        printf("Nothing selected while picking \n");	
 }
-

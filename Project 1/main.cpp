@@ -27,24 +27,21 @@ int main(int argc, const char * argv[]) {
     
     try {
         
-        LeBloq *game = new LeBloq();
+        LeBloq::getInstance().newGame(10, 10);
         
-        game->newGame(10, 10);
+        /*LeBloq::getInstance().performPlay(1, 'h', Coordinate2D(1, 1));
         
-        game->performPlay(1, 'h', Coordinate2D(1, 1));
+        auto pieces = LeBloq::getInstance().getCurrentGameState().getBoard().getPieces();
         
-        auto pieces = game->getCurrentGameState().getBoard().getPieces();
-        
-        auto gs = game->getCurrentGameState();
+        auto gs = LeBloq::getInstance().getCurrentGameState();
         
         if (!gs.getPlaying())
+            
             std::cout << "Game Over! Winner: " << gs.getPlayer() << std::endl;
         
-        std::string replayData = LeBloqReplay::createReplayData(game->getGameStates());
+        std::string replayData = LeBloqReplay::createReplayData(LeBloq::getInstance().getGameStates());
         
-        std::cout << replayData << std::endl;
-        
-        delete game;
+        std::cout << replayData << std::endl;*/
         
     } catch (SocketCreationException *exception) {
         
@@ -56,7 +53,7 @@ int main(int argc, const char * argv[]) {
     
 #if kUseDefaultPath
     
-    ANFLoader::getInstance().setANFPath("/Users/MegaEduX/anf-for-project-2/Sample.anf");
+    ANFLoader::getInstance().setANFPath("/Users/MegaEduX/proj3-test/Sample.anf");
     
     result = ANFLoader::getInstance().loadANF();
 

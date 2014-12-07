@@ -23,6 +23,8 @@
 
 #include "Animation.h"
 
+#include "LeBloq.h"
+
 #define NO_TRANSFORM_MATRIX 0
 
 class Node : public GraphicalObject {
@@ -204,6 +206,17 @@ public:
                 _delayListCreationCounter--;
                 
                 skipCache = true;
+            }
+            
+            if (this->getId() == "piece") {
+                skipCache = true;
+                
+                for (int i = 0; i < _transforms.size(); i++)
+                    _transforms[i]->apply();
+                
+                Coordinate3D dim = LeBloq::getInstance().workingPiece.getDimensions();
+                
+                glScaled(dim.x, dim.y, dim.z);
             }
             
             if (_animation != nullptr && _animation->getAnimating()) {

@@ -216,6 +216,149 @@ void Triangle::draw() {
     }
 }
 
+void UnitCube::draw() {
+    glPushMatrix();
+    
+    {
+        glTranslatef(0,0,1);
+        glNormal3f(0,0,1);
+        glBegin(GL_QUADS);
+        
+        glTexCoord2f(0, 0);
+        glVertex2d(0, 0);
+        
+        glTexCoord2f(0.5, 0);
+        glVertex2d(1, 0);
+        
+        glTexCoord2f(0.5,0.5);
+        glVertex2d(1, 1);
+        
+        glTexCoord2f(0, 0.5);
+        glVertex2d(0, 1);
+        glEnd();
+    }
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    {
+        glRotatef(180,1,0,0);
+        glTranslatef(0,-1,0);
+        glNormal3f(0,0,1);
+        glBegin(GL_QUADS);
+        
+        glTexCoord2f(0, 0);
+        glVertex2d(0, 0);
+        
+        glTexCoord2f(0.5, 0);
+        glVertex2d(1, 0);
+        
+        glTexCoord2f(0.5,0.5);
+        glVertex2d(1, 1);
+        
+        glTexCoord2f(0, 0.5);
+        glVertex2d(0, 1);
+        glEnd();
+    }
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    {
+        glRotatef(90,1,0,0);
+        glNormal3f(0,0,1);
+        glBegin(GL_QUADS);
+        
+        glTexCoord2f(0, 0);
+        glVertex2d(0, 0);
+        
+        glTexCoord2f(0.5, 0);
+        glVertex2d(1, 0);
+        
+        glTexCoord2f(0.5,0.5);
+        glVertex2d(1, 1);
+        
+        glTexCoord2f(0, 0.5);
+        glVertex2d(0, 1);
+        glEnd();
+    }
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    {
+        glRotatef(270,0,1,0);
+        glNormal3f(0,0,1);
+        glBegin(GL_QUADS);
+        
+        glTexCoord2f(0, 0);
+        glVertex2d(0, 0);
+        
+        glTexCoord2f(0.5, 0);
+        glVertex2d(1, 0);
+        
+        glTexCoord2f(0.5,0.5);
+        glVertex2d(1, 1);
+        
+        glTexCoord2f(0, 0.5);
+        glVertex2d(0, 1);
+        glEnd();
+    }
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    {
+        glTranslatef(0,1,1);
+        glRotatef(270,1,0,0);
+        glNormal3f(0,0,1);
+        glBegin(GL_QUADS);
+        
+        glTexCoord2f(0, 0);
+        glVertex2d(0, 0);
+        
+        glTexCoord2f(0.5, 0);
+        glVertex2d(1, 0);
+        
+        glTexCoord2f(0.5,0.5);
+        glVertex2d(1, 1);
+        
+        glTexCoord2f(0, 0.5);
+        glVertex2d(0, 1);
+        glEnd();
+    }
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    {
+        glTranslatef(1,0,1);
+        glRotatef(90,0,1,0);
+        glNormal3f(0,0,1);
+        glBegin(GL_QUADS);
+        
+        glTexCoord2f(0, 0);
+        glVertex2d(0, 0);
+        
+        glTexCoord2f(0.5, 0);
+        glVertex2d(1, 0);
+        
+        glTexCoord2f(0.5,0.5);
+        glVertex2d(1, 1);
+        
+        glTexCoord2f(0, 0.5);
+        glVertex2d(0, 1);
+        glEnd();
+    }
+    
+    glPopMatrix();
+}
+
 void Cylinder::draw() {
     glPushMatrix();
     
@@ -683,8 +826,6 @@ void Vehicle::draw() {
     glPushMatrix();
     
     {
-        
-        
         glPushMatrix();
         
         {
@@ -792,6 +933,66 @@ void Vehicle::draw() {
         }
         
         glPopMatrix();
+    }
+    
+    glPopMatrix();
+}
+
+void Table::draw() {
+    glPushMatrix();
+    
+    {
+        glTranslatef(0.1,0,0.1);
+        glScalef(0.3,3.5,0.3);
+        
+        cube->draw();
+    }
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    {
+        glTranslatef(0.1,0,2.6);
+        glScalef(0.3,3.5,0.3);
+        
+        cube->draw();
+    }
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    {
+        glTranslatef(4.6,0,0.1);
+        glScalef(0.3,3.5,0.3);
+        
+        cube->draw();
+    }
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    {
+        glTranslatef(4.6,0,2.6);
+        glScalef(0.3,3.5,0.3);
+        
+        cube->draw();
+    }
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    {
+        glTranslatef(0,3.5,0);
+        glScalef(5,0.3,3);
+        
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        
+        cube->draw();
     }
     
     glPopMatrix();
