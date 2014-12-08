@@ -50,6 +50,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6F03810B1A35D0FD0055E60F /* BoardDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardDraw.h; sourceTree = "<group>"; };
 		6F0E0EA819ED62840098F4B0 /* ANFLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ANFLoader.cpp; sourceTree = "<group>"; };
 		6F0E0EA919ED62840098F4B0 /* ANFLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFLoader.h; sourceTree = "<group>"; };
 		6F14270C1A2B7BEC0044C1CA /* LeBloqReplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeBloqReplay.cpp; sourceTree = "<group>"; };
@@ -149,6 +150,7 @@
 		6F86FE9819DAE4F700FC9C52 /* Header-Only Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6F03810B1A35D0FD0055E60F /* BoardDraw.h */,
 				6F5BFDFA19DA132500C0F88E /* Component.h */,
 				6F1893FF19D313B30014FD93 /* GraphicalEngine.h */,
 				6F1AAAC519D7490400EB4950 /* GraphicalException.h */,

@@ -339,11 +339,17 @@ void Interface::processHits(GLint hits, GLuint buffer[]) {
                 LeBloq::getInstance().workingPiece.toggleOrientation();
                 
         } else if (nselected == 2) {
+            
             std::cout << "Clicked on Coordinate2D(" << selected[0] << ", " << selected[1] << ")." << std::endl;
             
             LeBloq::getInstance().workingPiece.position = Coordinate2D(selected[0], selected[1]);
             
-            LeBloq::getInstance().performPlay();
+            try {
+                LeBloq::getInstance().performPlay();
+            } catch (LeBloqBoardPlayException *exc) {
+                std::cout << "Invalid Play!" << std::endl;
+            }
+            
         }
     }
 }

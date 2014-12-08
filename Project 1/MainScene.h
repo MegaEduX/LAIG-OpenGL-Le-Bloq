@@ -18,6 +18,8 @@
 
 #include "GraphicalEngine.h"
 
+#include "BoardDraw.h"
+
 _BUILD_GRAPHICAL_EXCEPTION(MainSceneCreationException, GraphicalException);
 
 class MainScene : public CGFscene {
@@ -25,6 +27,8 @@ class MainScene : public CGFscene {
     double _lastUpdateValue;
     
     ANFResult *_anf;
+    
+    BoardDraw *_bd;
     
     void _setupFromANF();
     

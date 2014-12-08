@@ -31,6 +31,8 @@
 MainScene::MainScene(ANFResult *result) {
     _anf = result;
     
+    _bd = nullptr;
+    
     _criticalSection = false;
     
     if (!_anf || _anf == nullptr)
@@ -51,9 +53,6 @@ void MainScene::init() {
     _lastUpdateValue = 0;
     
     _setupFromANF();
-    
-    /*  for (int i = 0; i < _anf->animations.size(); i++)
-        _anf->animations[i]->start();   */
     
     setUpdatePeriod(20);
 }
@@ -144,8 +143,6 @@ void MainScene::display() {
     if (!foundCamera)
         throw new MainSceneCreationException("Camera not found!");
     
-    //  CGFscene::activeCamera->applyView();
-    
 #endif
     
 #if DRAW_AXIS
@@ -221,6 +218,34 @@ void MainScene::display() {
     
 #if kPickingTest
     
+    if (_bd == nullptr) {
+        Node *bdn = nullptr;
+        
+        for (Node *n : _anf->graphs[0]->getNodes()) {
+            if (n->getId() == "piece") {    //  Change this later!
+                bdn = n;
+                
+                break;
+            }
+        }
+        
+        if (!bdn) {
+            std::cout << "This can not happen! Throw an exception here!" << std::endl;
+            
+            return;
+        }
+        
+        _bd = new BoardDraw(bdn, Coordinate3D(0, 0, 0), 2); //  arbitrary values
+    }
+    
+    glPushMatrix();
+    
+    {
+        _bd->draw();
+    }
+    
+    glPopMatrix();
+    
     Rectangle *obj = new Rectangle(Coordinate2D(0, 0), Coordinate2D(2, 2));
 
     glPushMatrix();
@@ -234,9 +259,13 @@ void MainScene::display() {
         
         for (int i=0; i< 3;i++) {
             glPushMatrix();
-            glTranslatef(i*5,0,0);
-            glLoadName(i*500);		//replaces the value on top of the name stack
-            obj->draw();
+            
+            {
+                glTranslatef(i*5,0,0);
+                glLoadName(i*500);		//  Replaces the value on top of the name stack
+                obj->draw();
+            }
+            
             glPopMatrix();
         }
         
