@@ -19,18 +19,24 @@
 
 class BoardDraw {
     
-    Node *_pieceNode;
+    PieceNode *_pieceNode;
     
     Coordinate3D _boardPos;
     
     int _squareSize;
     
+    float _squareSeparation;
+    
 public:
     
-    BoardDraw(Node *pieceNode, Coordinate3D boardPos, int squareSize) {
-        _pieceNode =pieceNode;
+    BoardDraw(PieceNode *pieceNode, Coordinate3D boardPos, int squareSize, float squareSeparation) {
+        _pieceNode = pieceNode;
+        
+        _boardPos = boardPos;
         
         _squareSize = squareSize;
+        
+        _squareSeparation = squareSeparation;
     }
     
     void draw() {
@@ -39,15 +45,21 @@ public:
         for (LeBloqPiece piece : pieces) {
             Coordinate3D drawPos = _boardPos;
             
-            drawPos.x += piece.position.x * _squareSize;
-            drawPos.z += piece.position.y * _squareSize;    //  Yes, the z/y thing is -correct-.
+            int diff = _squareSize + _squareSeparation;
+            
+            drawPos.x += piece.position.x * diff;
+            drawPos.z += piece.position.y * diff;    //  Yes, the z/y thing is -correct-.
             
             glPushMatrix();
             
             {
                 glTranslated(drawPos.x, drawPos.y, drawPos.z);
+                glTranslated(-1.5, -1.5, -1.5);
                 
-                _pieceNode->draw(nullptr);
+                
+                _pieceNode->setPiece(piece);
+                
+                _pieceNode->draw();
             }
             
             glPopMatrix();

@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/ANFParser.cpp"
-            timestampString = "438112126.491668"
+            timestampString = "439748577.692124"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "923"
-            endingLineNumber = "923"
+            startingLineNumber = "930"
+            endingLineNumber = "930"
             landmarkName = "ANFParser::parsePrimitives(TiXmlElement *primitives)"
             landmarkType = "5">
          </BreakpointContent>
@@ -362,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/ANFParser.cpp"
-            timestampString = "438112126.491668"
+            timestampString = "439748577.692124"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "924"
-            endingLineNumber = "924"
+            startingLineNumber = "931"
+            endingLineNumber = "931"
             landmarkName = "ANFParser::parsePrimitives(TiXmlElement *primitives)"
             landmarkType = "5">
          </BreakpointContent>
@@ -712,12 +712,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439748577.692124"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -728,12 +728,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439748577.692124"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -744,12 +744,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439748577.692124"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -760,12 +760,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439750213.675188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -776,12 +776,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439750213.675188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -838,28 +838,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "draw(DrawingSettings *ds)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439750213.675188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "239"
             endingLineNumber = "239"
-            landmarkName = "draw(DrawingSettings *ds)"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -870,12 +854,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439748577.692124"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -886,12 +870,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439750213.675188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -902,12 +886,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439750213.675188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -918,12 +902,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439750213.675188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -934,12 +918,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439750213.675188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -950,12 +934,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439750213.675188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -966,12 +950,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project 1/Node.h"
-            timestampString = "439661977.101189"
+            timestampString = "439750213.675188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "286"
-            endingLineNumber = "286"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
+            landmarkName = "draw()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project 1/Node.h"
+            timestampString = "439750213.675188"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "275"
+            endingLineNumber = "275"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1221,13 +1221,125 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Project 1/Node.h"
-            timestampString = "439662065.113046"
+            filePath = "Project 1/LeBloqBoard.cpp"
+            timestampString = "439745910.828686"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
-            landmarkName = "draw(DrawingSettings *ds)"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "LeBloqBoard::_removePieceFromBoard(std::vector&lt;std::vector&lt;int&gt;&gt; &amp;board, Coordinate2D coord)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project 1/MainScene.cpp"
+            timestampString = "439753522.130205"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "MainScene::display()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project 1/ANFParser.cpp"
+            timestampString = "439749262.629464"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "636"
+            endingLineNumber = "636"
+            landmarkName = "ANFParser::parseNode(TiXmlElement *node)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project 1/MainScene.cpp"
+            timestampString = "439753522.130205"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "MainScene::display()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project 1/MainScene.cpp"
+            timestampString = "439753522.130205"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
+            landmarkName = "MainScene::display()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project 1/Node.h"
+            timestampString = "439815233.537711"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
+            landmarkName = "draw()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project 1/MainScene.cpp"
+            timestampString = "439753522.130205"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "MainScene::display()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project 1/Node.h"
+            timestampString = "439815233.537711"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "341"
+            endingLineNumber = "341"
+            landmarkName = "draw()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

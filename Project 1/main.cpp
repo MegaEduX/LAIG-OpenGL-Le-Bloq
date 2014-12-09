@@ -29,20 +29,6 @@ int main(int argc, const char * argv[]) {
         
         LeBloq::getInstance().newGame(10, 10);
         
-        /*LeBloq::getInstance().performPlay(1, 'h', Coordinate2D(1, 1));
-        
-        auto pieces = LeBloq::getInstance().getCurrentGameState().getBoard().getPieces();
-        
-        auto gs = LeBloq::getInstance().getCurrentGameState();
-        
-        if (!gs.getPlaying())
-            
-            std::cout << "Game Over! Winner: " << gs.getPlayer() << std::endl;
-        
-        std::string replayData = LeBloqReplay::createReplayData(LeBloq::getInstance().getGameStates());
-        
-        std::cout << replayData << std::endl;*/
-        
     } catch (SocketCreationException *exception) {
         
         cout << "Couldn't connect to SICStus Le Bloq. Proceeding anyway..." << endl;

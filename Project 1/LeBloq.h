@@ -103,6 +103,10 @@ public:
         return _gameStates;
     }
     
+    Coordinate2D getBoardSize() {
+        return Coordinate2D(_boardSizeX, _boardSizeY);
+    }
+    
     LeBloqState performPlay();
     
     LeBloqState performPlay(LeBloqPiece);

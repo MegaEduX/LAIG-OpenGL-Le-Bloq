@@ -114,33 +114,33 @@ void Interface::initGUI() {
     
     GLUI_Panel *levelPanel = addPanel(const_cast<char *>(std::string("Difficulty").c_str()), 1);
     
-    GLUI_RadioGroup *radioGroup = addRadioGroupToPanel(levelPanel);
+    _difficultyRadioGroup = addRadioGroupToPanel(levelPanel);
     
-    radioGroup->set_id(id);
+    _difficultyRadioGroup->set_id(id);
     
-    GLUI_RadioButton *PvAI_Easy = addRadioButtonToGroup(radioGroup, const_cast<char *>(std::string("Player vs AI (Easy)").c_str()));
+    GLUI_RadioButton *PvAI_Easy = addRadioButtonToGroup(_difficultyRadioGroup, const_cast<char *>(std::string("Player vs AI (Easy)").c_str()));
     
     PvAI_Easy->set_int_val(1);
     
-    PvAI_Easy->set_id(++id);
+    //  PvAI_Easy->set_id(++id);
     
-    GLUI_RadioButton *PvAI_Hard = addRadioButtonToGroup(radioGroup, const_cast<char *>(std::string("Player vs AI (Hard)").c_str()));
+    GLUI_RadioButton *PvAI_Hard = addRadioButtonToGroup(_difficultyRadioGroup, const_cast<char *>(std::string("Player vs AI (Hard)").c_str()));
     
     PvAI_Hard->set_int_val(0);
     
-    PvAI_Hard->set_id(++id);
+    //  PvAI_Hard->set_id(++id);
     
-    GLUI_RadioButton *PvP = addRadioButtonToGroup(radioGroup, const_cast<char *>(std::string("Player vs Player").c_str()));
+    GLUI_RadioButton *PvP = addRadioButtonToGroup(_difficultyRadioGroup, const_cast<char *>(std::string("Player vs Player").c_str()));
     
     PvP->set_int_val(0);
     
-    PvP->set_id(++id);
+    //  PvP->set_id(++id);
     
-    GLUI_RadioButton *AIvAI = addRadioButtonToGroup(radioGroup, const_cast<char *>(std::string("AI vs AI").c_str()));
+    GLUI_RadioButton *AIvAI = addRadioButtonToGroup(_difficultyRadioGroup, const_cast<char *>(std::string("AI vs AI").c_str()));
     
     AIvAI->set_int_val(0);
     
-    AIvAI->set_id(++id);
+    //  AIvAI->set_id(++id);
     
     addColumn();
     
@@ -227,9 +227,9 @@ void Interface::processGUI(GLUI_Control *ctrl) {
     
     else if (ctrl->user_id < 600) {
         
-        _selectedDifficulty = (int)(ctrl->user_id - 500);
+        _selectedDifficulty = _difficultyRadioGroup->get_int_val();
         
-        std::cout << ctrl->user_id << " Selected Difficulty: " << _selectedDifficulty << std::endl;
+        std::cout << "Selected Difficulty: " << _selectedDifficulty << std::endl;
         
     } else if (ctrl->user_id < 700) {
         

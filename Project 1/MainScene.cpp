@@ -14,17 +14,15 @@
 
 #include "ANFLoader.h"
 
-#define NO_ANF_TEST_MODE    0
-#define NO_ANF_CAMERAS      0
+#define NO_ANF_CAMERAS        0
 
-#define DRAW_AXIS           1
+#define DRAW_AXIS             1
 
-#define kPickingTest        1
+#define ENABLE_PICKING        1
 
-#if kPickingTest
+#define DEFAULT_NAME        - 1
 
-#define NUM_ROWS            12
-#define NUM_COLS            12
+#if ENABLE_PICKING
 
 #endif
 
@@ -151,42 +149,6 @@ void MainScene::display() {
     
 #endif
     
-#if NO_ANF_TEST_MODE
-    
-	Vehicle *veic = new Vehicle();
-
-	veic -> draw();
-	
-	/*
-     
-    Rectangle *rect = new Rectangle(Coordinate2D(1, 2), Coordinate2D(7, 5));
-    
-    rect -> draw();
-    
-    Triangle *trg = new Triangle(Coordinate3D(5, 5, 1), Coordinate3D(2, 1, 1), Coordinate3D(8, 5, 1));
-    
-    trg -> draw();
-    
-    Sphere *sph = new Sphere(5, 20, 20);
-    
-    sph->draw();
-    
-    Torus *torus = new Torus(2, 3, 30, 10);
-    
-    torus->draw();
-    
-    delete rect;
-    
-    delete trg;
-    
-    delete sph;
-    
-    delete torus;
-     
-    */
-    
-#else
-    
     glMatrixMode(GL_MODELVIEW);
     
     glLoadIdentity();
@@ -208,22 +170,20 @@ void MainScene::display() {
         glPushMatrix();
         
         {
-            n->draw(Globals::getInstance().getDrawingSettings());
+            n->draw();
         }
         
         glPopMatrix();
     }
     
-#endif
-    
-#if kPickingTest
+#if ENABLE_PICKING
     
     if (_bd == nullptr) {
-        Node *bdn = nullptr;
+        PieceNode *bdn = nullptr;
         
         for (Node *n : _anf->graphs[0]->getNodes()) {
-            if (n->getId() == "piece") {    //  Change this later!
-                bdn = n;
+            if (dynamic_cast<PieceNode *>(n)) {
+                bdn = (PieceNode *) n;
                 
                 break;
             }
@@ -235,12 +195,14 @@ void MainScene::display() {
             return;
         }
         
-        _bd = new BoardDraw(bdn, Coordinate3D(0, 0, 0), 2); //  arbitrary values
+        _bd = new BoardDraw(bdn, Coordinate3D(1.5, 1.5, 1.5), 2, 0.5); //  arbitrary values
     }
     
     glPushMatrix();
     
     {
+        glTranslated(30, 55, 30);
+        
         _bd->draw();
     }
     
@@ -252,31 +214,33 @@ void MainScene::display() {
     
     {
         glRotated(-90, 0, 0, 1);
+        glTranslated(-57.5, 30, 30);
         
-        glTranslated(-2, 2, 2);
+        glPushName(DEFAULT_NAME);
         
-        glPushName(-1);     //  Default Name
-        
-        for (int i=0; i< 3;i++) {
+        for (int i = 0; i < 3; i++) {
             glPushMatrix();
             
             {
-                glTranslatef(i*5,0,0);
-                glLoadName(i*500);		//  Replaces the value on top of the name stack
+                glTranslatef(0, i * 5, -5);
+                glRotatef(90, 0, 1, 0);
+                
+                glLoadName(i * 500);		//  Replaces the value on top of the name stack
+                
                 obj->draw();
             }
             
             glPopMatrix();
         }
         
-        for (int r = 0; r < NUM_ROWS; r++) {
+        for (int r = 0; r < LeBloq::getInstance().getBoardSize().x; r++) {
             glPushMatrix();
             
             {
                 glTranslatef(0, r * 2.2, 0);
                 glLoadName(r);
                 
-                for (int c=0; c < NUM_COLS; c++) {
+                for (int c = 0; c < LeBloq::getInstance().getBoardSize().y; c++) {
                     glPushMatrix();
                     
                     {

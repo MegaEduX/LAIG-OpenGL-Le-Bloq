@@ -631,6 +631,13 @@ Node *ANFParser::parseNode(TiXmlElement *node) {
     if (node->Attribute("id"))
         nd->setId(node->Attribute("id"));
     
+    if (node->Attribute("attr")) {
+        if (!strcmp(node->Attribute("attr"), "piece"))
+            nd = new PieceNode();
+        else
+            throw new ANFNodeParserException(std::string("Unimplemented attribute \"") + node->Attribute("attr") + ("\""));
+    }
+    
     if (node->Attribute("displaylist")) {
         if (!strcmp(node->Attribute("displaylist"), "true"))
             nd->setUseDisplayList(true);

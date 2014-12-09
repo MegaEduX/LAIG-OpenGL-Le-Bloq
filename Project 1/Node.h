@@ -29,6 +29,8 @@
 
 class Node : public GraphicalObject {
     
+protected:
+    
     std::vector<Transform *> _transforms;
     
     std::vector<Primitive *> _primitives;
@@ -156,12 +158,10 @@ public:
     }
     
     void removeNodeRef(std::string nr) {
-		//	Perhaps it's needed.
-
-        /*	std::vector<std::string>::iterator position = std::find(_descendantNodeRefs.begin(), _descendantNodeRefs.end(), nr);
+        std::vector<std::string>::iterator position = std::find(_descendantNodeRefs.begin(), _descendantNodeRefs.end(), nr);
         
         if (position != _descendantNodeRefs.end())
-            _descendantNodeRefs.erase(position);	*/
+            _descendantNodeRefs.erase(position);
     }
     
     std::vector<std::string> getNodeRefs() {
@@ -196,7 +196,7 @@ public:
         return _usesDisplayList;
     }
     
-    void draw(DrawingSettings *ds) {
+    virtual void draw() {
         glPushMatrix();
         
         {
@@ -206,17 +206,6 @@ public:
                 _delayListCreationCounter--;
                 
                 skipCache = true;
-            }
-            
-            if (this->getId() == "piece") {
-                skipCache = true;
-                
-                for (int i = 0; i < _transforms.size(); i++)
-                    _transforms[i]->apply();
-                
-                Coordinate3D dim = LeBloq::getInstance().workingPiece.getDimensions();
-                
-                glScaled(dim.x, dim.y, dim.z);
             }
             
             if (_animation != nullptr && _animation->getAnimating()) {
@@ -280,7 +269,7 @@ public:
                 for (int i = 0; i < _descendants.size(); i++) {
                     _descendants[i]->setParent(this);
                     
-                    _descendants[i]->draw(ds);
+                    _descendants[i]->draw();
                 }
                 
                 if (!skipCache) {
@@ -294,6 +283,89 @@ public:
         }
         
         glPopMatrix();
+    }
+    
+};
+
+class PieceNode : public Node {
+    
+    LeBloqPiece representingPiece;
+    
+public:
+    
+    PieceNode() : Node() {
+        
+    }
+    
+    PieceNode(std::string anId) : Node(anId) {
+        
+    }
+    
+    LeBloqPiece getPiece() {
+        return representingPiece;
+    }
+    
+    void setPiece(LeBloqPiece p) {
+        representingPiece = p;
+    }
+    
+    void draw() {
+        glPushMatrix();
+        
+        {
+            for (int i = 0; i < _transforms.size(); i++)
+                _transforms[i]->apply();
+            
+            Coordinate3D dim = representingPiece.getDimensions();
+            
+            glScaled(dim.x, dim.y, dim.z);
+            
+            if (_animation != nullptr && _animation->getAnimating()) {
+                if (_animation->getLastAnimationResult() != nullptr)
+                    glTranslated(_animation->getLastAnimationResult()->x,
+                                 _animation->getLastAnimationResult()->y,
+                                 _animation->getLastAnimationResult()->z);
+                
+                for (int i = 0; i < _transforms.size(); i++)
+                    if (dynamic_cast<Scale *>(_transforms[i]))
+                        _transforms[i]->apply();
+                
+                for (int i = 0; i < _transforms.size(); i++)
+                    if (dynamic_cast<Rotate *>(_transforms[i]))
+                        _transforms[i]->apply();
+                
+                if (_animation->getLastRotation() != 0)
+                    glRotatef(_animation->getLastRotation(), 0, 1, 0);
+            } /*else
+                for (int i = 0; i < _transforms.size(); i++)
+                    _transforms[i]->apply();*/
+            
+            glBindTexture(GL_TEXTURE_2D, 0);
+            
+            if (getAppearance() != nullptr) {
+                if (getAppearance()->getTexture() != nullptr)
+                    getAppearance()->setTextureWrap(Coordinate2D(getAppearance()->getTexture()->getTexLength().s,
+                                                                 getAppearance()->getTexture()->getTexLength().t));
+                getAppearance()->apply();
+            }
+            
+            for (int i = 0; i < _primitives.size(); i++) {
+                if (getAppearance() != nullptr && getAppearance()->getTexture() != nullptr)
+                    _primitives[i]->setTextureCoordinates(Coordinate2D(getAppearance()->getTexture()->getTexLength().s,
+                                                                       getAppearance()->getTexture()->getTexLength().t));
+                
+                _primitives[i]->draw();
+            }
+            
+            for (int i = 0; i < _descendants.size(); i++) {
+                _descendants[i]->setParent(this);
+                
+                _descendants[i]->draw();
+            }
+        }
+        
+        glPopMatrix();
+        
     }
     
 };

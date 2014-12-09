@@ -82,9 +82,15 @@ void LeBloqBoard::_removePieceFromBoard(std::vector<std::vector<int>> &board, Co
             
     }
     
-    for (; height; height--, coord.y++) //  ¯\_(ツ)_/¯
-        for (int i = coord.x; i < coord.x + width; i++)
+    for (; height; height--, coord.y++) { //  ¯\_(ツ)_/¯
+        //  std::cout << "[¯\\_(ツ)_/¯] height: " << height << ", x: " << coord.x << ", y: " << coord.y << "[¯\\_(ツ)_/¯]" << std::endl;
+    
+        for (int i = coord.x; i < coord.x + width; i++) {
+            //  std::cout << "[¯\\_(ツ)_/¯] x: " << coord.x << ", y: " << coord.y << ", i: " << i << "[¯\\_(ツ)_/¯]" << std::endl;
+            
             board[coord.y][i] = 0;
+        }
+    }
 }
 
 std::vector<LeBloqPiece> LeBloqBoard::getPieces() {

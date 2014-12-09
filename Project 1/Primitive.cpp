@@ -227,13 +227,13 @@ void UnitCube::draw() {
         glTexCoord2f(0, 0);
         glVertex2d(0, 0);
         
-        glTexCoord2f(0.5, 0);
+        glTexCoord2f(_texCoords.x, 0);
         glVertex2d(1, 0);
         
-        glTexCoord2f(0.5,0.5);
+        glTexCoord2f(_texCoords.x, _texCoords.y);
         glVertex2d(1, 1);
         
-        glTexCoord2f(0, 0.5);
+        glTexCoord2f(0, _texCoords.y);
         glVertex2d(0, 1);
         glEnd();
     }
@@ -251,13 +251,13 @@ void UnitCube::draw() {
         glTexCoord2f(0, 0);
         glVertex2d(0, 0);
         
-        glTexCoord2f(0.5, 0);
+        glTexCoord2f(_texCoords.x, 0);
         glVertex2d(1, 0);
         
-        glTexCoord2f(0.5,0.5);
+        glTexCoord2f(_texCoords.x, _texCoords.y);
         glVertex2d(1, 1);
         
-        glTexCoord2f(0, 0.5);
+        glTexCoord2f(0, _texCoords.y);
         glVertex2d(0, 1);
         glEnd();
     }
@@ -274,13 +274,13 @@ void UnitCube::draw() {
         glTexCoord2f(0, 0);
         glVertex2d(0, 0);
         
-        glTexCoord2f(0.5, 0);
+        glTexCoord2f(_texCoords.x, 0);
         glVertex2d(1, 0);
         
-        glTexCoord2f(0.5,0.5);
+        glTexCoord2f(_texCoords.x, _texCoords.y);
         glVertex2d(1, 1);
         
-        glTexCoord2f(0, 0.5);
+        glTexCoord2f(0, _texCoords.y);
         glVertex2d(0, 1);
         glEnd();
     }
@@ -297,13 +297,13 @@ void UnitCube::draw() {
         glTexCoord2f(0, 0);
         glVertex2d(0, 0);
         
-        glTexCoord2f(0.5, 0);
+        glTexCoord2f(_texCoords.x, 0);
         glVertex2d(1, 0);
         
-        glTexCoord2f(0.5,0.5);
+        glTexCoord2f(_texCoords.x, _texCoords.y);
         glVertex2d(1, 1);
         
-        glTexCoord2f(0, 0.5);
+        glTexCoord2f(0, _texCoords.y);
         glVertex2d(0, 1);
         glEnd();
     }
@@ -321,13 +321,13 @@ void UnitCube::draw() {
         glTexCoord2f(0, 0);
         glVertex2d(0, 0);
         
-        glTexCoord2f(0.5, 0);
+        glTexCoord2f(_texCoords.x, 0);
         glVertex2d(1, 0);
         
-        glTexCoord2f(0.5,0.5);
+        glTexCoord2f(_texCoords.x, _texCoords.y);
         glVertex2d(1, 1);
         
-        glTexCoord2f(0, 0.5);
+        glTexCoord2f(0, _texCoords.y);
         glVertex2d(0, 1);
         glEnd();
     }
@@ -345,13 +345,13 @@ void UnitCube::draw() {
         glTexCoord2f(0, 0);
         glVertex2d(0, 0);
         
-        glTexCoord2f(0.5, 0);
+        glTexCoord2f(_texCoords.x, 0);
         glVertex2d(1, 0);
         
-        glTexCoord2f(0.5,0.5);
+        glTexCoord2f(_texCoords.x, _texCoords.y);
         glVertex2d(1, 1);
         
-        glTexCoord2f(0, 0.5);
+        glTexCoord2f(0, _texCoords.y);
         glVertex2d(0, 1);
         glEnd();
     }

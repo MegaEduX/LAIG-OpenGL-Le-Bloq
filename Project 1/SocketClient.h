@@ -23,7 +23,6 @@ class SocketClient {
     
 public:
     
-    
     SocketClient(std::string host, int port);
     
     std::string read();
