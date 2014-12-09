@@ -233,6 +233,8 @@ void MainScene::display() {
             glPopMatrix();
         }
         
+        auto tiles = LeBloq::getInstance().getCurrentGameState().getBoard().getScoredTiles();
+        
         for (int r = 0; r < LeBloq::getInstance().getBoardSize().x; r++) {
             glPushMatrix();
             
@@ -247,6 +249,15 @@ void MainScene::display() {
                         glTranslatef(0, 0, (c + 1) * 2.2);
                         glRotatef(90, 0, 1, 0);
                         glPushName(c);
+                        
+                        for (LeBloqTile tile : tiles)
+                            if (tile.position.x == r && tile.position.y == c) {
+                                if (tile.scoringPlayer == 1) {
+                                    //  Set Red (hypothetical) Color
+                                } else {
+                                    //  Set Blue (hypothetical) Color
+                                }
+                            }
                         
                         obj->draw();
                         

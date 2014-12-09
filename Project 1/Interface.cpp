@@ -122,25 +122,17 @@ void Interface::initGUI() {
     
     PvAI_Easy->set_int_val(1);
     
-    //  PvAI_Easy->set_id(++id);
-    
     GLUI_RadioButton *PvAI_Hard = addRadioButtonToGroup(_difficultyRadioGroup, const_cast<char *>(std::string("Player vs AI (Hard)").c_str()));
     
     PvAI_Hard->set_int_val(0);
-    
-    //  PvAI_Hard->set_id(++id);
     
     GLUI_RadioButton *PvP = addRadioButtonToGroup(_difficultyRadioGroup, const_cast<char *>(std::string("Player vs Player").c_str()));
     
     PvP->set_int_val(0);
     
-    //  PvP->set_id(++id);
-    
     GLUI_RadioButton *AIvAI = addRadioButtonToGroup(_difficultyRadioGroup, const_cast<char *>(std::string("AI vs AI").c_str()));
     
     AIvAI->set_int_val(0);
-    
-    //  AIvAI->set_id(++id);
     
     addColumn();
     
@@ -164,7 +156,9 @@ void Interface::initGUI() {
     
     GLUI_Panel *ccPanel = addPanel(const_cast<char *>(std::string("Camera Control").c_str()), 1);
     
-    _cameraRotationControl = addRotationToPanel(ccPanel, const_cast<char *>(std::string("Board").c_str()));
+    GLUI_Rotation *rot = _cameraRotationControl = addRotationToPanel(ccPanel, const_cast<char *>(std::string("Board").c_str()), _liveRotation);
+    
+    rot->reset();
     
     _cameraRotationControl->set_id(700);
 }
@@ -232,6 +226,38 @@ void Interface::processGUI(GLUI_Control *ctrl) {
         std::cout << "Selected Difficulty: " << _selectedDifficulty << std::endl;
         
     } else if (ctrl->user_id < 700) {
+        
+        switch (ctrl->user_id) {
+                
+            case 600:
+                
+                LeBloq::getInstance().setGameType((kLeBloqGameType) _difficultyRadioGroup->get_int_val());
+                LeBloq::getInstance().newGame(10, 10);
+                
+                break;
+                
+            case 601:
+                
+                LeBloq::getInstance().getGameStates().pop();
+                
+                break;
+                
+            case 602:
+                
+                //  Load Replay
+                
+                break;
+                
+            case 603:
+                
+                //  Save Replay
+                
+                break;
+                
+            default:
+                
+                break;
+        }
         
         //  game control
         

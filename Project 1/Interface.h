@@ -40,11 +40,17 @@ class Interface : public CGFinterface {
     
     int _selectedDifficulty;
     
+    float *_liveRotation;
+    
 public:
     
     Interface(MainScene *s, ANFResult *r) {
         _scene = s;
         _result = r;
+        _liveRotation = (float *) malloc(16 * sizeof(float));
+        
+        for (int i = 0; i < 16; i++)
+            _liveRotation[i] = 0.0f;
     }
     
     void initGUI();
@@ -56,6 +62,10 @@ public:
     void performPicking(int x, int y);
     
     void processHits(GLint hits, GLuint buffer[]);
+    
+    float * getRotation() {
+        return _liveRotation;
+    }
     
 };
 

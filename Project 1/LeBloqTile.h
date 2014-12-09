@@ -15,16 +15,16 @@
 
 class LeBloqTile {
     
-    Coordinate2D _position;
-    
-    int _scoringPlayer;
-    
 public:
     
-    LeBloqTile(Coordinate2D pos, int scoringPlayer) {
-        _position = pos;
+    Coordinate2D position;
+    
+    int scoringPlayer;
+    
+    LeBloqTile(Coordinate2D pos, int sp) {
+        position = pos;
         
-        _scoringPlayer = scoringPlayer;
+        scoringPlayer = sp;
     }
     
 };

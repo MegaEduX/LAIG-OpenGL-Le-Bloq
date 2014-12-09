@@ -31,7 +31,8 @@ _BUILD_GRAPHICAL_EXCEPTION(LeBloqBoardPlayException, LeBloqException);
 
 typedef enum {
     
-    kLeBloqGameTypePlayerVsAI,
+    kLeBloqGameTypePlayerVsAI_Easy,
+    kLeBloqGameTypePlayerVsAI_Hard,
     kLeBloqGameTypePlayerVsPlayer,
     kLeBloqGameTypeAIVsAI
     
@@ -47,6 +48,9 @@ class LeBloq {
     
     int _boardSizeY;
     
+    int _gameStart;
+    int _turnStart;
+    
     LeBloqState _parseOK(std::string);
     
     int _checkWinner();
@@ -56,7 +60,7 @@ class LeBloq {
     LeBloq() {
         _conn = new SocketClient(kDefaultAddress, kDefaultPort);
         
-        _gameType = kLeBloqGameTypePlayerVsAI;
+        _gameType = kLeBloqGameTypePlayerVsAI_Easy;
     }
     
     LeBloq(LeBloq const &);
@@ -105,6 +109,14 @@ public:
     
     Coordinate2D getBoardSize() {
         return Coordinate2D(_boardSizeX, _boardSizeY);
+    }
+    
+    unsigned int getGameTimeElapsed() {
+        return (unsigned int) time(NULL) - _gameStart;
+    }
+    
+    unsigned int getTurnTimeElapsed() {
+        return (unsigned int) time(NULL) - _turnStart;
     }
     
     LeBloqState performPlay();

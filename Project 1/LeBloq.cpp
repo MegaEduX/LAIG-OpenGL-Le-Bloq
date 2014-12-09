@@ -64,6 +64,9 @@ LeBloqState LeBloq::newGame(int x, int y) {
     
     auto state = _parseOK(answer);
     
+    _gameStart = (unsigned int) time(NULL);
+    _turnStart = _gameStart;
+    
     return state;
 }
 
@@ -92,6 +95,8 @@ LeBloqState LeBloq::performPlay(int pieceType, char pieceOrientation, Coordinate
     _conn->write(message);
     
     auto state = _parseOK(answer);
+    
+    _turnStart = (unsigned int) time(NULL);
     
     return state;
 }
