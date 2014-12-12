@@ -20,3 +20,59 @@ float *color_to_float_vec(kColorRGB col) {
     
     return f;
 }
+
+kColorRGB color_red() {
+    kColorRGB color;
+    
+    color.r = 1.0f;
+    color.g = 0.0f;
+    color.b = 0.0f;
+    color.a = 1.0f;
+    
+    return color;
+}
+
+kColorRGB color_green() {
+    kColorRGB color;
+    
+    color.r = 0.0f;
+    color.g = 1.0f;
+    color.b = 0.0f;
+    color.a = 1.0f;
+    
+    return color;
+}
+
+
+kColorRGB color_blue() {
+    kColorRGB color;
+    
+    color.r = 0.0f;
+    color.g = 0.0f;
+    color.b = 1.0f;
+    color.a = 1.0f;
+    
+    return color;
+}
+
+kColorRGB color_black() {
+    kColorRGB color;
+    
+    color.r = 0.0f;
+    color.g = 0.0f;
+    color.b = 0.0f;
+    color.a = 1.0f;
+    
+    return color;
+}
+
+kColorRGB color_white() {
+    kColorRGB color;
+    
+    color.r = 1.0f;
+    color.g = 1.0f;
+    color.b = 1.0f;
+    color.a = 1.0f;
+    
+    return color;
+}

@@ -18,4 +18,10 @@ typedef struct {
 
 float *color_to_float_vec(kColorRGB);
 
+kColorRGB color_red();
+kColorRGB color_green();
+kColorRGB color_blue();
+kColorRGB color_black();
+kColorRGB color_white();
+
 #endif

@@ -40,6 +40,10 @@ class MainScene : public CGFscene {
     
     void _createTransformationMatrixes(Node *n);
     
+    Appearance *_p1Appearance;
+    
+    Appearance *_p2Appearance;
+    
 public:
     
     MainScene(ANFResult *);

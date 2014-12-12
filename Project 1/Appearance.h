@@ -25,8 +25,6 @@ _BUILD_GRAPHICAL_EXCEPTION(AppearanceBuilderException, GraphicalException);
 
 class Appearance : public GraphicalObject {
     
-    std::string _id;
-    
     float _shininess;
     
     Texture *_texture;
@@ -41,9 +39,13 @@ class Appearance : public GraphicalObject {
     
 public:
     
-    Appearance(std::string id, float shininess) {
-        _id = id;
+    Appearance(float shininess) : GraphicalObject() {
+        _shininess = shininess;
         
+        _cachedAppearance = nullptr;
+    }
+    
+    Appearance(std::string id, float shininess) : GraphicalObject(id) {
         _shininess = shininess;
 
 		_texture = nullptr;
@@ -51,18 +53,12 @@ public:
 		_cachedAppearance = nullptr;
     }
     
-    Appearance(std::string id, float shininess, Texture *texture) {
-		_id = id;
-
+    Appearance(std::string id, float shininess, Texture *texture) : GraphicalObject(id) {
 		_shininess = shininess;
 
         _texture = texture;
 
 		_cachedAppearance = nullptr;
-    }
-    
-    std::string getId() {
-        return _id;
     }
     
     float getShininess() {

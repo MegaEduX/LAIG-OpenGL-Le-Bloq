@@ -50,6 +50,11 @@ void MainScene::init() {
     
     _lastUpdateValue = 0;
     
+    _p1Appearance = new Appearance(1.0f);
+    _p2Appearance = new Appearance(1.0f);
+    
+    _p1Appearance->addComponent(new Component(kComponentTypeAmbient, color_red())); //  ...
+    
     _setupFromANF();
     
     setUpdatePeriod(20);
