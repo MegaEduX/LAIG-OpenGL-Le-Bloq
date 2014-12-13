@@ -15,10 +15,10 @@
 std::string PrologParser::boardRepresentationToProlog(std::vector<std::vector<int>> boardRep) {
     std::string returnRep = "[";
     
-    for (auto line : boardRep) {
+    for (std::vector<int> line : boardRep) {
         returnRep += "[";
         
-        for (auto piece : line)
+        for (int piece : line)
             returnRep += std::to_string(piece) + ",";
         
         returnRep.pop_back();   //  Remove outstanding comma.

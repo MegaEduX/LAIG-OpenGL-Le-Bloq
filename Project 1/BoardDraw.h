@@ -40,7 +40,7 @@ public:
     }
     
     void draw() {
-        auto pieces = LeBloq::getInstance().getCurrentGameState().getBoard().getPieces();
+        std::vector<LeBloqPiece> pieces = LeBloq::getInstance().getCurrentGameState().getBoard().getPieces();
         
         for (LeBloqPiece piece : pieces) {
             Coordinate3D drawPos = _boardPos;
@@ -53,13 +53,14 @@ public:
             glPushMatrix();
             
             {
+                
                 glTranslated(drawPos.x, drawPos.y, drawPos.z);
                 glTranslated(-1.5, -1.5, -1.5);
                 
                 
                 _pieceNode->setPiece(piece);
-                
                 _pieceNode->draw();
+                
             }
             
             glPopMatrix();

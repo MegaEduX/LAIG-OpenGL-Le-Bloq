@@ -42,18 +42,18 @@ public:
         _boardRepresentation = boardRepresentation;
     }
     
-    std::vector<std::vector<int>> getBoardRepresentation() {
+    std::vector< std::vector<int> > getBoardRepresentation() {
         return _boardRepresentation;
     }
     
     LeBloqBoard operator-(LeBloqBoard rhs) {
-        std::vector<std::vector<int>> boardRep;
+        std::vector< std::vector<int> > boardRep;
         
         for (int col = 0; col < _boardRepresentation.size(); col++) {
-            auto line = _boardRepresentation[col];
+            std::vector<int> line = _boardRepresentation[col];
             
             for (int p = 0; p < line.size(); p++) {
-                auto piece = line[p];
+                int piece = line[p];
                 
                 if (rhs.getBoardRepresentation()[col][p] != piece) {
                     if (rhs.getBoardRepresentation()[col][p] != 0)

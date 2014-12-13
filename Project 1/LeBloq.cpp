@@ -19,9 +19,9 @@ LeBloqState LeBloq::_parseOK(std::string answer) {
     
     answer.pop_back();
     
-    auto boardRep = PrologParser::prologToBoardRepresentation(answer, _boardSizeX);
+    std::vector< std::vector<int> > boardRep = PrologParser::prologToBoardRepresentation(answer, _boardSizeX);
     
-    auto board = LeBloqBoard(boardRep);
+    LeBloqBoard board = LeBloqBoard(boardRep);
     
     int nextPlayer = (_gameStates.size() ? (getCurrentGameState().getPlayer() == 1 ? 2 : 1) : 2);
     
@@ -36,7 +36,7 @@ LeBloqState LeBloq::_parseOK(std::string answer) {
             playing = false;
         }
     
-    auto state = LeBloqState(board, nextPlayer, playing);
+    LeBloqState state = LeBloqState(board, nextPlayer, playing);
     
     _gameStates.push(state);
     
@@ -48,13 +48,17 @@ int LeBloq::_checkWinner() {
     
     _conn->write(message);
     
-    return atoi(_conn->read().c_str());
+    int winner = atoi(_conn->read().c_str());
+    
+    std::cout << "Winner State: " << winner << std::endl;
+    
+    return winner;
 }
 
 LeBloqState LeBloq::newGame(int x, int y) {
     _conn->write("initialize(" + std::to_string(x) + "," + std::to_string(y) + ").");
     
-    auto answer = _conn->read();
+    std::string answer = _conn->read();
     
     if (answer.find("fail") != std::string::npos || answer.find("ok(") == std::string::npos)
         throw new LeBloqBoardCreationException("Unable to create board.");
@@ -62,7 +66,7 @@ LeBloqState LeBloq::newGame(int x, int y) {
     _boardSizeX = x;
     _boardSizeY = y;
     
-    auto state = _parseOK(answer);
+    LeBloqState state = _parseOK(answer);
     
     _gameStart = (unsigned int) time(NULL);
     _turnStart = _gameStart;
@@ -87,14 +91,14 @@ LeBloqState LeBloq::performPlay(int pieceType, char pieceOrientation, Coordinate
     
     _conn->write(message);
     
-    auto answer = _conn->read();
+    std::string answer = _conn->read();
     
     if (answer.find("fail") != std::string::npos || answer.find("ok(") == std::string::npos)
         throw new LeBloqBoardPlayException("Unable to perform play: " + answer);
     
     _conn->write(message);
     
-    auto state = _parseOK(answer);
+    LeBloqState state = _parseOK(answer);
     
     _turnStart = (unsigned int) time(NULL);
     

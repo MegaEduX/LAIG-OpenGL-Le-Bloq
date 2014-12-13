@@ -15,6 +15,7 @@
 #include "Animation.h"
 
 #include "LeBloq.h"
+#include "LeBloqReplay.h"
 
 //  Picking Buffer
 
@@ -238,7 +239,8 @@ void Interface::processGUI(GLUI_Control *ctrl) {
                 
             case 601:
                 
-                LeBloq::getInstance().getGameStates().pop();
+                if (LeBloq::getInstance().getGameStates().size())
+                    LeBloq::getInstance().undo();
                 
                 break;
                 
@@ -248,11 +250,35 @@ void Interface::processGUI(GLUI_Control *ctrl) {
                 
                 break;
                 
-            case 603:
+            case 603: {
                 
                 //  Save Replay
                 
+                try {
+                    
+                    std::string replayData = LeBloqReplay::createReplayData(LeBloq::getInstance().getGameStates());
+                    
+                    std::cout << "Save As: ";
+                    
+                    std::string outputFilePath;
+                    
+                    std::cin >> outputFilePath;
+                    
+                    std::ofstream out(outputFilePath);
+                    
+                    out << replayData;
+                    
+                    out.close();
+                    
+                } catch (std::exception exception) {
+                    
+                    std::cout << "An error has occoured while exporting the current game." << std::endl;
+                    
+                }
+                
                 break;
+                
+            }
                 
             default:
                 

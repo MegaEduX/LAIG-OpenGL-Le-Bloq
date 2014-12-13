@@ -44,6 +44,8 @@ class MainScene : public CGFscene {
     
     Appearance *_p2Appearance;
     
+    Appearance *_defaultAppearance;
+    
 public:
     
     MainScene(ANFResult *);

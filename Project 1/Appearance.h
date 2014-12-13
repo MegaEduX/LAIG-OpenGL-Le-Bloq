@@ -42,6 +42,8 @@ public:
     Appearance(float shininess) : GraphicalObject() {
         _shininess = shininess;
         
+        _texture = nullptr;
+        
         _cachedAppearance = nullptr;
     }
     

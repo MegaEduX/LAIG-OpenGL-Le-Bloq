@@ -52,8 +52,19 @@ void MainScene::init() {
     
     _p1Appearance = new Appearance(1.0f);
     _p2Appearance = new Appearance(1.0f);
+    _defaultAppearance = new Appearance(1.0f);
     
-    _p1Appearance->addComponent(new Component(kComponentTypeAmbient, color_red())); //  ...
+    _p1Appearance->addComponent(new Component(kComponentTypeAmbient, color_red()));
+    _p1Appearance->addComponent(new Component(kComponentTypeDiffuse, color_red()));
+    _p1Appearance->addComponent(new Component(kComponentTypeSpecular, color_red()));
+    
+    _p2Appearance->addComponent(new Component(kComponentTypeAmbient, color_blue()));
+    _p2Appearance->addComponent(new Component(kComponentTypeDiffuse, color_blue()));
+    _p2Appearance->addComponent(new Component(kComponentTypeSpecular, color_blue()));
+    
+    _defaultAppearance->addComponent(new Component(kComponentTypeAmbient, color_white()));
+    _defaultAppearance->addComponent(new Component(kComponentTypeDiffuse, color_white()));
+    _defaultAppearance->addComponent(new Component(kComponentTypeSpecular, color_white()));
     
     _setupFromANF();
     
@@ -181,6 +192,8 @@ void MainScene::display() {
         glPopMatrix();
     }
     
+    //  if gamestate == ended, do not draw the following and draw a congratulations screen.
+    
 #if ENABLE_PICKING
     
     if (_bd == nullptr) {
@@ -238,7 +251,7 @@ void MainScene::display() {
             glPopMatrix();
         }
         
-        auto tiles = LeBloq::getInstance().getCurrentGameState().getBoard().getScoredTiles();
+        std::vector<LeBloqTile> tiles = LeBloq::getInstance().getCurrentGameState().getBoard().getScoredTiles();
         
         for (int r = 0; r < LeBloq::getInstance().getBoardSize().x; r++) {
             glPushMatrix();
@@ -255,13 +268,16 @@ void MainScene::display() {
                         glRotatef(90, 0, 1, 0);
                         glPushName(c);
                         
+                        _defaultAppearance->apply();
+                        
                         for (LeBloqTile tile : tiles)
                             if (tile.position.x == r && tile.position.y == c) {
-                                if (tile.scoringPlayer == 1) {
-                                    //  Set Red (hypothetical) Color
-                                } else {
-                                    //  Set Blue (hypothetical) Color
-                                }
+                                if (tile.scoringPlayer == 1)
+                                    _p1Appearance->apply();
+                                else if (tile.scoringPlayer == 2)
+                                    _p2Appearance->apply();
+                                
+                                break;
                             }
                         
                         obj->draw();

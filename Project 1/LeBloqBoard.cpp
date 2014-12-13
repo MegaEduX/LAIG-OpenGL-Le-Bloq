@@ -21,13 +21,15 @@
 #define PIECE_3_S   3
 
 char LeBloqBoard::_figurePieceOrientation(Coordinate2D coord) {
+    //  std::cout << "X: " << coord.x << " Y: " << coord.y << std::endl;
+    
     int type = _boardRepresentation[coord.y][coord.x];
     
-    if (_boardRepresentation[coord.y][coord.x + 3] == type)             //  Width  = 4
+    if (coord.x <= 7 && _boardRepresentation[coord.y][coord.x + 3] == type)             //  Width  = 4
         
         return ORIENT_H;
     
-    else if (_boardRepresentation[coord.y][coord.x + 2] == type) {      //  Width  = 3
+    else if (coord.x <= 8 && _boardRepresentation[coord.y][coord.x + 2] == type) {      //  Width  = 3
         
         if (_boardRepresentation[coord.y + 3][coord.x] == type)         //  Height = 4
             return ORIENT_V;
@@ -36,7 +38,7 @@ char LeBloqBoard::_figurePieceOrientation(Coordinate2D coord) {
         
     } else {                                                            //  Width  = 2
         
-        if (_boardRepresentation[coord.y + 3][coord.x] == type)         //  Height = 4
+        if (coord.y <= 7 && _boardRepresentation[coord.y + 3][coord.x] == type)         //  Height = 4
             return ORIENT_V;
         else                                                            //  Height = 3
             return ORIENT_V;
@@ -82,33 +84,27 @@ void LeBloqBoard::_removePieceFromBoard(std::vector<std::vector<int>> &board, Co
             
     }
     
-    for (; height; height--, coord.y++) { //  ¯\_(ツ)_/¯
-        //  std::cout << "[¯\\_(ツ)_/¯] height: " << height << ", x: " << coord.x << ", y: " << coord.y << "[¯\\_(ツ)_/¯]" << std::endl;
-    
-        for (int i = coord.x; i < coord.x + width; i++) {
-            //  std::cout << "[¯\\_(ツ)_/¯] x: " << coord.x << ", y: " << coord.y << ", i: " << i << "[¯\\_(ツ)_/¯]" << std::endl;
-            
+    for (; height; height--, coord.y++) //  ¯\_(ツ)_/¯
+        for (int i = coord.x; i < coord.x + width; i++)
             board[coord.y][i] = 0;
-        }
-    }
 }
 
 std::vector<LeBloqPiece> LeBloqBoard::getPieces() {
     std::vector<LeBloqPiece> pieces;
     
-    auto boardRep = _boardRepresentation;   //  Let's create a copy and mess with it.
+    std::vector< std::vector<int> > boardRep = _boardRepresentation;   //  Let's create a copy and mess with it.
     
     for (int i = 0; i < boardRep.size(); i++) {
-        auto line = boardRep[i];
+        std::vector<int> line = boardRep[i];
         
         for (int j = 0; j < line.size(); j++, line = boardRep[i]) {
-            auto piece = line[j];
+            int piece = line[j];
             
             if (piece > 0 && piece < 4) {
                 
                 //
                 //  We're forcibly at the (0, 0) of the piece,
-                //  let's just figure out it's orientation and
+                //  let's just figure out its orientation and
                 //  then remove it from the array.
                 //
                 
@@ -129,10 +125,10 @@ std::vector<LeBloqTile> LeBloqBoard::getScoredTiles() {
     std::vector<LeBloqTile> tiles;
     
     for (int i = 0; i < _boardRepresentation.size(); i++) {
-        auto line = _boardRepresentation[i];
+        std::vector<int> line = _boardRepresentation[i];
         
         for (int j = 0; j < line.size(); j++, line = _boardRepresentation[i]) {
-            auto tile = line[j];
+            int tile = line[j];
             
             if (tile > 3)
                 tiles.push_back(LeBloqTile(Coordinate2D(j, i), tile - 4));

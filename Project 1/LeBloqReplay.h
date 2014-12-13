@@ -39,12 +39,12 @@ public:
         if (!_playCount)
             throw new NoPlayedPiecesException("No pieces were played so far!");
             
-        auto pieces = _replayData.top().getBoard().getPieces();
+        std::vector<LeBloqPiece> pieces = _replayData.top().getBoard().getPieces();
         
         if (_playCount == 1)
             return pieces[0];
         
-        auto stateDiff = _replayData.top().getBoard() - _previousState.getBoard();
+        LeBloqBoard stateDiff = _replayData.top().getBoard() - _previousState.getBoard();
             
         return stateDiff.getPieces()[0];
     }
@@ -53,7 +53,7 @@ public:
         if (_playCount < 4)
             return std::vector<LeBloqTile>();
         
-        auto stateDiff = _replayData.top().getBoard() - _previousState.getBoard();
+        LeBloqBoard stateDiff = _replayData.top().getBoard() - _previousState.getBoard();
         
         return stateDiff.getScoredTiles();
     }

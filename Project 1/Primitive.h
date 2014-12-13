@@ -331,4 +331,18 @@ public:
     
 };
 
+class ScoreView : public Primitive {
+    
+    int _player;
+    
+public:
+    
+    ScoreView(int player) {
+        _player = player;
+    }
+    
+    void draw();
+    
+};
+
 #endif /* defined(__Project_1__Primitive__) */

@@ -75,22 +75,6 @@ public:
         return instance;
     }
     
-    /*  
-     
-     LeBloq(kLeBloqGameType gameType) {
-        _conn = new SocketClient(kDefaultAddress, kDefaultPort);
-        
-        _gameType = gameType;
-    }
-    
-    LeBloq(kLeBloqGameType gameType, std::string host, int port) {
-        _conn = new SocketClient(host, port);
-        
-        _gameType = gameType;
-    }   
-     
-     */
-    
     void setGameType(kLeBloqGameType gt) {
         _gameType = gt;
     }
@@ -117,6 +101,10 @@ public:
     
     unsigned int getTurnTimeElapsed() {
         return (unsigned int) time(NULL) - _turnStart;
+    }
+    
+    void undo() {
+        _gameStates.pop();
     }
     
     LeBloqState performPlay();

@@ -997,3 +997,9 @@ void Table::draw() {
     
     glPopMatrix();
 }
+
+void ScoreView::draw() {
+    //
+    //  A 2x2 rectangle with the score.
+    //
+}
