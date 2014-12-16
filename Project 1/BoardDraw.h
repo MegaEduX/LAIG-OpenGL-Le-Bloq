@@ -2,8 +2,8 @@
 //  BoardDraw.h
 //  Project 1
 //
-//  Created by Eduardo Almeida on 08/12/14.
-//  Copyright (c) 2014 Eduardo Almeida. All rights reserved.
+//  Created by Eduardo Almeida and Pedro Santiago on 08/12/14.
+//  Copyright (c) 2014 Eduardo Almeida and Pedro Santiago. All rights reserved.
 //
 
 #ifndef __Project_1__BoardDraw__

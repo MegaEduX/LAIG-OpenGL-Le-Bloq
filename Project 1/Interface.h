@@ -34,12 +34,11 @@ class Interface : public CGFinterface {
     
     ANFResult *_result;
     
-    GLUI_Rotation *_cameraRotationControl;
-    
     GLUI_RadioGroup *_difficultyRadioGroup;
     
     int _selectedDifficulty;
     
+    float *_liveZoom;
     float *_liveRotation;
     
 public:
@@ -48,6 +47,7 @@ public:
         _scene = s;
         _result = r;
         _liveRotation = (float *) malloc(16 * sizeof(float));
+        _liveZoom = (float *) malloc(sizeof(float));
         
         for (int i = 0; i < 16; i++)
             _liveRotation[i] = 0.0f;
@@ -65,6 +65,10 @@ public:
     
     float * getRotation() {
         return _liveRotation;
+    }
+    
+    float * getZoom() {
+        return _liveZoom;
     }
     
 };

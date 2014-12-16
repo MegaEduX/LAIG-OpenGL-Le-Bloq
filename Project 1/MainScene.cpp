@@ -14,17 +14,15 @@
 
 #include "ANFLoader.h"
 
-#define NO_ANF_CAMERAS        0
+#include "Interface.h"
 
-#define DRAW_AXIS             1
+#define NO_ANF_CAMERAS    0
 
-#define ENABLE_PICKING        1
+#define DRAW_AXIS         1
 
-#define DEFAULT_NAME        - 1
+#define ENABLE_PICKING    1
 
-#if ENABLE_PICKING
-
-#endif
+#define DEFAULT_NAME    - 1
 
 MainScene::MainScene(ANFResult *result) {
     _anf = result;
@@ -169,6 +167,9 @@ void MainScene::display() {
     
     glLoadIdentity();
     
+    glMultMatrixf(_interface->getRotation());
+    glTranslatef(0.0f, *(_interface->getZoom()), *(_interface->getZoom()));
+    
     CGFscene::activeCamera->applyView();
     
 	for (int i = 0; i < _anf->lights.size(); i++)
@@ -192,110 +193,136 @@ void MainScene::display() {
         glPopMatrix();
     }
     
-    //  if gamestate == ended, do not draw the following and draw a congratulations screen.
-    
 #if ENABLE_PICKING
     
-    if (_bd == nullptr) {
-        PieceNode *bdn = nullptr;
+    if (!LeBloq::getInstance().getCurrentGameState().getPlaying()) {
         
-        for (Node *n : _anf->graphs[0]->getNodes()) {
-            if (dynamic_cast<PieceNode *>(n)) {
-                bdn = (PieceNode *) n;
-                
-                break;
-            }
-        }
+        Text *test = new Text("Game Over, Player 2 -> You SUCK!", Coordinate3D(0.0f, 0.0f, 0.0f), {.r = 0.0f, .g = 1.0f, .b = 0.0f}, GLUT_BITMAP_TIMES_ROMAN_24);
         
-        if (!bdn) {
-            std::cout << "This can not happen! Throw an exception here!" << std::endl;
+        test->draw();
+        
+    } else {
+        
+        ScoreView *scoreView = new ScoreView(0);
+        
+        scoreView->draw();
+        
+        if (_bd == nullptr) {
+            PieceNode *bdn = nullptr;
             
-            return;
-        }
-        
-        _bd = new BoardDraw(bdn, Coordinate3D(1.5, 1.5, 1.5), 2, 0.5); //  arbitrary values
-    }
-    
-    glPushMatrix();
-    
-    {
-        glTranslated(30, 55, 30);
-        
-        _bd->draw();
-    }
-    
-    glPopMatrix();
-    
-    Rectangle *obj = new Rectangle(Coordinate2D(0, 0), Coordinate2D(2, 2));
-
-    glPushMatrix();
-    
-    {
-        glRotated(-90, 0, 0, 1);
-        glTranslated(-57.5, 30, 30);
-        
-        glPushName(DEFAULT_NAME);
-        
-        for (int i = 0; i < 3; i++) {
-            glPushMatrix();
-            
-            {
-                glTranslatef(0, i * 5, -5);
-                glRotatef(90, 0, 1, 0);
-                
-                glLoadName(i * 500);		//  Replaces the value on top of the name stack
-                
-                obj->draw();
-            }
-            
-            glPopMatrix();
-        }
-        
-        std::vector<LeBloqTile> tiles = LeBloq::getInstance().getCurrentGameState().getBoard().getScoredTiles();
-        
-        for (int r = 0; r < LeBloq::getInstance().getBoardSize().x; r++) {
-            glPushMatrix();
-            
-            {
-                glTranslatef(0, r * 2.2, 0);
-                glLoadName(r);
-                
-                for (int c = 0; c < LeBloq::getInstance().getBoardSize().y; c++) {
-                    glPushMatrix();
+            for (Node *n : _anf->graphs[0]->getNodes()) {
+                if (dynamic_cast<PieceNode *>(n)) {
+                    bdn = (PieceNode *) n;
                     
-                    {
-                        glTranslatef(0, 0, (c + 1) * 2.2);
-                        glRotatef(90, 0, 1, 0);
-                        glPushName(c);
-                        
-                        _defaultAppearance->apply();
-                        
-                        for (LeBloqTile tile : tiles)
-                            if (tile.position.x == r && tile.position.y == c) {
-                                if (tile.scoringPlayer == 1)
-                                    _p1Appearance->apply();
-                                else if (tile.scoringPlayer == 2)
-                                    _p2Appearance->apply();
-                                
-                                break;
-                            }
-                        
-                        obj->draw();
-                        
-                        glPopName();
-                    }
-                    
-                    glPopMatrix();
+                    break;
                 }
             }
             
+            if (!bdn) {
+                std::cout << "This can not happen! Throw an exception here!" << std::endl;
+                
+                return;
+            }
+            
+            _bd = new BoardDraw(bdn, Coordinate3D(1.5, 1.5, 1.5), 2, 0.5); //  arbitrary values
+            
+            glPushMatrix();
+            
+            {
+                //    where the piece will be placed
+                //  this needs to stop being hardcoded
+                
+                glTranslated(40, 55, 30);
+                
+                bdn->setPiece(LeBloq::getInstance().workingPiece);
+                bdn->draw();
+            }
+            
             glPopMatrix();
         }
+        
+        glPushMatrix();
+        
+        {
+            glTranslated(30, 55, 30);
+            
+            _bd->draw();
+        }
+        
+        glPopMatrix();
+        
+        Rectangle *obj = new Rectangle(Coordinate2D(0, 0), Coordinate2D(2, 2));
+        
+        glPushMatrix();
+        
+        {
+            glRotated(-90, 0, 0, 1);
+            glTranslated(-57.5, 30, 30);
+            
+            glPushName(DEFAULT_NAME);
+            
+            for (int i = 0; i < 3; i++) {
+                glPushMatrix();
+                
+                {
+                    glTranslatef(0, i * 5, -5);
+                    glRotatef(90, 0, 1, 0);
+                    
+                    glLoadName(i * 500);		//  Replaces the value on top of the name stack
+                    
+                    obj->draw();
+                }
+                
+                glPopMatrix();
+            }
+            
+            std::vector<LeBloqTile> tiles = LeBloq::getInstance().getCurrentGameState().getBoard().getScoredTiles();
+            
+            for (int r = 0; r < LeBloq::getInstance().getBoardSize().x; r++) {
+                glPushMatrix();
+                
+                {
+                    glTranslatef(0, r * 2.2, 0);
+                    glLoadName(r);
+                    
+                    for (int c = 0; c < LeBloq::getInstance().getBoardSize().y; c++) {
+                        glPushMatrix();
+                        
+                        {
+                            glTranslatef(0, 0, (c + 1) * 2.2);
+                            glRotatef(90, 0, 1, 0);
+                            glPushName(c);
+                            
+                            _defaultAppearance->apply();
+                            
+                            for (LeBloqTile tile : tiles)
+                                if (tile.position.x == r && tile.position.y == c) {
+                                    if (tile.scoringPlayer == 1)
+                                        _p1Appearance->apply();
+                                    else if (tile.scoringPlayer == 2)
+                                        _p2Appearance->apply();
+                                    
+                                    break;
+                                }
+                            
+                            obj->draw();
+                            
+                            glPopName();
+                        }
+                        
+                        glPopMatrix();
+                    }
+                }
+                
+                glPopMatrix();
+            }
+        }
+        
+        glPopMatrix();
+        
+        delete obj;
+        
     }
-    
-    glPopMatrix();
-    
-    delete obj;
     
 #endif
     

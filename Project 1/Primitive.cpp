@@ -9,6 +9,11 @@
 #ifdef _WIN32
 
 #include <GL/glew.h>
+#include <GL/glut.h>
+
+#else
+
+#include <GLUT/GLUT.h>
 
 #endif
 
@@ -19,6 +24,8 @@
 #include "GraphicalMath.h"
 
 #include "Global.h"
+
+#include "LeBloq.h"
 
 void Rectangle::draw() {
     float texSizeS = abs((long) (_point1.x - _point2.x)) / _texCoords.x;
@@ -1002,4 +1009,42 @@ void ScoreView::draw() {
     //
     //  A 2x2 rectangle with the score.
     //
+    
+    glPushMatrix();
+    
+    {
+        _rectangle = new Rectangle(Coordinate2D(0, 0), Coordinate2D(4, 4));
+        
+        _rectangle->draw();
+        
+        Text text = Text(std::to_string(LeBloq::getInstance().getCurrentGameState().getBoard().getScoringForPlayer(1)), Coordinate3D(1, 0, 1), {.r = 1, .g = 0, .b = 0}, GLUT_BITMAP_HELVETICA_18);
+        
+        text.draw();
+        
+        text = Text(std::to_string(LeBloq::getInstance().getCurrentGameState().getBoard().getScoringForPlayer(2)), Coordinate3D(2, 0, 1), {.r = 1, .g = 0, .b = 0}, GLUT_BITMAP_HELVETICA_18);
+        
+        text.draw();
+    }
+    
+    glPopMatrix();
+}
+
+void Text::draw() {
+    glDisable(GL_LIGHTING);
+    glDisable(GL_TEXTURE_2D);
+    
+    glPushMatrix();
+    
+    {
+        glColor3f(_col.r, _col.g, _col.b);
+        glRasterPos3f(_pos.x, _pos.y, _pos.z);
+        
+        for (int i = 0; i < _text.length(); i++)
+            glutBitmapCharacter(_glutFont, _text[i]);
+    }
+    
+    glPopMatrix();
+    
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_LIGHTING);
 }

@@ -26,20 +26,6 @@ GLuint selectBuf[256];
 void Interface::initGUI() {
     int id = 0;
     
-    /*
-     
-    GLUI_Panel *drawingPanel = addPanel(const_cast<char *>(std::string("Drawing Style").c_str()), 1);
-    
-    addButtonToPanel(drawingPanel, const_cast<char *>(std::string("Point").c_str()), kDrawingModePoint);
-    
-    addButtonToPanel(drawingPanel, const_cast<char *>(std::string("Line").c_str()), kDrawingModeLine);
-    
-    addButtonToPanel(drawingPanel, const_cast<char *>(std::string("Fill").c_str()), kDrawingModeFill);
-    
-    addColumn();
-     
-    */
-    
     GLUI_Panel *lightsPanel = addPanel(const_cast<char *>(std::string("Lights").c_str()), 1);
     
     id = 10;
@@ -55,61 +41,6 @@ void Interface::initGUI() {
     }
     
     addColumn();
-    
-    /*
-    
-    GLUI_Panel *camerasPanel = addPanel(const_cast<char *>(std::string("Camera").c_str()), 1);
-    
-    id = 100;
-    
-	for (int i = 0; i < _result->cameras.size(); i++) {
-		Camera *c = _result->cameras[i];
-
-        addButtonToPanel(camerasPanel, const_cast<char *>(c->getId().c_str()), id);
-        
-        id++;
-    }
-    
-    addColumn();
-    
-    GLUI_Panel *animatePanel = addPanel(const_cast<char *>(std::string("Animate").c_str()), 1);
-    
-    id = 200;
-    
-    for (int i = 0; i < _result->animations.size(); i++) {
-        Animation *a = _result->animations[i];
-        
-        if (!a->getHidden())
-            addButtonToPanel(animatePanel, const_cast<char *>(a->getId().c_str()), id);
-        
-        id++;
-    }
-    
-    addColumn();
-    
-    id = 300;
-    
-    GLUI_Panel *windPanel = addPanel(const_cast<char *>(std::string("Wind").c_str()), 1);
-    
-    GLUI_Spinner *spinner = addSpinnerToPanel(windPanel, const_cast<char *>(std::string("Wind").c_str()), 2, NULL, id);
-    
-    spinner->set_int_limits(0, 9);
-    
-    spinner->set_int_val(0);
-    
-    addColumn();
-    
-    id = 400;
-    
-    GLUI_Panel *dpPanel = addPanel(const_cast<char *>(std::string("Display Lists").c_str()), 1);
-    
-    GLUI_Checkbox *checkbox = addCheckboxToPanel(dpPanel, const_cast<char *>("Use"), nullptr, id);
-    
-    checkbox->set_int_val(1);
-    
-    addColumn();
-    
-    */
     
     id = 500;
     
@@ -157,14 +88,21 @@ void Interface::initGUI() {
     
     GLUI_Panel *ccPanel = addPanel(const_cast<char *>(std::string("Camera Control").c_str()), 1);
     
-    GLUI_Rotation *rot = _cameraRotationControl = addRotationToPanel(ccPanel, const_cast<char *>(std::string("Board").c_str()), _liveRotation);
+    GLUI_Rotation *rot = addRotationToPanel(ccPanel, const_cast<char *>(std::string("Board").c_str()), _liveRotation);
+    
+    rot->set_spin(1.0f);
     
     rot->reset();
     
-    _cameraRotationControl->set_id(700);
+    GLUI_Translation *zoom = addTranslationToPanel(ccPanel, const_cast<char *>(std::string("Zoom").c_str()), GLUI_TRANSLATION_Y, _liveZoom);
+    
+    zoom->set_speed(0.2f);
 }
 
 void Interface::processGUI(GLUI_Control *ctrl) {
+    if (ctrl->user_id == -1)
+        return;
+    
     if (ctrl->user_id < 10) {
         
         DrawingSettings *ds = Globals::getInstance().getDrawingSettings();
@@ -295,9 +233,9 @@ void Interface::processGUI(GLUI_Control *ctrl) {
         
         std::cout << "camera control" << std::endl;
         
-        float ballRotation[16];
+        //  float ballRotation[16];
         
-        _cameraRotationControl->get_float_array_val(ballRotation);
+        //  _cameraRotationControl->get_float_array_val(ballRotation);
         
         std::cout << "rot" << std::endl;
         

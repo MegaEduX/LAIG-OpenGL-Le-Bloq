@@ -18,7 +18,7 @@ class GraphicalObject {
 public:
     
     GraphicalObject() {
-        
+        _id = "";
     }
     
     GraphicalObject(std::string anId) {

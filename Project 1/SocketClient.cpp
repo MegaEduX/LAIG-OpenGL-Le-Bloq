@@ -2,9 +2,11 @@
 //  SocketClient.cpp
 //  Project 1
 //
-//  Created by Eduardo Almeida on 27/11/14.
-//  Copyright (c) 2014 Eduardo Almeida. All rights reserved.
+//  Created by Eduardo Almeida and Pedro Santiago on 27/11/14.
+//  Copyright (c) 2014 Eduardo Almeida and Pedro Santiago. All rights reserved.
 //
+
+#define SOCKETS_ENABLED 1
 
 #include "SocketClient.h"
 
@@ -19,6 +21,8 @@
 #include <ctype.h>
 
 char nclient[64];
+
+#if SOCKETS_ENABLED
 
 SocketClient::SocketClient(std::string host, int port) {
     struct sockaddr_in server;
@@ -58,3 +62,17 @@ std::string SocketClient::read() {
 SocketClient::~SocketClient() {
     close(_sockfd);
 }
+
+#else
+
+SocketClient::SocketClient(std::string host, int port) {}
+
+void SocketClient::write(std::string data) {}
+
+std::string SocketClient::read() {
+    return "";
+}
+
+SocketClient::~SocketClient() {}
+
+#endif

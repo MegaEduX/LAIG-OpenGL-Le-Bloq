@@ -2,8 +2,8 @@
 //  LeBloqReplay.h
 //  Project 1
 //
-//  Created by Eduardo Almeida on 30/11/14.
-//  Copyright (c) 2014 Eduardo Almeida. All rights reserved.
+//  Created by Eduardo Almeida and Pedro Santiago on 30/11/14.
+//  Copyright (c) 2014 Eduardo Almeida and Pedro Santiago. All rights reserved.
 //
 
 #ifndef __Project_1__LeBloqReplay__

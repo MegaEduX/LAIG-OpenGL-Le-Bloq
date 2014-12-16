@@ -96,10 +96,10 @@ void ReferenceParser::parseReferences(ANFResult *r) {
 					
                     bool foundNode = false;
 
-					for (int l = 0; g->getNodes().size(); l++) {
+					for (int l = 0; l < g->getNodes().size(); l++) {
 						Node *n2 = g->getNodes()[l];
 						
-                        if (n2->getId() == nr) {
+                        if (n2 && n2->getId() == nr) {
                             n->addDescendant(n2);
                             
                             if (n->getId() == n2->getId())

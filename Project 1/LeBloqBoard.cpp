@@ -2,8 +2,8 @@
 //  LeBloqBoard.cpp
 //  Project 1
 //
-//  Created by Eduardo Almeida on 29/11/14.
-//  Copyright (c) 2014 Eduardo Almeida. All rights reserved.
+//  Created by Eduardo Almeida and Pedro Santiago on 29/11/14.
+//  Copyright (c) 2014 Eduardo Almeida and Pedro Santiago. All rights reserved.
 //
 
 #include "LeBloqBoard.h"
@@ -113,7 +113,6 @@ std::vector<LeBloqPiece> LeBloqBoard::getPieces() {
                 _removePieceFromBoard(boardRep, Coordinate2D(j, i));
                 
                 pieces.push_back(LeBloqPiece(Coordinate2D(j, i), piece, orientation));
-                
             }
         }
     }
@@ -137,4 +136,16 @@ std::vector<LeBloqTile> LeBloqBoard::getScoredTiles() {
     }
     
     return tiles;
+}
+
+unsigned int LeBloqBoard::getScoringForPlayer(int player) {
+    unsigned int score = 0;
+    
+    std::vector<LeBloqTile> scoredTiles = getScoredTiles();
+    
+    for (int i = 0; i < scoredTiles.size(); i++)
+        if (scoredTiles[i].scoringPlayer == player)
+            score++;
+    
+    return score;
 }

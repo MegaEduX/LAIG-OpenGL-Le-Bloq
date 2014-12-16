@@ -335,10 +335,37 @@ class ScoreView : public Primitive {
     
     int _player;
     
+    Rectangle *_rectangle;
+    
 public:
     
     ScoreView(int player) {
         _player = player;
+    }
+    
+    void draw();
+    
+};
+
+class Text : public Primitive {
+    
+    std::string _text;
+    
+    Coordinate3D _pos;
+    
+    kColorRGB _col;
+    
+    void *_glutFont;
+    
+public:
+    
+    Text(std::string text, Coordinate3D position, kColorRGB color, void *glutFont) {
+        _text = text;
+        
+        _pos = position;
+        _col = color;
+        
+        _glutFont = glutFont;
     }
     
     void draw();

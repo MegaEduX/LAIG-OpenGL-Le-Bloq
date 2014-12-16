@@ -22,6 +22,8 @@
 
 _BUILD_GRAPHICAL_EXCEPTION(MainSceneCreationException, GraphicalException);
 
+class Interface;
+
 class MainScene : public CGFscene {
     
     double _lastUpdateValue;
@@ -46,6 +48,8 @@ class MainScene : public CGFscene {
     
     Appearance *_defaultAppearance;
     
+    Interface *_interface;
+    
 public:
     
     MainScene(ANFResult *);
@@ -56,6 +60,10 @@ public:
     void update(unsigned long);
     
     void reloadANF();
+    
+    void setInterface(Interface *i) {
+        _interface = i;
+    }
     
     ~MainScene();
     

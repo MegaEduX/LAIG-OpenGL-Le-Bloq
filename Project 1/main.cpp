@@ -39,7 +39,7 @@ int main(int argc, const char * argv[]) {
     
 #if kUseDefaultPath
     
-    ANFLoader::getInstance().setANFPath("/Users/MegaEduX/proj3-test/Sample.anf");
+    ANFLoader::getInstance().setANFPath("/Users/MegaEduX/anf-for-project-3/Sample.anf");
     
     result = ANFLoader::getInstance().loadANF();
 
@@ -80,6 +80,8 @@ int main(int argc, const char * argv[]) {
         MainScene *scene = new MainScene(result);
         
         Interface *interface = new Interface(scene, result);
+        
+        scene->setInterface(interface);
         
         app.setScene(scene);
         app.setInterface(interface);
