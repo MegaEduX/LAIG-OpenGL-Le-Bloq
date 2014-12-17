@@ -46,6 +46,8 @@ void MainScene::init() {
     
     _loadedMatrixes = false;
     
+    _marker = nullptr;
+    
     _lastUpdateValue = 0;
     
     _p1Appearance = new Appearance(1.0f);
@@ -203,43 +205,46 @@ void MainScene::display() {
         
     } else {
         
-        ScoreView *scoreView = new ScoreView(0);
-        
-        scoreView->draw();
-        
         if (_bd == nullptr) {
-            PieceNode *bdn = nullptr;
+            _bdn = nullptr;
             
             for (Node *n : _anf->graphs[0]->getNodes()) {
                 if (dynamic_cast<PieceNode *>(n)) {
-                    bdn = (PieceNode *) n;
+                    _bdn = (PieceNode *) n;
                     
                     break;
                 }
             }
             
-            if (!bdn) {
+            if (!_bdn) {
                 std::cout << "This can not happen! Throw an exception here!" << std::endl;
                 
                 return;
             }
             
-            _bd = new BoardDraw(bdn, Coordinate3D(1.5, 1.5, 1.5), 2, 0.5); //  arbitrary values
-            
-            glPushMatrix();
-            
-            {
-                //    where the piece will be placed
-                //  this needs to stop being hardcoded
-                
-                glTranslated(40, 55, 30);
-                
-                bdn->setPiece(LeBloq::getInstance().workingPiece);
-                bdn->draw();
-            }
-            
-            glPopMatrix();
+            _bd = new BoardDraw(_bdn, Coordinate3D(1.5, 1.5, 1.5), 2, 0.5); //  arbitrary values
         }
+        
+        if (_marker == nullptr) {
+            _marker = new PieceNode(*_bdn);
+            
+            _marker->setPiece(LeBloq::getInstance().workingPiece);
+        }
+        
+        glPushMatrix();
+        
+        {
+            //    where the piece will be placed
+            //  this needs to stop being hardcoded
+            
+            glTranslated(50, 55, 22);
+            
+            _marker->draw();
+            
+#warning check if animation is working
+        }
+        
+        glPopMatrix();
         
         glPushMatrix();
         
@@ -316,6 +321,16 @@ void MainScene::display() {
                 
                 glPopMatrix();
             }
+        }
+        
+        glPopMatrix();
+        
+        glPushMatrix();
+        
+        {
+            ScoreView *scoreView = new ScoreView(0);
+            
+            scoreView->draw();
         }
         
         glPopMatrix();

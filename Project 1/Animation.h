@@ -149,6 +149,10 @@ class LinearAnimation : public Animation {
     
 public:
     
+    LinearAnimation(float span) : Animation("", span) {
+        
+    }
+    
     LinearAnimation(std::string id, float span) : Animation(id, span) {
         
     }

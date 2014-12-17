@@ -335,9 +335,27 @@ void Interface::processHits(GLint hits, GLuint buffer[]) {
             LeBloq::getInstance().workingPiece.position = Coordinate2D(selected[0], selected[1]);
             
             try {
+                
                 LeBloq::getInstance().performPlay();
+                
+                if (_scene->getMarker()) {
+                    LinearAnimation *ani = new LinearAnimation(1.0f);
+                    
+                    Coordinate3D stp = Coordinate3D(0, 0, 0);   //  replace with starting point
+                    Coordinate3D endp = Coordinate3D(0, 0, 0);  //  replace with ending point
+                    
+                    ani->addControlPoint(stp);
+                    ani->addControlPoint(stp + Coordinate3D(0, 2, 0));
+                    ani->addControlPoint(endp + Coordinate3D(0, 2, 0));
+                    ani->addControlPoint(endp);
+                    
+                    ani->start();
+                }
+                
             } catch (LeBloqBoardPlayException *exc) {
+                
                 std::cout << "Invalid Play!" << std::endl;
+                
             }
             
         }

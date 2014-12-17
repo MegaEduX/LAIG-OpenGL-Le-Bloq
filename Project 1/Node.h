@@ -69,6 +69,42 @@ public:
         init();
     }
     
+    Node(const Node &anotherNode) {
+        _transforms = anotherNode._transforms;
+        _primitives = anotherNode._primitives;
+        _descendants = anotherNode._descendants;
+        
+        _parent = anotherNode._parent;
+        _appearance = anotherNode._appearance;
+        _animation = anotherNode._animation;
+        
+        _inheritedAppearance = anotherNode._inheritedAppearance;
+        _usesDisplayList = anotherNode._usesDisplayList;
+        
+        _displayListId = anotherNode._displayListId;
+        _delayListCreationCounter = anotherNode._delayListCreationCounter;
+        
+        _matrix[0][0] = anotherNode._matrix[0][0];
+        _matrix[0][1] = anotherNode._matrix[0][1];
+        _matrix[0][2] = anotherNode._matrix[0][2];
+        _matrix[0][3] = anotherNode._matrix[0][3];
+        
+        _matrix[1][0] = anotherNode._matrix[1][0];
+        _matrix[1][1] = anotherNode._matrix[1][1];
+        _matrix[1][2] = anotherNode._matrix[1][2];
+        _matrix[1][3] = anotherNode._matrix[1][3];
+        
+        _matrix[2][0] = anotherNode._matrix[2][0];
+        _matrix[2][1] = anotherNode._matrix[2][1];
+        _matrix[2][2] = anotherNode._matrix[2][2];
+        _matrix[2][3] = anotherNode._matrix[2][3];
+        
+        _matrix[3][0] = anotherNode._matrix[3][0];
+        _matrix[3][1] = anotherNode._matrix[3][1];
+        _matrix[3][2] = anotherNode._matrix[3][2];
+        _matrix[3][3] = anotherNode._matrix[3][3];
+    }
+    
     void init() {
         _inheritedAppearance = false;
         
@@ -289,9 +325,13 @@ public:
 
 class PieceNode : public Node {
     
-    LeBloqPiece representingPiece;
+    LeBloqPiece _representingPiece;
     
 public:
+    
+    PieceNode(const PieceNode &anotherNode) : Node(anotherNode) {
+        _representingPiece = anotherNode._representingPiece;
+    }
     
     PieceNode() : Node() {
         
@@ -302,11 +342,11 @@ public:
     }
     
     LeBloqPiece getPiece() {
-        return representingPiece;
+        return _representingPiece;
     }
     
     void setPiece(LeBloqPiece p) {
-        representingPiece = p;
+        _representingPiece = p;
     }
     
     void draw() {
@@ -316,7 +356,7 @@ public:
             for (int i = 0; i < _transforms.size(); i++)
                 _transforms[i]->apply();
             
-            Coordinate3D dim = representingPiece.getDimensions();
+            Coordinate3D dim = _representingPiece.getDimensions();
             
             glScaled(dim.x, dim.y, dim.z);
             

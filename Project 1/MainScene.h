@@ -32,6 +32,10 @@ class MainScene : public CGFscene {
     
     BoardDraw *_bd;
     
+    PieceNode *_bdn;
+    
+    PieceNode *_marker;
+    
     void _setupFromANF();
     
     Camera *_lastGoodCamera;
@@ -63,6 +67,10 @@ public:
     
     void setInterface(Interface *i) {
         _interface = i;
+    }
+    
+    PieceNode *getMarker() {
+        return _marker;
     }
     
     ~MainScene();

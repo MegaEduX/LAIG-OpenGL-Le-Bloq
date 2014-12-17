@@ -1013,15 +1013,15 @@ void ScoreView::draw() {
     glPushMatrix();
     
     {
-        _rectangle = new Rectangle(Coordinate2D(0, 0), Coordinate2D(4, 4));
+        _rectangle = new Rectangle(Coordinate2D(0, 0), Coordinate2D(5, 5));
         
         _rectangle->draw();
         
-        Text text = Text(std::to_string(LeBloq::getInstance().getCurrentGameState().getBoard().getScoringForPlayer(1)), Coordinate3D(1, 0, 1), {.r = 1, .g = 0, .b = 0}, GLUT_BITMAP_HELVETICA_18);
+        Text text = Text(std::to_string(LeBloq::getInstance().getCurrentGameState().getBoard().getScoringForPlayer(1)), Coordinate3D(1, 2.5, 1), {.r = 1, .g = 0, .b = 0}, GLUT_BITMAP_HELVETICA_18);
         
         text.draw();
         
-        text = Text(std::to_string(LeBloq::getInstance().getCurrentGameState().getBoard().getScoringForPlayer(2)), Coordinate3D(2, 0, 1), {.r = 1, .g = 0, .b = 0}, GLUT_BITMAP_HELVETICA_18);
+        text = Text(std::to_string(LeBloq::getInstance().getCurrentGameState().getBoard().getScoringForPlayer(2)), Coordinate3D(3, 2.5, 1), {.r = 1, .g = 0, .b = 0}, GLUT_BITMAP_HELVETICA_18);
         
         text.draw();
     }
