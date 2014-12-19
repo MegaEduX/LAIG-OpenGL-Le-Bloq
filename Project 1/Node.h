@@ -353,32 +353,18 @@ public:
         glPushMatrix();
         
         {
+            if (_animation != nullptr && _animation->getAnimating())
+                if (_animation->getLastAnimationResult() != nullptr)
+                    glTranslated(_animation->getLastAnimationResult()->x,
+                                 _animation->getLastAnimationResult()->y,
+                                 _animation->getLastAnimationResult()->z);
+                
             for (int i = 0; i < _transforms.size(); i++)
                 _transforms[i]->apply();
             
             Coordinate3D dim = _representingPiece.getDimensions();
             
             glScaled(dim.x, dim.y, dim.z);
-            
-            if (_animation != nullptr && _animation->getAnimating()) {
-                if (_animation->getLastAnimationResult() != nullptr)
-                    glTranslated(_animation->getLastAnimationResult()->x,
-                                 _animation->getLastAnimationResult()->y,
-                                 _animation->getLastAnimationResult()->z);
-                
-                for (int i = 0; i < _transforms.size(); i++)
-                    if (dynamic_cast<Scale *>(_transforms[i]))
-                        _transforms[i]->apply();
-                
-                for (int i = 0; i < _transforms.size(); i++)
-                    if (dynamic_cast<Rotate *>(_transforms[i]))
-                        _transforms[i]->apply();
-                
-                if (_animation->getLastRotation() != 0)
-                    glRotatef(_animation->getLastRotation(), 0, 1, 0);
-            } /*else
-                for (int i = 0; i < _transforms.size(); i++)
-                    _transforms[i]->apply();*/
             
             glBindTexture(GL_TEXTURE_2D, 0);
             

@@ -78,6 +78,9 @@ void MainScene::update(unsigned long t) {
     
     for (int i = 0; i < _anf->animations.size(); i++)
         _anf->animations[i]->animate(diff);
+    
+    if (_marker && _marker->getAnimation())
+        _marker->getAnimation()->animate(diff);
 }
 
 void MainScene::_setupFromANF() {
@@ -110,6 +113,40 @@ void MainScene::reloadANF() {
     _setupFromANF();
     
     _criticalSection = false;
+}
+
+void MainScene::animateLatestPlay() {
+    if (_marker) {
+        Coordinate3D drawPos(30, 55, 30);
+        Coordinate3D markerPos(50, 55, 22);
+        
+        int diff = 2 + 0.5;
+        
+        LeBloqBoard currentBoard = LeBloq::getInstance().getCurrentGameState().getBoard();
+        LeBloqBoard latestBoard = LeBloq::getInstance().getPreviousGameState().getBoard();
+        LeBloqBoard difference = currentBoard - latestBoard;
+        
+        LeBloqPiece p = difference.getPieces()[0];
+        
+        drawPos.x += p.position.x * diff;
+        drawPos.z += p.position.y * diff;
+        
+        drawPos = drawPos - markerPos;
+        
+        LinearAnimation *ani = new LinearAnimation(1.0f);
+        
+        Coordinate3D stp = Coordinate3D(0, 0, 0);   //  replace with starting point
+        Coordinate3D endp = drawPos;                //  replace with ending point
+        
+        ani->addControlPoint(stp);
+        ani->addControlPoint(stp + Coordinate3D(0, 5, 0));
+        ani->addControlPoint(endp + Coordinate3D(0, 5, 0));
+        ani->addControlPoint(endp);
+        
+        ani->start();
+        
+        _marker->setAnimation(ani);
+    }
 }
 
 void MainScene::display() {
@@ -222,14 +259,48 @@ void MainScene::display() {
                 return;
             }
             
-            _bd = new BoardDraw(_bdn, Coordinate3D(1.5, 1.5, 1.5), 2, 0.5); //  arbitrary values
+            _bd = new BoardDraw(_bdn, Coordinate3D(0.0, 0.0, 0.0), 2, 0.5); //  arbitrary values
         }
         
-        if (_marker == nullptr) {
-            _marker = new PieceNode(*_bdn);
+        bool animating = false;
+        
+        if (_marker && _marker->getAnimation() && _marker->getAnimation()->getAnimating()) {
+            _bd->setOverride(LeBloq::getInstance().getPreviousGameState());
             
-            _marker->setPiece(LeBloq::getInstance().workingPiece);
+            animating = true;
         }
+        
+        if (!animating) {
+            switch (LeBloq::getInstance().getGameType()) {
+                case kLeBloqGameTypeAIVsAI:
+                    
+                    LeBloq::getInstance().performPlayAI();
+                    
+                    animateLatestPlay();
+                    
+                    break;
+                    
+                case kLeBloqGameTypePlayerVsAI_Easy:
+                case kLeBloqGameTypePlayerVsAI_Hard:
+                    
+                    if (LeBloq::getInstance().getCurrentGameState().getPlayer() != 1) {
+                        LeBloq::getInstance().performPlayAI();
+                        
+                        animateLatestPlay();
+                    }
+                    
+                    break;
+                    
+                default:
+                    
+                    break;
+            }
+        }
+        
+        if (_marker == nullptr)
+            _marker = new PieceNode(*_bdn);
+        
+        _marker->setPiece(LeBloq::getInstance().workingPiece);
         
         glPushMatrix();
         
@@ -240,8 +311,6 @@ void MainScene::display() {
             glTranslated(50, 55, 22);
             
             _marker->draw();
-            
-#warning check if animation is working
         }
         
         glPopMatrix();

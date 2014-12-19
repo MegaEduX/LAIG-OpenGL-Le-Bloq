@@ -78,6 +78,18 @@ LeBloqState LeBloq::getCurrentGameState() {
     return _gameStates.top();
 }
 
+LeBloqState LeBloq::getPreviousGameState() {
+    LeBloqState cs = getCurrentGameState();
+    
+    _gameStates.pop();
+    
+    LeBloqState ret = getCurrentGameState();
+    
+    _gameStates.push(cs);
+    
+    return ret;
+}
+
 LeBloqState LeBloq::performPlay() {
     return performPlay(workingPiece);
 }
@@ -88,6 +100,25 @@ LeBloqState LeBloq::performPlay(LeBloqPiece piece) {
 
 LeBloqState LeBloq::performPlay(int pieceType, char pieceOrientation, Coordinate2D piecePos) {
     std::string message = (_gameStates.size() == 1 ? "playFT(" : "play(") + PrologParser::boardRepresentationToProlog(getCurrentGameState().getBoard().getBoardRepresentation()) + "," + std::to_string(pieceType) + "," + pieceOrientation + "," + std::to_string((int) piecePos.x) + "," + std::to_string((int) piecePos.y) + "," + std::to_string(getCurrentGameState().getPlayer()) + "," + std::to_string(_boardSizeX) + "," + std::to_string(_boardSizeY) + ").";
+    
+    _conn->write(message);
+    
+    std::string answer = _conn->read();
+    
+    if (answer.find("fail") != std::string::npos || answer.find("ok(") == std::string::npos)
+        throw new LeBloqBoardPlayException("Unable to perform play: " + answer);
+    
+    _conn->write(message);
+    
+    LeBloqState state = _parseOK(answer);
+    
+    _turnStart = (unsigned int) time(NULL);
+    
+    return state;
+}
+
+LeBloqState LeBloq::performPlayAI() {
+    std::string message = (_gameStates.size() == 1 ? "playAIFT(" : "playAI(") + PrologParser::boardRepresentationToProlog(getCurrentGameState().getBoard().getBoardRepresentation()) + "," + std::to_string(getCurrentGameState().getPlayer()) + "," + std::to_string(_boardSizeX) + "," + std::to_string(_boardSizeY) + ").";
     
     _conn->write(message);
     

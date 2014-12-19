@@ -65,6 +65,8 @@ public:
     
     void reloadANF();
     
+    void animateLatestPlay();
+    
     void setInterface(Interface *i) {
         _interface = i;
     }

@@ -339,17 +339,29 @@ void Interface::processHits(GLint hits, GLuint buffer[]) {
                 LeBloq::getInstance().performPlay();
                 
                 if (_scene->getMarker()) {
+                    Coordinate3D drawPos(30, 55, 30);
+                    Coordinate3D markerPos(50, 55, 22);
+                    
+                    int diff = 2 + 0.5;
+                    
+                    drawPos.x += selected[0] * diff;
+                    drawPos.z += selected[1] * diff;
+                    
+                    drawPos = drawPos - markerPos;
+                    
                     LinearAnimation *ani = new LinearAnimation(1.0f);
                     
                     Coordinate3D stp = Coordinate3D(0, 0, 0);   //  replace with starting point
-                    Coordinate3D endp = Coordinate3D(0, 0, 0);  //  replace with ending point
+                    Coordinate3D endp = drawPos;                //  replace with ending point
                     
                     ani->addControlPoint(stp);
-                    ani->addControlPoint(stp + Coordinate3D(0, 2, 0));
-                    ani->addControlPoint(endp + Coordinate3D(0, 2, 0));
+                    ani->addControlPoint(stp + Coordinate3D(0, 5, 0));
+                    ani->addControlPoint(endp + Coordinate3D(0, 5, 0));
                     ani->addControlPoint(endp);
                     
                     ani->start();
+                    
+                    _scene->getMarker()->setAnimation(ani);
                 }
                 
             } catch (LeBloqBoardPlayException *exc) {

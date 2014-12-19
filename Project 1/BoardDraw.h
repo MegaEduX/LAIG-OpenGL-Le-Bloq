@@ -27,6 +27,8 @@ class BoardDraw {
     
     float _squareSeparation;
     
+    LeBloqState _state;
+    
 public:
     
     BoardDraw(PieceNode *pieceNode, Coordinate3D boardPos, int squareSize, float squareSeparation) {
@@ -37,10 +39,16 @@ public:
         _squareSize = squareSize;
         
         _squareSeparation = squareSeparation;
+        
+        _state = LeBloq::getInstance().getCurrentGameState();
+    }
+    
+    void setOverride(LeBloqState state) {
+        _state = state;
     }
     
     void draw() {
-        std::vector<LeBloqPiece> pieces = LeBloq::getInstance().getCurrentGameState().getBoard().getPieces();
+        std::vector<LeBloqPiece> pieces = _state.getBoard().getPieces();
         
         for (LeBloqPiece piece : pieces) {
             Coordinate3D drawPos = _boardPos;
@@ -55,7 +63,7 @@ public:
             {
                 
                 glTranslated(drawPos.x, drawPos.y, drawPos.z);
-                glTranslated(-1.5, -1.5, -1.5);
+                //  glTranslated(-1.5, -1.5, -1.5);
                 
                 
                 _pieceNode->setPiece(piece);
@@ -65,6 +73,8 @@ public:
             
             glPopMatrix();
         }
+        
+        _state = LeBloq::getInstance().getCurrentGameState();
     }
     
 };

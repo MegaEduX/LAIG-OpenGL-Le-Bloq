@@ -31,8 +31,6 @@ class ANFResult {
     
 public:
     
-    //  Globals *globals;
-    
     std::vector<Graph *> graphs;
     
     std::vector<Appearance *> appearances;

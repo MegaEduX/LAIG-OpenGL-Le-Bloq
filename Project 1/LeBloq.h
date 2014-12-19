@@ -87,6 +87,8 @@ public:
     
     LeBloqState getCurrentGameState();
     
+    LeBloqState getPreviousGameState();
+    
     std::stack<LeBloqState> getGameStates() {
         return _gameStates;
     }
@@ -112,6 +114,8 @@ public:
     LeBloqState performPlay(LeBloqPiece);
     
     LeBloqState performPlay(int pieceType, char pieceOrientation, Coordinate2D piecePos);
+    
+    LeBloqState performPlayAI();
     
     LeBloqPiece workingPiece;
     

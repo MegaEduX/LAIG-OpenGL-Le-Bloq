@@ -30,6 +30,7 @@
 		6F9B4FE119D2F74800B0A240 /* libCGF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9B4FDF19D2F74800B0A240 /* libCGF.a */; };
 		6F9B4FE219D2F74800B0A240 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9B4FE019D2F74800B0A240 /* libtinyxml.a */; };
 		6F9B4FE519D2FA1D00B0A240 /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F9B4FE319D2FA1D00B0A240 /* MainScene.cpp */; };
+		6FA53CD71A4491E4003F2539 /* LeBloqAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FA53CD51A4491E4003F2539 /* LeBloqAI.cpp */; };
 		6FDDCFF51A2A21DB0090CEFA /* LeBloqBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FDDCFF31A2A21DB0090CEFA /* LeBloqBoard.cpp */; };
 		6FF7A29D19DDA77300372B39 /* Interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FF7A29B19DDA77300372B39 /* Interface.cpp */; };
 		6FFE09001A27774900831802 /* LeBloq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FFE08FE1A27774900831802 /* LeBloq.cpp */; };
@@ -114,6 +115,8 @@
 		6F9B4FE019D2F74800B0A240 /* libtinyxml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtinyxml.a; path = lib/libtinyxml.a; sourceTree = SOURCE_ROOT; };
 		6F9B4FE319D2FA1D00B0A240 /* MainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainScene.cpp; sourceTree = "<group>"; };
 		6F9B4FE419D2FA1D00B0A240 /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScene.h; sourceTree = "<group>"; };
+		6FA53CD51A4491E4003F2539 /* LeBloqAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeBloqAI.cpp; sourceTree = "<group>"; };
+		6FA53CD61A4491E4003F2539 /* LeBloqAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeBloqAI.h; sourceTree = "<group>"; };
 		6FDC469C19D32B5B00FF0C61 /* ANFResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANFResult.h; sourceTree = "<group>"; };
 		6FDDCFF31A2A21DB0090CEFA /* LeBloqBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeBloqBoard.cpp; sourceTree = "<group>"; };
 		6FDDCFF41A2A21DB0090CEFA /* LeBloqBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeBloqBoard.h; sourceTree = "<group>"; };
@@ -310,6 +313,8 @@
 				6FDDCFFA1A2A22900090CEFA /* LeBloqState.h */,
 				6F14270D1A2B7BEC0044C1CA /* LeBloqReplay.h */,
 				6F14270C1A2B7BEC0044C1CA /* LeBloqReplay.cpp */,
+				6FA53CD61A4491E4003F2539 /* LeBloqAI.h */,
+				6FA53CD51A4491E4003F2539 /* LeBloqAI.cpp */,
 				6F1427101A2B86EC0044C1CA /* LeBloqTile.h */,
 			);
 			name = "Le Bloq";
@@ -398,6 +403,7 @@
 				6F86FE9C19DAE6B600FC9C52 /* Additions.cpp in Sources */,
 				6FF7A29D19DDA77300372B39 /* Interface.cpp in Sources */,
 				6F72E9891A140D0800BD596D /* Shader.cpp in Sources */,
+				6FA53CD71A4491E4003F2539 /* LeBloqAI.cpp in Sources */,
 				6F86FE9719DAE27500FC9C52 /* Color.cpp in Sources */,
 				6F707C2A19DC3F8800A238AC /* Coordinate.cpp in Sources */,
 				6F1AAAC319D742F900EB4950 /* Camera.cpp in Sources */,
