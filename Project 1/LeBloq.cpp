@@ -77,8 +77,8 @@ LeBloqState LeBloq::newGame(int x, int y) {
     
     std::cout << newState.getPlayer() << std::endl;
     
-    if (_gameStates.size())
-        _gameStates.pop();  //  Workaround for an unknown problem.
+    while (_gameStates.size())
+        _gameStates.pop();
     
     _gameStates.push(newState);
     
