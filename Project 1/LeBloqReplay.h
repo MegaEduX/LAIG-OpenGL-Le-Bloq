@@ -58,6 +58,10 @@ public:
         return stateDiff.getScoredTiles();
     }
     
+    LeBloqState getCurrentState() {
+        return _replayData.top();
+    }
+    
     void advance() {
         _previousState = _replayData.top();
         

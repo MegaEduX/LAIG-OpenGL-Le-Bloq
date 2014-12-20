@@ -21,8 +21,6 @@
 #define PIECE_3_S   3
 
 char LeBloqBoard::_figurePieceOrientation(Coordinate2D coord) {
-    //  std::cout << "X: " << coord.x << " Y: " << coord.y << std::endl;
-    
     int type = _boardRepresentation[coord.y][coord.x];
     
     if (coord.x <= 7 && _boardRepresentation[coord.y][coord.x + 3] == type)             //  Width  = 4
@@ -31,7 +29,7 @@ char LeBloqBoard::_figurePieceOrientation(Coordinate2D coord) {
     
     else if (coord.x <= 8 && _boardRepresentation[coord.y][coord.x + 2] == type) {      //  Width  = 3
         
-        if (_boardRepresentation[coord.y + 3][coord.x] == type)         //  Height = 4
+        if (coord.y <= 7 && _boardRepresentation[coord.y + 3][coord.x] == type)         //  Height = 4
             return ORIENT_V;
         else                                                            //  Height = 2
             return ORIENT_H;

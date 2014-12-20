@@ -50,6 +50,15 @@ public:
         std::vector< std::vector<int> > boardRep;
         
         for (int col = 0; col < _boardRepresentation.size(); col++) {
+            std::vector<int> line;
+            
+            for (int l = 0; l < _boardRepresentation[0].size(); l++)
+                line.push_back(0);
+            
+            boardRep.push_back(line);
+        }
+        
+        for (int col = 0; col < _boardRepresentation.size(); col++) {
             std::vector<int> line = _boardRepresentation[col];
             
             for (int p = 0; p < line.size(); p++) {

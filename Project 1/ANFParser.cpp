@@ -1171,6 +1171,10 @@ std::vector<Primitive *> ANFParser::parsePrimitives(TiXmlElement *primitives) {
         } else if (!strcmp(primitive->Value(), "vehicle"))
             
             prim = new Vehicle();
+        
+        else if (!strcmp(primitive->Value(), "scoreview"))
+            
+            prim = new ScoreView();
             
         else
             throw new ANFNodeParserException("Found an unexpected entry \"" + std::string(primitive->Value()) + "\".");

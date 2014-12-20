@@ -30,7 +30,7 @@ LeBloqState LeBloq::_parseOK(std::string answer) {
     bool playing = true;
     
     if (_gameStates.size())
-        if (( winner = _checkWinner() )) {
+        if (( winner = _checkWinner(board) )) {
             nextPlayer = winner;
             
             playing = false;
@@ -43,8 +43,10 @@ LeBloqState LeBloq::_parseOK(std::string answer) {
     return state;
 }
 
-int LeBloq::_checkWinner() {
-    std::string message = "checkWinner(" + PrologParser::boardRepresentationToProlog(getCurrentGameState().getBoard().getBoardRepresentation()) + "," + std::to_string(_boardSizeX) + "," + std::to_string(_boardSizeY) + ").";
+int LeBloq::_checkWinner(LeBloqBoard board) {
+    std::string message = "checkWinner(" + PrologParser::boardRepresentationToProlog(board.getBoardRepresentation()) + "," + std::to_string(_boardSizeX) + "," + std::to_string(_boardSizeY) + ").";
+    
+    std::cout << "[Check Winner Debug] " << message << std::endl;
     
     _conn->write(message);
     
@@ -68,10 +70,19 @@ LeBloqState LeBloq::newGame(int x, int y) {
     
     LeBloqState state = _parseOK(answer);
     
+    LeBloqState newState(state.getBoard(), 1, true);
+    
     _gameStart = (unsigned int) time(NULL);
     _turnStart = _gameStart;
     
-    return state;
+    std::cout << newState.getPlayer() << std::endl;
+    
+    if (_gameStates.size())
+        _gameStates.pop();  //  Workaround for an unknown problem.
+    
+    _gameStates.push(newState);
+    
+    return newState;
 }
 
 LeBloqState LeBloq::getCurrentGameState() {
@@ -101,14 +112,19 @@ LeBloqState LeBloq::performPlay(LeBloqPiece piece) {
 LeBloqState LeBloq::performPlay(int pieceType, char pieceOrientation, Coordinate2D piecePos) {
     std::string message = (_gameStates.size() == 1 ? "playFT(" : "play(") + PrologParser::boardRepresentationToProlog(getCurrentGameState().getBoard().getBoardRepresentation()) + "," + std::to_string(pieceType) + "," + pieceOrientation + "," + std::to_string((int) piecePos.x) + "," + std::to_string((int) piecePos.y) + "," + std::to_string(getCurrentGameState().getPlayer()) + "," + std::to_string(_boardSizeX) + "," + std::to_string(_boardSizeY) + ").";
     
-    _conn->write(message);
+    std::string answer;
     
-    std::string answer = _conn->read();
-    
-    if (answer.find("fail") != std::string::npos || answer.find("ok(") == std::string::npos)
-        throw new LeBloqBoardPlayException("Unable to perform play: " + answer);
-    
-    _conn->write(message);
+    for (int i = 0; i < 3; i++) {
+        _conn->write(message);
+        
+        answer = _conn->read();
+        
+        if (answer.find("fail") != std::string::npos || answer.find("ok(") == std::string::npos) {
+            if (i == 2)
+                throw new LeBloqBoardPlayException("Unable to perform play: " + answer);
+        } else
+            break;
+    }
     
     LeBloqState state = _parseOK(answer);
     
@@ -120,14 +136,19 @@ LeBloqState LeBloq::performPlay(int pieceType, char pieceOrientation, Coordinate
 LeBloqState LeBloq::performPlayAI() {
     std::string message = (_gameStates.size() == 1 ? "playAIFT(" : "playAI(") + PrologParser::boardRepresentationToProlog(getCurrentGameState().getBoard().getBoardRepresentation()) + "," + std::to_string(getCurrentGameState().getPlayer()) + "," + std::to_string(_boardSizeX) + "," + std::to_string(_boardSizeY) + ").";
     
-    _conn->write(message);
+    std::string answer;
     
-    std::string answer = _conn->read();
-    
-    if (answer.find("fail") != std::string::npos || answer.find("ok(") == std::string::npos)
-        throw new LeBloqBoardPlayException("Unable to perform play: " + answer);
-    
-    _conn->write(message);
+    for (int i = 0; i < 3; i++) {
+        _conn->write(message);
+        
+        answer = _conn->read();
+        
+        if (answer.find("fail") != std::string::npos || answer.find("ok(") == std::string::npos) {
+            if (i == 2)
+                throw new LeBloqBoardPlayException("Unable to perform play: " + answer);
+        } else
+            break;
+    }
     
     LeBloqState state = _parseOK(answer);
     

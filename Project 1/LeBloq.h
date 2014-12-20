@@ -53,7 +53,7 @@ class LeBloq {
     
     LeBloqState _parseOK(std::string);
     
-    int _checkWinner();
+    int _checkWinner(LeBloqBoard);
     
     kLeBloqGameType _gameType;
     
@@ -61,6 +61,8 @@ class LeBloq {
         _conn = new SocketClient(kDefaultAddress, kDefaultPort);
         
         _gameType = kLeBloqGameTypePlayerVsAI_Easy;
+        
+        //  _gameType = kLeBloqGameTypePlayerVsPlayer;
     }
     
     LeBloq(LeBloq const &);

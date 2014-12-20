@@ -1007,21 +1007,22 @@ void Table::draw() {
 
 void ScoreView::draw() {
     //
-    //  A 2x2 rectangle with the score.
+    //  A 10x10 rectangle with the score.
     //
     
     glPushMatrix();
     
     {
-        _rectangle = new Rectangle(Coordinate2D(0, 0), Coordinate2D(5, 5));
+        if (!_rectangle)
+            _rectangle = new Rectangle(Coordinate2D(0, 0), Coordinate2D(10, 10));
         
         _rectangle->draw();
         
-        Text text = Text(std::to_string(LeBloq::getInstance().getCurrentGameState().getBoard().getScoringForPlayer(1)), Coordinate3D(1, 2.5, 1), {.r = 1, .g = 0, .b = 0}, GLUT_BITMAP_HELVETICA_18);
+        Text text = Text(std::to_string(LeBloq::getInstance().getCurrentGameState().getBoard().getScoringForPlayer(1)), Coordinate3D(1, 2.5, 2), {.r = 1, .g = 0, .b = 0}, GLUT_BITMAP_HELVETICA_18);
         
         text.draw();
         
-        text = Text(std::to_string(LeBloq::getInstance().getCurrentGameState().getBoard().getScoringForPlayer(2)), Coordinate3D(3, 2.5, 1), {.r = 1, .g = 0, .b = 0}, GLUT_BITMAP_HELVETICA_18);
+        text = Text(std::to_string(LeBloq::getInstance().getCurrentGameState().getBoard().getScoringForPlayer(2)), Coordinate3D(6, 2.5, 2), {.r = 1, .g = 0, .b = 0}, GLUT_BITMAP_HELVETICA_18);
         
         text.draw();
     }
@@ -1030,8 +1031,8 @@ void ScoreView::draw() {
 }
 
 void Text::draw() {
-    glDisable(GL_LIGHTING);
-    glDisable(GL_TEXTURE_2D);
+    //  glDisable(GL_LIGHTING);
+    //  glDisable(GL_TEXTURE_2D);
     
     glPushMatrix();
     
@@ -1041,10 +1042,12 @@ void Text::draw() {
         
         for (int i = 0; i < _text.length(); i++)
             glutBitmapCharacter(_glutFont, _text[i]);
+        
+        glColor3f(1.0f, 1.0f, 1.0f);
     }
     
     glPopMatrix();
     
-    glEnable(GL_TEXTURE_2D);
-    glEnable(GL_LIGHTING);
+    //  glEnable(GL_TEXTURE_2D);
+    //  glEnable(GL_LIGHTING);
 }

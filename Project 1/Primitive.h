@@ -333,14 +333,12 @@ public:
 
 class ScoreView : public Primitive {
     
-    int _player;
-    
     Rectangle *_rectangle;
     
 public:
     
-    ScoreView(int player) {
-        _player = player;
+    ScoreView() {
+        _rectangle = nullptr;
     }
     
     void draw();

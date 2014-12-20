@@ -236,9 +236,18 @@ void MainScene::display() {
     
     if (!LeBloq::getInstance().getCurrentGameState().getPlaying()) {
         
-        Text *test = new Text("Game Over, Player 2 -> You SUCK!", Coordinate3D(0.0f, 0.0f, 0.0f), {.r = 0.0f, .g = 1.0f, .b = 0.0f}, GLUT_BITMAP_TIMES_ROMAN_24);
+        std::string message = "";
         
-        test->draw();
+        if (LeBloq::getInstance().getCurrentGameState().getPlayer() < 3)
+            message = "Congratulations, Player " + std::to_string(LeBloq::getInstance().getCurrentGameState().getPlayer()) + "!";
+        else
+            message = "It's a Tie!";
+            
+        Text *endText = new Text(message, Coordinate3D(0.0f, 0.0f, 100.0f), {.r = 0.0f, .g = 1.0f, .b = 0.0f}, GLUT_BITMAP_TIMES_ROMAN_24);
+        
+        endText->draw();
+        
+        delete endText;
         
     } else {
         
@@ -284,6 +293,8 @@ void MainScene::display() {
                 case kLeBloqGameTypePlayerVsAI_Hard:
                     
                     if (LeBloq::getInstance().getCurrentGameState().getPlayer() != 1) {
+                        std::cout << "Current Player: " << LeBloq::getInstance().getCurrentGameState().getPlayer() << std::endl;
+                        
                         LeBloq::getInstance().performPlayAI();
                         
                         animateLatestPlay();
@@ -371,6 +382,9 @@ void MainScene::display() {
                             
                             for (LeBloqTile tile : tiles)
                                 if (tile.position.x == r && tile.position.y == c) {
+                                    
+#warning For some reason, color isn't being changed correctly.
+                                    
                                     if (tile.scoringPlayer == 1)
                                         _p1Appearance->apply();
                                     else if (tile.scoringPlayer == 2)
@@ -390,16 +404,6 @@ void MainScene::display() {
                 
                 glPopMatrix();
             }
-        }
-        
-        glPopMatrix();
-        
-        glPushMatrix();
-        
-        {
-            ScoreView *scoreView = new ScoreView(0);
-            
-            scoreView->draw();
         }
         
         glPopMatrix();
