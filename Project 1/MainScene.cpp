@@ -297,6 +297,10 @@ void MainScene::display() {
                         
                         LeBloq::getInstance().performPlayAI();
                         
+                        LeBloqBoard b = LeBloq::getInstance().getCurrentGameState().getBoard() - LeBloq::getInstance().getPreviousGameState().getBoard();
+                        
+                        LeBloq::getInstance().workingPiece = b.getPieces()[0];
+                        
                         animateLatestPlay();
                     }
                     

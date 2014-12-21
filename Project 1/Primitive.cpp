@@ -1031,9 +1031,6 @@ void ScoreView::draw() {
 }
 
 void Text::draw() {
-    //  glDisable(GL_LIGHTING);
-    //  glDisable(GL_TEXTURE_2D);
-    
     glPushMatrix();
     
     {
@@ -1047,7 +1044,4 @@ void Text::draw() {
     }
     
     glPopMatrix();
-    
-    //  glEnable(GL_TEXTURE_2D);
-    //  glEnable(GL_LIGHTING);
 }

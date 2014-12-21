@@ -23,20 +23,20 @@
 char LeBloqBoard::_figurePieceOrientation(Coordinate2D coord) {
     int type = _boardRepresentation[coord.y][coord.x];
     
-    if (coord.x <= 7 && _boardRepresentation[coord.y][coord.x + 3] == type)             //  Width  = 4
+    if (coord.x <= 6 && _boardRepresentation[coord.y][coord.x + 3] == type)             //  Width  = 4
         
         return ORIENT_H;
     
-    else if (coord.x <= 8 && _boardRepresentation[coord.y][coord.x + 2] == type) {      //  Width  = 3
+    else if (coord.x <= 7 && _boardRepresentation[coord.y][coord.x + 2] == type) {      //  Width  = 3
         
-        if (coord.y <= 7 && _boardRepresentation[coord.y + 3][coord.x] == type)         //  Height = 4
+        if (coord.y <= 6 && _boardRepresentation[coord.y + 3][coord.x] == type)         //  Height = 4
             return ORIENT_V;
         else                                                            //  Height = 2
             return ORIENT_H;
         
     } else {                                                            //  Width  = 2
         
-        if (coord.y <= 7 && _boardRepresentation[coord.y + 3][coord.x] == type)         //  Height = 4
+        if (coord.y <= 6 && _boardRepresentation[coord.y + 3][coord.x] == type)         //  Height = 4
             return ORIENT_V;
         else                                                            //  Height = 3
             return ORIENT_V;
@@ -128,7 +128,7 @@ std::vector<LeBloqTile> LeBloqBoard::getScoredTiles() {
             int tile = line[j];
             
             if (tile > 3)
-                tiles.push_back(LeBloqTile(Coordinate2D(j, i), tile - 4));
+                tiles.push_back(LeBloqTile(Coordinate2D(j, i), tile - 3));
         }
         
     }

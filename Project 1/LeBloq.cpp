@@ -25,6 +25,8 @@ LeBloqState LeBloq::_parseOK(std::string answer) {
     
     int nextPlayer = (_gameStates.size() ? (getCurrentGameState().getPlayer() == 1 ? 2 : 1) : 2);
     
+    std::cout << "Next Player: " << nextPlayer << std::endl;
+    
     int winner = 0;
     
     bool playing = true;
