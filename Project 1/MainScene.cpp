@@ -48,6 +48,8 @@ void MainScene::init() {
     
     _marker = nullptr;
     
+    _animatedRotation = nullptr;
+    
     _lastUpdateValue = 0;
     
     _p1Appearance = new Appearance(1.0f);
@@ -81,6 +83,11 @@ void MainScene::update(unsigned long t) {
     
     if (_marker && _marker->getAnimation())
         _marker->getAnimation()->animate(diff);
+    
+#warning Disabled while the camera isn't fixed.
+    
+    /*  if (_animatedRotation)
+        _animatedRotation->apply(); */
 }
 
 void MainScene::_setupFromANF() {
@@ -115,7 +122,7 @@ void MainScene::reloadANF() {
     _criticalSection = false;
 }
 
-void MainScene::animateLatestPlay() {
+void MainScene::_animateLatestPlay() {
     if (_marker) {
         Coordinate3D drawPos(30, 55, 30);
         Coordinate3D markerPos(50, 55, 22);
@@ -145,8 +152,20 @@ void MainScene::animateLatestPlay() {
         
         ani->start();
         
+        _animatedRotation = new AnimatedRotation(180.0f, Coordinate3D(0, 1, 0), 60);
+        
         _marker->setAnimation(ani);
     }
+}
+
+void MainScene::_computeAIPlay() {
+    LeBloq::getInstance().performPlayAI();
+    
+    LeBloqBoard b = LeBloq::getInstance().getCurrentGameState().getBoard() - LeBloq::getInstance().getPreviousGameState().getBoard();
+    
+    LeBloq::getInstance().workingPiece = b.getPieces()[0];
+    
+    _animateLatestPlay();
 }
 
 void MainScene::display() {
@@ -205,6 +224,8 @@ void MainScene::display() {
     glMatrixMode(GL_MODELVIEW);
     
     glLoadIdentity();
+    
+    std::cout << _interface->getRotation()[0] << " " << _interface->getRotation()[1] << " " << _interface->getRotation()[2] << " " << _interface->getRotation()[3] << std::endl << _interface->getRotation()[4] << " " << _interface->getRotation()[5] << " " << _interface->getRotation()[6] << " " << _interface->getRotation()[7] << std::endl << _interface->getRotation()[8] << " " << _interface->getRotation()[9] << " " << _interface->getRotation()[10] << " " << _interface->getRotation()[11] << std::endl << _interface->getRotation()[12] << " " << _interface->getRotation()[13] << " " << _interface->getRotation()[14] << " " << _interface->getRotation()[15] << std::endl;
     
     glMultMatrixf(_interface->getRotation());
     glTranslatef(0.0f, *(_interface->getZoom()), *(_interface->getZoom()));
@@ -283,26 +304,15 @@ void MainScene::display() {
             switch (LeBloq::getInstance().getGameType()) {
                 case kLeBloqGameTypeAIVsAI:
                     
-                    LeBloq::getInstance().performPlayAI();
-                    
-                    animateLatestPlay();
+                    _computeAIPlay();
                     
                     break;
                     
                 case kLeBloqGameTypePlayerVsAI_Easy:
                 case kLeBloqGameTypePlayerVsAI_Hard:
                     
-                    if (LeBloq::getInstance().getCurrentGameState().getPlayer() != 1) {
-                        std::cout << "Current Player: " << LeBloq::getInstance().getCurrentGameState().getPlayer() << std::endl;
-                        
-                        LeBloq::getInstance().performPlayAI();
-                        
-                        LeBloqBoard b = LeBloq::getInstance().getCurrentGameState().getBoard() - LeBloq::getInstance().getPreviousGameState().getBoard();
-                        
-                        LeBloq::getInstance().workingPiece = b.getPieces()[0];
-                        
-                        animateLatestPlay();
-                    }
+                    if (LeBloq::getInstance().getCurrentGameState().getPlayer() != 1)
+                        _computeAIPlay();
                     
                     break;
                     

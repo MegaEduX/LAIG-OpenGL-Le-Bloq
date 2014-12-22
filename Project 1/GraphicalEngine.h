@@ -19,5 +19,6 @@
 #include "Global.h"
 #include "Node.h"
 #include "Animation.h"
+#include "AnimatedRotation.h"
 
 #endif

@@ -106,11 +106,13 @@ std::vector<LeBloqPiece> LeBloqBoard::getPieces() {
                 //  then remove it from the array.
                 //
                 
-                char orientation = _figurePieceOrientation(Coordinate2D(j, i));
+                Coordinate2D coord(j, i);
                 
-                _removePieceFromBoard(boardRep, Coordinate2D(j, i));
+                char orientation = _figurePieceOrientation(coord);
                 
-                pieces.push_back(LeBloqPiece(Coordinate2D(j, i), piece, orientation));
+                _removePieceFromBoard(boardRep, coord);
+                
+                pieces.push_back(LeBloqPiece(coord, piece, orientation));
             }
         }
     }

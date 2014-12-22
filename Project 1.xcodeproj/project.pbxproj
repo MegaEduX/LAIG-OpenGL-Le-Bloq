@@ -117,6 +117,7 @@
 		6F9B4FE419D2FA1D00B0A240 /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScene.h; sourceTree = "<group>"; };
 		6FA53CD51A4491E4003F2539 /* LeBloqAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeBloqAI.cpp; sourceTree = "<group>"; };
 		6FA53CD61A4491E4003F2539 /* LeBloqAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeBloqAI.h; sourceTree = "<group>"; };
+		6FCC87091A48840900408C6A /* AnimatedRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedRotation.h; sourceTree = "<group>"; };
 		6FDC469C19D32B5B00FF0C61 /* ANFResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANFResult.h; sourceTree = "<group>"; };
 		6FDDCFF31A2A21DB0090CEFA /* LeBloqBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeBloqBoard.cpp; sourceTree = "<group>"; };
 		6FDDCFF41A2A21DB0090CEFA /* LeBloqBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeBloqBoard.h; sourceTree = "<group>"; };
@@ -264,6 +265,7 @@
 				6F86FE9819DAE4F700FC9C52 /* Header-Only Classes */,
 				6F99464919FE73E800664F17 /* Animation.h */,
 				6F99464819FE73E800664F17 /* Animation.cpp */,
+				6FCC87091A48840900408C6A /* AnimatedRotation.h */,
 				6F6F2ED919D5CAB600982CC9 /* Appearance.h */,
 				6F6F2ED819D5CAB600982CC9 /* Appearance.cpp */,
 				6F1AAAC219D742F900EB4950 /* Camera.h */,

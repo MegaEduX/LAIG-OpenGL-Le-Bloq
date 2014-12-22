@@ -38,6 +38,10 @@ class MainScene : public CGFscene {
     
     void _setupFromANF();
     
+    void _animateLatestPlay();
+    
+    void _computeAIPlay();
+    
     Camera *_lastGoodCamera;
     
     bool _criticalSection;
@@ -54,6 +58,8 @@ class MainScene : public CGFscene {
     
     Interface *_interface;
     
+    AnimatedRotation *_animatedRotation;
+    
 public:
     
     MainScene(ANFResult *);
@@ -65,7 +71,7 @@ public:
     
     void reloadANF();
     
-    void animateLatestPlay();
+    
     
     void setInterface(Interface *i) {
         _interface = i;
