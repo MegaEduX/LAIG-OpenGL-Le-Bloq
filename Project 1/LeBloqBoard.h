@@ -69,7 +69,7 @@ public:
                         boardRep[col][p] = rhs.getBoardRepresentation()[col][p];
                     else
                         boardRep[col][p] = piece;
-                }
+                } 
             }
         }
         
