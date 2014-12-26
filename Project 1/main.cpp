@@ -39,7 +39,9 @@ int main(int argc, const char * argv[]) {
     
 #if kUseDefaultPath
     
-    ANFLoader::getInstance().setANFPath("/Users/MegaEduX/proj3-test/Sample.anf");
+    //  ANFLoader::getInstance().setANFPath("/Users/MegaEduX/proj3-test/Sample.anf");
+    
+    ANFLoader::getInstance().setANFPath("/Users/MegaEduX/Downloads/10740154_786508768087101_855402624_n/Cena1.anf");
     
     result = ANFLoader::getInstance().loadANF();
 

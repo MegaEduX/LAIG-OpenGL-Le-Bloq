@@ -1369,6 +1369,48 @@ void ANFParser::parseGlobals(TiXmlElement *globals) {
             
             Globals::getInstance().setShadingSettings(new ShadingSettings(_basePath + std::string(fp), _basePath + std::string(vp)));
         
+        } else if (!strcmp(global->Value(), "lebloq")) {
+            
+            LeBloqSettings *lbs = new LeBloqSettings();
+            
+            for (TiXmlElement *lbl = global->FirstChildElement(); lbl != NULL; lbl = lbl->NextSiblingElement()) {
+                if (!strcmp(lbl->Value(), "marker")) {
+                    const char *pos = lbl->Attribute("position");
+                    
+                    if (pos == NULL)
+                        throw new ANFGlobalsParserException("\"position\" attribute not found!");
+                    
+                    std::vector<float> fs = _parseFloatString(pos);
+                    
+                    if (fs.size() != 3)
+                        throw new ANFGlobalsParserException("Invalid \"position\" attribute!");
+                    
+                    Coordinate3D marker = Coordinate3D(fs[0], fs[1], fs[2]);
+                    
+                    lbs->marker = marker;
+                } else if (!strcmp(lbl->Value(), "bd")) {
+                    const char *pos = lbl->Attribute("position");
+                    
+                    if (pos == NULL)
+                        throw new ANFGlobalsParserException("\"position\" attribute not found!");
+                    
+                    std::vector<float> fs = _parseFloatString(pos);
+                    
+                    if (fs.size() != 3)
+                        throw new ANFGlobalsParserException("Invalid \"position\" attribute!");
+                    
+                    Coordinate3D bd = Coordinate3D(fs[0], fs[1], fs[2]);
+                    
+                    lbs->boardDraw = bd;
+                } else if (!strcmp(lbl->Value(), "tiles")) {
+                    std::vector<Transform *> transforms = parseTransforms(lbl->FirstChildElement());
+                    
+                    lbs->transforms = transforms;
+                }
+            }
+            
+            Globals::getInstance().setLeBloqSettings(lbs);
+            
         } else
             throw new ANFGlobalsParserException("Found an unexpected entry \"" + std::string(global->Value()) + "\".");
     }

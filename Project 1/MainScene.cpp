@@ -52,9 +52,11 @@ void MainScene::init() {
     
     _lastUpdateValue = 0;
     
+    _acsState = kACSUnchecked;
+    
     _p1Appearance = new Appearance(1.0f);
     _p2Appearance = new Appearance(1.0f);
-    _defaultAppearance = new Appearance(1.0f);
+    //_defaultAppearance = new Appearance(1.0f);
     
     _p1Appearance->addComponent(new Component(kComponentTypeAmbient, color_red()));
     _p1Appearance->addComponent(new Component(kComponentTypeDiffuse, color_red()));
@@ -64,9 +66,25 @@ void MainScene::init() {
     _p2Appearance->addComponent(new Component(kComponentTypeDiffuse, color_blue()));
     _p2Appearance->addComponent(new Component(kComponentTypeSpecular, color_blue()));
     
-    _defaultAppearance->addComponent(new Component(kComponentTypeAmbient, color_white()));
-    _defaultAppearance->addComponent(new Component(kComponentTypeDiffuse, color_white()));
-    _defaultAppearance->addComponent(new Component(kComponentTypeSpecular, color_white()));
+    //_defaultAppearance->addComponent(new Component(kComponentTypeAmbient, color_white()));
+    //_defaultAppearance->addComponent(new Component(kComponentTypeDiffuse, color_white()));
+    //_defaultAppearance->addComponent(new Component(kComponentTypeSpecular, color_white()));
+    
+    //  _defaultAppearance->setTexture(defaultTex);
+    
+    for (Appearance *appr : _anf->appearances)
+        if (appr->getId() == "tile") {
+            _defaultAppearance = appr;
+            
+            std::cout << "def appr set!" << std::endl;
+        }
+    
+    /*for (Texture *tex : _anf->textures)
+        if (tex->getId() == "field") {
+            _defaultAppearance->setTexture(tex);
+            
+            break;
+        }*/
     
     _setupFromANF();
     
@@ -187,6 +205,30 @@ void MainScene::display() {
     
 #else
     
+    if (_acsState == kACSUnchecked) {
+        for (Camera *cam : _anf->cameras) {
+            if (cam->getId() == "Player 1")
+                _acs1 = cam;
+            else if (cam->getId() == "Player 2")
+                _acs2 = cam;
+        }
+        
+        _acsState = ((_acs1 != nullptr && _acs2 != nullptr) ? kACSEnabled : kACSDisabled);
+        
+        std::cout << "ACS State: " << _acsState << std::endl;
+    }
+    
+    if (_acsState == kACSEnabled)
+        if (!(_marker && _marker->getAnimation() && _marker->getAnimation()->getAnimating())) {
+            _acs1->setEnabled(LeBloq::getInstance().getCurrentGameState().getPlayer() == 1);
+            _acs2->setEnabled(LeBloq::getInstance().getCurrentGameState().getPlayer() == 2);
+            
+            //  Yes, I am aware this is here twice.
+            
+            _acs1->setEnabled(LeBloq::getInstance().getCurrentGameState().getPlayer() == 1);
+            _acs2->setEnabled(LeBloq::getInstance().getCurrentGameState().getPlayer() == 2);
+        }
+    
     bool foundCamera = false;
     
 	for (int i = 0; i < _anf->cameras.size(); i++) {
@@ -225,8 +267,6 @@ void MainScene::display() {
     
     glLoadIdentity();
     
-    std::cout << _interface->getRotation()[0] << " " << _interface->getRotation()[1] << " " << _interface->getRotation()[2] << " " << _interface->getRotation()[3] << std::endl << _interface->getRotation()[4] << " " << _interface->getRotation()[5] << " " << _interface->getRotation()[6] << " " << _interface->getRotation()[7] << std::endl << _interface->getRotation()[8] << " " << _interface->getRotation()[9] << " " << _interface->getRotation()[10] << " " << _interface->getRotation()[11] << std::endl << _interface->getRotation()[12] << " " << _interface->getRotation()[13] << " " << _interface->getRotation()[14] << " " << _interface->getRotation()[15] << std::endl;
-    
     glMultMatrixf(_interface->getRotation());
     glTranslatef(0.0f, *(_interface->getZoom()), *(_interface->getZoom()));
     
@@ -264,7 +304,7 @@ void MainScene::display() {
         else
             message = "It's a Tie!";
             
-        Text *endText = new Text(message, Coordinate3D(0.0f, 0.0f, 100.0f), {.r = 0.0f, .g = 1.0f, .b = 0.0f}, GLUT_BITMAP_TIMES_ROMAN_24);
+        Text *endText = new Text(message, Coordinate3D(60, 60, 60), {.r = 0.0f, .g = 1.0f, .b = 0.0f}, GLUT_BITMAP_TIMES_ROMAN_24);
         
         endText->draw();
         
@@ -289,7 +329,7 @@ void MainScene::display() {
                 return;
             }
             
-            _bd = new BoardDraw(_bdn, Coordinate3D(0.0, 0.0, 0.0), 2, 0.5); //  arbitrary values
+            _bd = new BoardDraw(_bdn, Coordinate3D(0.0, 0.0, 0.0), 2, 0); //  arbitrary values
         }
         
         bool animating = false;
@@ -327,13 +367,17 @@ void MainScene::display() {
         
         _marker->setPiece(LeBloq::getInstance().workingPiece);
         
+        glPopMatrix();
+        
+        if (Globals::getInstance().getLeBloqSettings() == nullptr)
+            throw new MainSceneCreationException("Le Bloq settings not found!");
+        
         glPushMatrix();
         
         {
-            //    where the piece will be placed
-            //  this needs to stop being hardcoded
+            Coordinate3D markerPos = Globals::getInstance().getLeBloqSettings()->marker;
             
-            glTranslated(50, 55, 22);
+            glTranslated(markerPos.x, markerPos.y, markerPos.z);
             
             _marker->draw();
         }
@@ -343,20 +387,24 @@ void MainScene::display() {
         glPushMatrix();
         
         {
-            glTranslated(30, 55, 30);
+            Coordinate3D boardDraw = Globals::getInstance().getLeBloqSettings()->boardDraw;
+            
+            glTranslated(boardDraw.x, boardDraw.y, boardDraw.z);
             
             _bd->draw();
         }
         
         glPopMatrix();
         
+        _defaultAppearance->apply();
+        
         Rectangle *obj = new Rectangle(Coordinate2D(0, 0), Coordinate2D(2, 2));
         
         glPushMatrix();
         
         {
-            glRotated(-90, 0, 0, 1);
-            glTranslated(-57.5, 30, 30);
+            for (Transform *t : Globals::getInstance().getLeBloqSettings()->transforms)
+                t->apply();
             
             glPushName(DEFAULT_NAME);
             
@@ -381,14 +429,16 @@ void MainScene::display() {
                 glPushMatrix();
                 
                 {
-                    glTranslatef(0, r * 2.2, 0);
+                    //  glTranslatef(0, r * 2.2, 0);
+                    glTranslatef(0, r * 2, 0);
                     glLoadName(r);
                     
                     for (int c = 0; c < LeBloq::getInstance().getBoardSize().y; c++) {
                         glPushMatrix();
                         
                         {
-                            glTranslatef(0, 0, (c + 1) * 2.2);
+                            //  glTranslatef(0, 0, (c + 1) * 2.2);
+                            glTranslatef(0, 0, (c + 1) * 2);
                             glRotatef(90, 0, 1, 0);
                             glPushName(c);
                             

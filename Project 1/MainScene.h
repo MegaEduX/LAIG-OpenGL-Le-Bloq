@@ -20,6 +20,12 @@
 
 #include "BoardDraw.h"
 
+typedef enum {
+    kACSUnchecked,
+    kACSDisabled,
+    kACSEnabled
+} kACS;
+
 _BUILD_GRAPHICAL_EXCEPTION(MainSceneCreationException, GraphicalException);
 
 class Interface;
@@ -60,6 +66,10 @@ class MainScene : public CGFscene {
     
     AnimatedRotation *_animatedRotation;
     
+    kACS _acsState;
+    
+    Camera *_acs1, *_acs2;
+    
 public:
     
     MainScene(ANFResult *);
@@ -70,8 +80,6 @@ public:
     void update(unsigned long);
     
     void reloadANF();
-    
-    
     
     void setInterface(Interface *i) {
         _interface = i;

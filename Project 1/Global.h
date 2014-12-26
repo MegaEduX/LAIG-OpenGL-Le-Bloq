@@ -17,6 +17,10 @@
 
 #include "GraphicalException.h"
 
+#include "Coordinate.h"
+
+#include "Transform.h"
+
 _BUILD_GRAPHICAL_EXCEPTION(GlobalSettingsApplyException, GraphicalException);
 _BUILD_GRAPHICAL_EXCEPTION(DrawingSettingsApplyException, GlobalSettingsApplyException);
 _BUILD_GRAPHICAL_EXCEPTION(CullingSettingsApplyException, GlobalSettingsApplyException);
@@ -194,6 +198,16 @@ public:
     
 };
 
+class LeBloqSettings {
+    
+public:
+    
+    Coordinate3D marker;
+    Coordinate3D boardDraw;
+    
+    std::vector<Transform *> transforms;
+};
+
 class Globals {
     
     std::string _basePath;
@@ -202,6 +216,7 @@ class Globals {
     CullingSettings *_cs;
     LightingSettings *_ls;
     ShadingSettings *_es;
+    LeBloqSettings *_lbs;
     
     Globals() {};
     
@@ -233,6 +248,10 @@ public:
         _es = es;
     }
     
+    void setLeBloqSettings(LeBloqSettings *lbs) {
+        _lbs = lbs;
+    }
+    
     DrawingSettings *getDrawingSettings() {
         return _ds;
     }
@@ -247,6 +266,10 @@ public:
     
     ShadingSettings *getShadingSettings() {
         return _es;
+    }
+    
+    LeBloqSettings *getLeBloqSettings() {
+        return _lbs;
     }
     
     void setBasePath(std::string bp) {

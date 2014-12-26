@@ -56,7 +56,13 @@ std::string SocketClient::read() {
     
     std::cout << "[READ Debug]: " << buf << std::endl;
     
-    return std::string(buf);
+    std::string cppbuf = buf;
+    
+    std::string cleansed = cppbuf.substr(0, cppbuf.find(".", 0));
+    
+    std::cout << "[Cleansed READ Debug]: " << cleansed << std::endl;
+    
+    return cleansed;
 }
 
 SocketClient::~SocketClient() {
