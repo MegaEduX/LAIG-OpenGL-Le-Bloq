@@ -47,6 +47,10 @@ public:
         return _playing;
     }
     
+    void setPlayer(int p) {
+        _player = p;
+    }
+    
     template <class Archive> void serialize(Archive &archive) {
         archive(_board, _player, _playing);
     };

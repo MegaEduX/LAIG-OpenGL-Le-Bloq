@@ -20,6 +20,7 @@
 #include "StackReverse.h"
 
 _BUILD_GRAPHICAL_EXCEPTION(NoPlayedPiecesException, GraphicalException);
+_BUILD_GRAPHICAL_EXCEPTION(EndOfReplayException, GraphicalException);
 
 class LeBloqReplay {
     
@@ -38,6 +39,9 @@ public:
     LeBloqPiece getPlayedPiece() {
         if (!_playCount)
             throw new NoPlayedPiecesException("No pieces were played so far!");
+        
+        if (!_replayData.size())
+            throw new EndOfReplayException();
             
         std::vector<LeBloqPiece> pieces = _replayData.top().getBoard().getPieces();
         
@@ -45,7 +49,11 @@ public:
             return pieces[0];
         
         LeBloqBoard stateDiff = _replayData.top().getBoard() - _previousState.getBoard();
-            
+        
+        if (!stateDiff.getPieces().size()) {
+            throw new NoPlayedPiecesException("No difference!");
+        }
+        
         return stateDiff.getPieces()[0];
     }
     
@@ -59,15 +67,27 @@ public:
     }
     
     LeBloqState getCurrentState() {
+        if (!_replayData.size())
+            throw new EndOfReplayException();
+        
         return _replayData.top();
     }
     
-    void advance() {
+    LeBloqState getPreviousState() {
+        return _previousState;
+    }
+    
+    bool advance() {
+        if (!_replayData.size())
+            return false;
+        
         _previousState = _replayData.top();
         
         _replayData.pop();
         
         _playCount++;
+        
+        return true;
     }
     
     static std::string createReplayData(std::stack<LeBloqState>);

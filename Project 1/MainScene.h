@@ -20,6 +20,8 @@
 
 #include "BoardDraw.h"
 
+#include "LeBloqReplay.h"
+
 typedef enum {
     kACSUnchecked,
     kACSDisabled,
@@ -54,13 +56,14 @@ class MainScene : public CGFscene {
     
     bool _loadedMatrixes;
     
+    bool _interfaceLocked;
+    
     void _createTransformationMatrixes(Node *n);
     
     Appearance *_p1Appearance;
-    
     Appearance *_p2Appearance;
     
-    Appearance *_defaultAppearance;
+    Appearance *_blankAppearance;
     
     Interface *_interface;
     
@@ -70,12 +73,18 @@ class MainScene : public CGFscene {
     
     Camera *_acs1, *_acs2;
     
+    LeBloqReplay *_currentReplay;
+    
 public:
     
     MainScene(ANFResult *);
     
     void init();
     void display();
+    
+    void displayBoard();
+    void displayPieces();
+    void displayReplay();
     
     void update(unsigned long);
     
@@ -87,6 +96,13 @@ public:
     
     PieceNode *getMarker() {
         return _marker;
+    }
+    
+    void loadReplay(LeBloqReplay *);
+    void stopReplay();
+    
+    bool getInterfaceLock() {
+        return _interfaceLocked;
     }
     
     ~MainScene();

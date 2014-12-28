@@ -27,14 +27,25 @@
 MainScene::MainScene(ANFResult *result) {
     _anf = result;
     
-    _bd = nullptr;
-    
-    _criticalSection = false;
-    
     if (!_anf || _anf == nullptr)
         throw new MainSceneCreationException("ANFResult* must not be null.");
     
+    _loadedMatrixes = false;
+    _criticalSection = false;
+    _interfaceLocked = false;
+    
+    _bd = nullptr;
+    _marker = nullptr;
+    _p1Appearance = nullptr;
+    _p2Appearance = nullptr;
+    _currentReplay = nullptr;
     _lastGoodCamera = nullptr;
+    _blankAppearance = nullptr;
+    _animatedRotation = nullptr;
+    
+    _lastUpdateValue = 0;
+    
+    _acsState = kACSUnchecked;
 }
 
 void MainScene::init() {
@@ -44,47 +55,14 @@ void MainScene::init() {
     
     glNormal3f(0, 0, 1);
     
-    _loadedMatrixes = false;
-    
-    _marker = nullptr;
-    
-    _animatedRotation = nullptr;
-    
-    _lastUpdateValue = 0;
-    
-    _acsState = kACSUnchecked;
-    
-    _p1Appearance = new Appearance(1.0f);
-    _p2Appearance = new Appearance(1.0f);
-    //_defaultAppearance = new Appearance(1.0f);
-    
-    _p1Appearance->addComponent(new Component(kComponentTypeAmbient, color_red()));
-    _p1Appearance->addComponent(new Component(kComponentTypeDiffuse, color_red()));
-    _p1Appearance->addComponent(new Component(kComponentTypeSpecular, color_red()));
-    
-    _p2Appearance->addComponent(new Component(kComponentTypeAmbient, color_blue()));
-    _p2Appearance->addComponent(new Component(kComponentTypeDiffuse, color_blue()));
-    _p2Appearance->addComponent(new Component(kComponentTypeSpecular, color_blue()));
-    
-    //_defaultAppearance->addComponent(new Component(kComponentTypeAmbient, color_white()));
-    //_defaultAppearance->addComponent(new Component(kComponentTypeDiffuse, color_white()));
-    //_defaultAppearance->addComponent(new Component(kComponentTypeSpecular, color_white()));
-    
-    //  _defaultAppearance->setTexture(defaultTex);
-    
-    for (Appearance *appr : _anf->appearances)
-        if (appr->getId() == "tile") {
-            _defaultAppearance = appr;
-            
-            std::cout << "def appr set!" << std::endl;
-        }
-    
-    /*for (Texture *tex : _anf->textures)
-        if (tex->getId() == "field") {
-            _defaultAppearance->setTexture(tex);
-            
-            break;
-        }*/
+    for (Appearance *appr : _anf->appearances) {
+        if (appr->getId() == "tile")
+            _blankAppearance = appr;
+        else if (appr->getId() == "redtile")
+            _p1Appearance = appr;
+        else if (appr->getId() == "greentile")
+            _p2Appearance = appr;
+    }
     
     _setupFromANF();
     
@@ -102,10 +80,7 @@ void MainScene::update(unsigned long t) {
     if (_marker && _marker->getAnimation())
         _marker->getAnimation()->animate(diff);
     
-#warning Disabled while the camera isn't fixed.
-    
-    /*  if (_animatedRotation)
-        _animatedRotation->apply(); */
+    LeBloq::getInstance().expirePlay();
 }
 
 void MainScene::_setupFromANF() {
@@ -312,167 +287,12 @@ void MainScene::display() {
         
     } else {
         
-        if (_bd == nullptr) {
-            _bdn = nullptr;
-            
-            for (Node *n : _anf->graphs[0]->getNodes()) {
-                if (dynamic_cast<PieceNode *>(n)) {
-                    _bdn = (PieceNode *) n;
-                    
-                    break;
-                }
-            }
-            
-            if (!_bdn) {
-                std::cout << "This can not happen! Throw an exception here!" << std::endl;
-                
-                return;
-            }
-            
-            _bd = new BoardDraw(_bdn, Coordinate3D(0.0, 0.0, 0.0), 2, 0); //  arbitrary values
-        }
+        displayBoard();
         
-        bool animating = false;
-        
-        if (_marker && _marker->getAnimation() && _marker->getAnimation()->getAnimating()) {
-            _bd->setOverride(LeBloq::getInstance().getPreviousGameState());
-            
-            animating = true;
-        }
-        
-        if (!animating) {
-            switch (LeBloq::getInstance().getGameType()) {
-                case kLeBloqGameTypeAIVsAI:
-                    
-                    _computeAIPlay();
-                    
-                    break;
-                    
-                case kLeBloqGameTypePlayerVsAI_Easy:
-                case kLeBloqGameTypePlayerVsAI_Hard:
-                    
-                    if (LeBloq::getInstance().getCurrentGameState().getPlayer() != 1)
-                        _computeAIPlay();
-                    
-                    break;
-                    
-                default:
-                    
-                    break;
-            }
-        }
-        
-        if (_marker == nullptr)
-            _marker = new PieceNode(*_bdn);
-        
-        _marker->setPiece(LeBloq::getInstance().workingPiece);
-        
-        glPopMatrix();
-        
-        if (Globals::getInstance().getLeBloqSettings() == nullptr)
-            throw new MainSceneCreationException("Le Bloq settings not found!");
-        
-        glPushMatrix();
-        
-        {
-            Coordinate3D markerPos = Globals::getInstance().getLeBloqSettings()->marker;
-            
-            glTranslated(markerPos.x, markerPos.y, markerPos.z);
-            
-            _marker->draw();
-        }
-        
-        glPopMatrix();
-        
-        glPushMatrix();
-        
-        {
-            Coordinate3D boardDraw = Globals::getInstance().getLeBloqSettings()->boardDraw;
-            
-            glTranslated(boardDraw.x, boardDraw.y, boardDraw.z);
-            
-            _bd->draw();
-        }
-        
-        glPopMatrix();
-        
-        _defaultAppearance->apply();
-        
-        Rectangle *obj = new Rectangle(Coordinate2D(0, 0), Coordinate2D(2, 2));
-        
-        glPushMatrix();
-        
-        {
-            for (Transform *t : Globals::getInstance().getLeBloqSettings()->transforms)
-                t->apply();
-            
-            glPushName(DEFAULT_NAME);
-            
-            for (int i = 0; i < 3; i++) {
-                glPushMatrix();
-                
-                {
-                    glTranslatef(0, i * 5, -5);
-                    glRotatef(90, 0, 1, 0);
-                    
-                    glLoadName(i * 500);		//  Replaces the value on top of the name stack
-                    
-                    obj->draw();
-                }
-                
-                glPopMatrix();
-            }
-            
-            std::vector<LeBloqTile> tiles = LeBloq::getInstance().getCurrentGameState().getBoard().getScoredTiles();
-            
-            for (int r = 0; r < LeBloq::getInstance().getBoardSize().x; r++) {
-                glPushMatrix();
-                
-                {
-                    //  glTranslatef(0, r * 2.2, 0);
-                    glTranslatef(0, r * 2, 0);
-                    glLoadName(r);
-                    
-                    for (int c = 0; c < LeBloq::getInstance().getBoardSize().y; c++) {
-                        glPushMatrix();
-                        
-                        {
-                            //  glTranslatef(0, 0, (c + 1) * 2.2);
-                            glTranslatef(0, 0, (c + 1) * 2);
-                            glRotatef(90, 0, 1, 0);
-                            glPushName(c);
-                            
-                            _defaultAppearance->apply();
-                            
-                            for (LeBloqTile tile : tiles)
-                                if (tile.position.x == r && tile.position.y == c) {
-                                    
-#warning For some reason, color isn't being changed correctly.
-                                    
-                                    if (tile.scoringPlayer == 1)
-                                        _p1Appearance->apply();
-                                    else if (tile.scoringPlayer == 2)
-                                        _p2Appearance->apply();
-                                    
-                                    break;
-                                }
-                            
-                            obj->draw();
-                            
-                            glPopName();
-                        }
-                        
-                        glPopMatrix();
-                    }
-                }
-                
-                glPopMatrix();
-            }
-        }
-        
-        glPopMatrix();
-        
-        delete obj;
+        if (_currentReplay == nullptr)
+            displayPieces();
+        else
+            displayReplay();
         
     }
     
@@ -483,6 +303,288 @@ void MainScene::display() {
     glutSwapBuffers();
     
     _criticalSection = false;
+}
+
+void MainScene::displayPieces() {
+    _interfaceLocked = false;
+    
+    if (_bd == nullptr) {
+        _bdn = nullptr;
+        
+        for (Node *n : _anf->graphs[0]->getNodes()) {
+            if (dynamic_cast<PieceNode *>(n)) {
+                _bdn = (PieceNode *) n;
+                
+                break;
+            }
+        }
+        
+        if (!_bdn) {
+            std::cout << "This can not happen! Throw an exception here!" << std::endl;
+            
+            return;
+        }
+        
+        _bd = new BoardDraw(_bdn, Coordinate3D(0.0, 0.0, 0.0), 2, 0);
+    }
+    
+    bool animating = false;
+    
+    if (_marker && _marker->getAnimation() && _marker->getAnimation()->getAnimating()) {
+        _bd->setOverride(LeBloq::getInstance().getPreviousGameState());
+        
+        animating = true;
+    }
+    
+    if (!animating) {
+        switch (LeBloq::getInstance().getGameType()) {
+            case kLeBloqGameTypeAIVsAI:
+                
+                _computeAIPlay();
+                
+                break;
+                
+            case kLeBloqGameTypePlayerVsAI_Easy:
+            case kLeBloqGameTypePlayerVsAI_Hard:
+                
+                if (LeBloq::getInstance().getCurrentGameState().getPlayer() != 1)
+                    _computeAIPlay();
+                
+                break;
+                
+            default:
+                
+                break;
+        }
+    }
+    
+    if (_marker == nullptr)
+        _marker = new PieceNode(*_bdn);
+    
+    _marker->setPiece(LeBloq::getInstance().workingPiece);
+    
+    if (Globals::getInstance().getLeBloqSettings() == nullptr)
+        throw new MainSceneCreationException("Le Bloq settings not found!");
+    
+    glPushMatrix();
+    
+    {
+        Coordinate3D markerPos = Globals::getInstance().getLeBloqSettings()->marker;
+        
+        glTranslated(markerPos.x, markerPos.y, markerPos.z);
+        
+        _marker->draw();
+    }
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    {
+        Coordinate3D boardDraw = Globals::getInstance().getLeBloqSettings()->boardDraw;
+        
+        glTranslated(boardDraw.x, boardDraw.y, boardDraw.z);
+        
+        _bd->draw();
+    }
+    
+    glPopMatrix();
+}
+
+void MainScene::displayReplay() {
+    if (_bd == nullptr) {
+        _bdn = nullptr;
+        
+        for (Node *n : _anf->graphs[0]->getNodes()) {
+            if (dynamic_cast<PieceNode *>(n)) {
+                _bdn = (PieceNode *) n;
+                
+                break;
+            }
+        }
+        
+        if (!_bdn) {
+            std::cout << "This can not happen! Throw an exception here!" << std::endl;
+            
+            return;
+        }
+        
+        _bd = new BoardDraw(_bdn, Coordinate3D(0.0, 0.0, 0.0), 2, 0);
+    }
+    
+    bool animating = false;
+    
+    if (_marker && _marker->getAnimation() && _marker->getAnimation()->getAnimating()) {
+        _bd->setOverride(_currentReplay->getPreviousState());
+        
+        animating = true;
+    } else
+        try {
+            _bd->setOverride(_currentReplay->getCurrentState());
+        } catch (...) {
+            _bd->setOverride(_currentReplay->getPreviousState());
+        }
+    
+    if (!animating) {
+        if (_currentReplay->advance()) {
+            try {
+                
+                if (_marker) {
+                    Coordinate3D drawPos(30, 55, 30);
+                    Coordinate3D markerPos(50, 55, 22);
+                    
+                    int diff = 2 + 0.5;
+                    
+                    drawPos.x += _currentReplay->getPlayedPiece().position.x * diff;
+                    drawPos.z += _currentReplay->getPlayedPiece().position.y * diff;
+                    
+                    drawPos = drawPos - markerPos;
+                    
+                    LinearAnimation *ani = new LinearAnimation(1.0f);
+                    
+                    Coordinate3D stp = Coordinate3D(0, 0, 0);   //  replace with starting point
+                    Coordinate3D endp = drawPos;                //  replace with ending point
+                    
+                    ani->addControlPoint(stp);
+                    ani->addControlPoint(stp + Coordinate3D(0, 5, 0));
+                    ani->addControlPoint(endp + Coordinate3D(0, 5, 0));
+                    ani->addControlPoint(endp);
+                    
+                    ani->start();
+                    
+                    _marker->setAnimation(ani);
+                }
+                
+            } catch (...) {
+                
+            }
+            
+        }
+    }
+    
+    if (_marker == nullptr)
+        _marker = new PieceNode(*_bdn);
+    
+    try {
+        _marker->setPiece(_currentReplay->getPlayedPiece());
+    } catch (...) {
+        
+    }
+    
+    if (Globals::getInstance().getLeBloqSettings() == nullptr)
+        throw new MainSceneCreationException("Le Bloq settings not found!");
+    
+    glPushMatrix();
+    
+    {
+        Coordinate3D markerPos = Globals::getInstance().getLeBloqSettings()->marker;
+        
+        glTranslated(markerPos.x, markerPos.y, markerPos.z);
+        
+        _marker->draw();
+    }
+    
+    glPopMatrix();
+    
+    glPushMatrix();
+    
+    {
+        Coordinate3D boardDraw = Globals::getInstance().getLeBloqSettings()->boardDraw;
+        
+        glTranslated(boardDraw.x, boardDraw.y, boardDraw.z);
+        
+        _bd->draw();
+    }
+    
+    glPopMatrix();
+}
+
+void MainScene::displayBoard() {
+    _blankAppearance->apply();
+    
+    Rectangle *obj = new Rectangle(Coordinate2D(0, 0), Coordinate2D(2, 2));
+    
+    glPushMatrix();
+    
+    {
+        for (Transform *t : Globals::getInstance().getLeBloqSettings()->transforms)
+            t->apply();
+        
+        glPushName(DEFAULT_NAME);
+        
+        for (int i = 0; i < 3; i++) {
+            glPushMatrix();
+            
+            {
+                glTranslatef(0, i * 5, -5);
+                glRotatef(90, 0, 1, 0);
+                
+                glLoadName(i * 500);
+                
+                obj->draw();
+            }
+            
+            glPopMatrix();
+        }
+        
+        std::vector<LeBloqTile> tiles = LeBloq::getInstance().getCurrentGameState().getBoard().getScoredTiles();
+        
+        for (int r = 0; r < LeBloq::getInstance().getBoardSize().x; r++) {
+            glPushMatrix();
+            
+            {
+                glTranslatef(0, r * 2, 0);
+                glLoadName(r);
+                
+                for (int c = 0; c < LeBloq::getInstance().getBoardSize().y; c++) {
+                    glPushMatrix();
+                    
+                    {
+                        glTranslatef(0, 0, (c + 1) * 2);
+                        glRotatef(90, 0, 1, 0);
+                        glPushName(c);
+                        
+                        _blankAppearance->apply();
+                        
+                        for (LeBloqTile tile : tiles)
+                            if (tile.position.x == r && tile.position.y == c) {
+                                
+                                if (tile.scoringPlayer == 1)
+                                    _p1Appearance->apply();
+                                else if (tile.scoringPlayer == 2)
+                                    _p2Appearance->apply();
+                                
+                                break;
+                            }
+                        
+                        obj->draw();
+                        
+                        glPopName();
+                    }
+                    
+                    glPopMatrix();
+                }
+            }
+            
+            glPopMatrix();
+        }
+    }
+    
+    glPopMatrix();
+    
+    delete obj;
+}
+
+void MainScene::loadReplay(LeBloqReplay *replay) {
+    _currentReplay = replay;
+    
+    _interfaceLocked = true;
+}
+
+void MainScene::stopReplay() {
+    _currentReplay = nullptr;
+    
+    _interfaceLocked = false;
 }
 
 MainScene::~MainScene() {

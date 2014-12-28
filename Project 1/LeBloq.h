@@ -50,6 +50,7 @@ class LeBloq {
     
     int _gameStart;
     int _turnStart;
+    int _maxTurnTime;
     
     LeBloqState _parseOK(std::string);
     
@@ -62,7 +63,7 @@ class LeBloq {
         
         _gameType = kLeBloqGameTypePlayerVsAI_Easy;
         
-        //  _gameType = kLeBloqGameTypePlayerVsPlayer;
+        _maxTurnTime = 30;
     }
     
     LeBloq(LeBloq const &);
@@ -107,9 +108,19 @@ public:
         return (unsigned int) time(NULL) - _turnStart;
     }
     
+    unsigned int getMaxTurnTime() {
+        return _maxTurnTime;
+    }
+    
+    void setMaxTurnTime(unsigned int mtt) {
+        _maxTurnTime = mtt;
+    }
+    
     void undo() {
         _gameStates.pop();
     }
+    
+    bool expirePlay();
     
     LeBloqState performPlay();
     

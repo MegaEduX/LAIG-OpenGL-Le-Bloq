@@ -97,6 +97,18 @@ void Interface::initGUI() {
     GLUI_Translation *zoom = addTranslationToPanel(ccPanel, const_cast<char *>(std::string("Zoom").c_str()), GLUI_TRANSLATION_Y, _liveZoom);
     
     zoom->set_speed(0.2f);
+    
+    addColumn();
+    
+    id = 800;
+    
+    GLUI_Panel *turnTimePanel = addPanel(const_cast<char *>("Turn Settings"));
+    
+    GLUI_Spinner *turnTimeSpinner = addSpinnerToPanel(turnTimePanel, const_cast<char *>("Time"), 2, NULL, id);
+    
+    turnTimeSpinner->set_int_limits(5, 120);
+    
+    turnTimeSpinner->set_int_val(30);
 }
 
 void Interface::processGUI(GLUI_Control *ctrl) {
@@ -173,6 +185,8 @@ void Interface::processGUI(GLUI_Control *ctrl) {
                 LeBloq::getInstance().setGameType((kLeBloqGameType) _difficultyRadioGroup->get_int_val());
                 LeBloq::getInstance().newGame(10, 10);
                 
+                _scene->stopReplay();
+                
                 break;
                 
             case 601:
@@ -182,15 +196,39 @@ void Interface::processGUI(GLUI_Control *ctrl) {
                 
                 break;
                 
-            case 602:
-                
-                //  Load Replay
+            case 602: {
                 
                 try {
+                    
+                    std::cout << "File Path: ";
+                    
+                    std::string inputFilePath;
+                    
+                    std::cin >> inputFilePath;
+                    
+                    std::ifstream t(inputFilePath);
+                    
+                    std::stringstream buffer;
+                    
+                    buffer << t.rdbuf();
+                    
+                    std::string json = buffer.str();
+                    
+                    std::stack<LeBloqState> replayData = LeBloqReplay::loadReplayData(json);
+                    
+                    LeBloqReplay *replay = new LeBloqReplay(replayData);
+                    
+                    _scene->loadReplay(replay);
+                    
+                } catch (...) {
+                    
+                    std::cout << "An error has occoured while importing the requested game." << std::endl;
                     
                 }
                 
                 break;
+                
+            }
                 
             case 603: {
                 
@@ -212,7 +250,7 @@ void Interface::processGUI(GLUI_Control *ctrl) {
                     
                     out.close();
                     
-                } catch (std::exception exception) {
+                } catch (...) {
                     
                     std::cout << "An error has occoured while exporting the current game." << std::endl;
                     
@@ -227,23 +265,15 @@ void Interface::processGUI(GLUI_Control *ctrl) {
                 break;
         }
         
-        //  game control
-        
-        std::cout << "game control" << std::endl;
-        
     } else if (ctrl->user_id < 800) {
         
-        //  camera control
+        //  Whatevzzzz.
         
-        std::cout << "camera control" << std::endl;
+    } else if (ctrl->user_id < 900)
         
-        //  float ballRotation[16];
+        LeBloq::getInstance().setMaxTurnTime(ctrl->int_val);
         
-        //  _cameraRotationControl->get_float_array_val(ballRotation);
-        
-        std::cout << "rot" << std::endl;
-        
-    } else
+    else
         
         throw new InternalInconsistencyException("Unknown ctrl->user_id!");
 }
@@ -305,26 +335,32 @@ void Interface::performPicking(int x, int y) {
 }
 
 void Interface::processHits(GLint hits, GLuint buffer[]) {
+    if (_scene->getInterfaceLock())
+        return;
+    
     GLuint *ptr = buffer;
     GLuint mindepth = 0xFFFFFFFF;
     GLuint *selected = NULL;
     GLuint nselected = 0;
     
-    // iterate over the list of hits, and choosing the one closer to the viewer (lower depth)
-    for (int i=0;i<hits;i++) {
+    for (int i=0; i < hits; i++) {
         int num = *ptr; ptr++;
+        
         GLuint z1 = *ptr; ptr++;
+        
         ptr++;
-        if (z1 < mindepth && num>0) {
+        
+        if (z1 < mindepth && num > 0) {
             mindepth = z1;
             selected = ptr;
-            nselected=num;
+            nselected = num;
         }
-        for (int j=0; j < num; j++)
+        
+        for (int j = 0; j < num; j++)
             ptr++;
     }
     
-    if (selected!=NULL) {
+    if (selected != NULL) {
         if (nselected == 1) {
             
             if (selected[0] == 500)
@@ -333,8 +369,6 @@ void Interface::processHits(GLint hits, GLuint buffer[]) {
                 LeBloq::getInstance().workingPiece.toggleOrientation();
                 
         } else if (nselected == 2) {
-            
-            std::cout << "Clicked on Coordinate2D(" << selected[0] << ", " << selected[1] << ")." << std::endl;
             
             LeBloq::getInstance().workingPiece.position = Coordinate2D(selected[0], selected[1]);
             
@@ -355,8 +389,8 @@ void Interface::processHits(GLint hits, GLuint buffer[]) {
                     
                     LinearAnimation *ani = new LinearAnimation(1.0f);
                     
-                    Coordinate3D stp = Coordinate3D(0, 0, 0);   //  replace with starting point
-                    Coordinate3D endp = drawPos;                //  replace with ending point
+                    Coordinate3D stp = Coordinate3D(0, 0, 0);
+                    Coordinate3D endp = drawPos;
                     
                     ani->addControlPoint(stp);
                     ani->addControlPoint(stp + Coordinate3D(0, 5, 0));

@@ -38,6 +38,9 @@ public:
                                                                 name(std::string description, int code = 1) : superclass(description, code) {  \
                                                                         \
                                                                 }   \
+                                                                name(int code = 1) : superclass("", code) { \
+                                                                        \
+                                                                }   \
                                                         };
 
 _BUILD_GRAPHICAL_EXCEPTION(LeBloqException, GraphicalException);

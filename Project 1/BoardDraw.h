@@ -61,14 +61,10 @@ public:
             glPushMatrix();
             
             {
-                
                 glTranslated(drawPos.x, drawPos.y, drawPos.z);
-                //  glTranslated(-1.5, -1.5, -1.5);
-                
                 
                 _pieceNode->setPiece(piece);
                 _pieceNode->draw();
-                
             }
             
             glPopMatrix();

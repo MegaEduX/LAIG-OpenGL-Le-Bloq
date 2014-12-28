@@ -103,6 +103,24 @@ LeBloqState LeBloq::getPreviousGameState() {
     return ret;
 }
 
+bool LeBloq::expirePlay() {
+    if (getTurnTimeElapsed() <= _maxTurnTime)
+        return false;
+    
+    if (_gameStates.size() == 1)    //  The first play has no time limit...
+        return false;
+    
+    LeBloqState cs = getCurrentGameState();
+    
+    cs.setPlayer(cs.getPlayer() == 1 ? 2 : 1);
+    
+    _gameStates.push(cs);
+    
+    _turnStart = (unsigned int) time(NULL);
+    
+    return true;
+}
+
 LeBloqState LeBloq::performPlay() {
     return performPlay(workingPiece);
 }
