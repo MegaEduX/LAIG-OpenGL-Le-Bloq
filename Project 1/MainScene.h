@@ -22,6 +22,8 @@
 
 #include "LeBloqReplay.h"
 
+#include "Global.h"
+
 typedef enum {
     kACSUnchecked,
     kACSDisabled,
@@ -65,6 +67,9 @@ class MainScene : public CGFscene {
     
     Appearance *_blankAppearance;
     
+    Appearance *_scrubWhite;
+    Appearance *_scrubBlack;
+    
     Interface *_interface;
     
     AnimatedRotation *_animatedRotation;
@@ -74,6 +79,8 @@ class MainScene : public CGFscene {
     Camera *_acs1, *_acs2;
     
     LeBloqReplay *_currentReplay;
+    
+    int _wac;
     
 public:
     
@@ -100,6 +107,10 @@ public:
     
     void loadReplay(LeBloqReplay *);
     void stopReplay();
+    
+    LeBloqReplay *getCurrentReplay() {
+        return _currentReplay;
+    }
     
     bool getInterfaceLock() {
         return _interfaceLocked;

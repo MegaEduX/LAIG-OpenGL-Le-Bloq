@@ -53,6 +53,8 @@ protected:
     
     bool _usesDisplayList;
     
+    bool _display;
+    
     int _displayListId;
     
     int _delayListCreationCounter;
@@ -109,6 +111,8 @@ public:
         _inheritedAppearance = false;
         
         _usesDisplayList = false;
+        
+        _display = true;
         
         _displayListId = -1;
         
@@ -232,7 +236,14 @@ public:
         return _usesDisplayList;
     }
     
+    void setDisplay(bool d) {
+        _display = d;
+    }
+    
     virtual void draw() {
+        if (!_display)
+            return;
+        
         glPushMatrix();
         
         {

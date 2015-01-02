@@ -21,6 +21,8 @@
 
 #include "Transform.h"
 
+class MainScene;
+
 _BUILD_GRAPHICAL_EXCEPTION(GlobalSettingsApplyException, GraphicalException);
 _BUILD_GRAPHICAL_EXCEPTION(DrawingSettingsApplyException, GlobalSettingsApplyException);
 _BUILD_GRAPHICAL_EXCEPTION(CullingSettingsApplyException, GlobalSettingsApplyException);
@@ -82,7 +84,9 @@ public:
     }
     
     bool useDisplayLists() {
-        return _useDL;
+        //  return _useDL;
+        
+        return false;
     }
     
     void setUseDisplayLists(bool dl) {
@@ -218,6 +222,8 @@ class Globals {
     ShadingSettings *_es;
     LeBloqSettings *_lbs;
     
+    MainScene *_ms;
+    
     Globals() {};
     
     Globals(Globals const&);
@@ -252,6 +258,10 @@ public:
         _lbs = lbs;
     }
     
+    void setMainScene(MainScene *ms) {
+        _ms = ms;
+    }
+    
     DrawingSettings *getDrawingSettings() {
         return _ds;
     }
@@ -270,6 +280,10 @@ public:
     
     LeBloqSettings *getLeBloqSettings() {
         return _lbs;
+    }
+    
+    MainScene *getMainScene() {
+        return _ms;
     }
     
     void setBasePath(std::string bp) {

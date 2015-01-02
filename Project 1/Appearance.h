@@ -25,6 +25,8 @@ _BUILD_GRAPHICAL_EXCEPTION(AppearanceBuilderException, GraphicalException);
 
 class Appearance : public GraphicalObject {
     
+    //  int _counter;
+    
     float _shininess;
     
     Texture *_texture;
@@ -45,6 +47,8 @@ public:
         _texture = nullptr;
         
         _cachedAppearance = nullptr;
+        
+        //  _counter = 0;
     }
     
     Appearance(std::string id, float shininess) : GraphicalObject(id) {
@@ -53,6 +57,8 @@ public:
 		_texture = nullptr;
 		
 		_cachedAppearance = nullptr;
+        
+        //  _counter = 0;
     }
     
     Appearance(std::string id, float shininess, Texture *texture) : GraphicalObject(id) {
@@ -61,6 +67,8 @@ public:
         _texture = texture;
 
 		_cachedAppearance = nullptr;
+        
+        //  _counter = 0;
     }
     
     float getShininess() {
@@ -117,7 +125,11 @@ public:
     
     CGFappearance* getAppearance() {
         /*if (!_cachedAppearance)*/
+        //while (_counter < 20) {
             build();
+            
+           // _counter++;
+        //}
         
         return _cachedAppearance;
     }

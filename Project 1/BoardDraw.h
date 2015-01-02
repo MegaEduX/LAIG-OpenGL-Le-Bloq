@@ -23,7 +23,7 @@ class BoardDraw {
     
     Coordinate3D _boardPos;
     
-    int _squareSize;
+    float _squareSize;
     
     float _squareSeparation;
     
@@ -31,7 +31,7 @@ class BoardDraw {
     
 public:
     
-    BoardDraw(PieceNode *pieceNode, Coordinate3D boardPos, int squareSize, float squareSeparation) {
+    BoardDraw(PieceNode *pieceNode, Coordinate3D boardPos, float squareSize, float squareSeparation) {
         _pieceNode = pieceNode;
         
         _boardPos = boardPos;
@@ -51,12 +51,14 @@ public:
         std::vector<LeBloqPiece> pieces = _state.getBoard().getPieces();
         
         for (LeBloqPiece piece : pieces) {
-            Coordinate3D drawPos = _boardPos;
+            Coordinate3D drawPos = _boardPos - Coordinate3D(7.5, 39.5, 5);
             
-            int diff = _squareSize + _squareSeparation;
+            float diff = _squareSize + _squareSeparation;
             
             drawPos.x += piece.position.x * diff;
             drawPos.z += piece.position.y * diff;    //  Yes, the z/y thing is -correct-.
+            
+            //  drawPos = drawPos - Coordinate3D(7.5, 40, 5);
             
             glPushMatrix();
             

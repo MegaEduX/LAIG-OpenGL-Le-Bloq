@@ -43,6 +43,11 @@ MainScene::MainScene(ANFResult *result) {
     _blankAppearance = nullptr;
     _animatedRotation = nullptr;
     
+    _scrubBlack = nullptr;
+    _scrubWhite = nullptr;
+    
+    _wac = 0;
+    
     _lastUpdateValue = 0;
     
     _acsState = kACSUnchecked;
@@ -56,13 +61,17 @@ void MainScene::init() {
     glNormal3f(0, 0, 1);
     
     for (Appearance *appr : _anf->appearances) {
-        if (appr->getId() == "tile")
-            _blankAppearance = appr;
+        if (appr->getId() == "tile_black")
+            _scrubBlack = appr;
+        else if (appr->getId() == "tile_white")
+            _scrubWhite = appr;
         else if (appr->getId() == "redtile")
             _p1Appearance = appr;
         else if (appr->getId() == "greentile")
             _p2Appearance = appr;
     }
+    
+    Globals::getInstance().setMainScene(this);
     
     _setupFromANF();
     
@@ -117,10 +126,10 @@ void MainScene::reloadANF() {
 
 void MainScene::_animateLatestPlay() {
     if (_marker) {
-        Coordinate3D drawPos(30, 55, 30);
-        Coordinate3D markerPos(50, 55, 22);
+        Coordinate3D drawPos = Globals::getInstance().getLeBloqSettings()->boardDraw;
+        Coordinate3D markerPos(37.5, 55, 25);
         
-        int diff = 2 + 0.5;
+        int diff = 1.0f;
         
         LeBloqBoard currentBoard = LeBloq::getInstance().getCurrentGameState().getBoard();
         LeBloqBoard latestBoard = LeBloq::getInstance().getPreviousGameState().getBoard();
@@ -133,14 +142,18 @@ void MainScene::_animateLatestPlay() {
         
         drawPos = drawPos - markerPos;
         
+        drawPos.y = 0;
+        
         LinearAnimation *ani = new LinearAnimation(1.0f);
         
-        Coordinate3D stp = Coordinate3D(0, 0, 0);   //  replace with starting point
-        Coordinate3D endp = drawPos;                //  replace with ending point
+        Coordinate3D stp = Coordinate3D(0, 0, 0);
+        Coordinate3D endp = drawPos;
+        
+        Coordinate3D upper(0, 2, 0);
         
         ani->addControlPoint(stp);
-        ani->addControlPoint(stp + Coordinate3D(0, 5, 0));
-        ani->addControlPoint(endp + Coordinate3D(0, 5, 0));
+        ani->addControlPoint(stp + upper);
+        ani->addControlPoint(endp + upper);
         ani->addControlPoint(endp);
         
         ani->start();
@@ -189,8 +202,6 @@ void MainScene::display() {
         }
         
         _acsState = ((_acs1 != nullptr && _acs2 != nullptr) ? kACSEnabled : kACSDisabled);
-        
-        std::cout << "ACS State: " << _acsState << std::endl;
     }
     
     if (_acsState == kACSEnabled)
@@ -272,20 +283,35 @@ void MainScene::display() {
     
     if (!LeBloq::getInstance().getCurrentGameState().getPlaying()) {
         
-        std::string message = "";
-        
-        if (LeBloq::getInstance().getCurrentGameState().getPlayer() < 3)
-            message = "Congratulations, Player " + std::to_string(LeBloq::getInstance().getCurrentGameState().getPlayer()) + "!";
-        else
-            message = "It's a Tie!";
-            
-        Text *endText = new Text(message, Coordinate3D(60, 60, 60), {.r = 0.0f, .g = 1.0f, .b = 0.0f}, GLUT_BITMAP_TIMES_ROMAN_24);
-        
-        endText->draw();
-        
-        delete endText;
+        if (LeBloq::getInstance().getCurrentGameState().getPlayer() < 3) {
+            for (Node *n : _anf->graphs[0]->getNodes()) {
+                if (LeBloq::getInstance().getCurrentGameState().getPlayer() == 1) {
+                    if (n->getId() == "won_p1") {
+                        n->setDisplay(true);
+                        
+                        break;
+                    }
+                } else
+                    if (n->getId() == "won_p2") {
+                        n->setDisplay(true);
+                        
+                        break;
+                    }
+            }
+        } else {
+            for (Node *n : _anf->graphs[0]->getNodes())
+                if (n->getId() == "tie") {
+                    n->setDisplay(true);
+                    
+                    break;
+                }
+        }
         
     } else {
+        
+        for (Node *n : _anf->graphs[0]->getNodes())
+            if (n->getId() == "tie" || n->getId() == "won_p1" || n->getId() == "won_p2")
+                n->setDisplay(false);
         
         displayBoard();
         
@@ -322,7 +348,7 @@ void MainScene::displayPieces() {
         if (!_bdn)
             throw new MainSceneCreationException("PieceNode not found! This is an error in your ANF.");
         
-        _bd = new BoardDraw(_bdn, Coordinate3D(0.0, 0.0, 0.0), 2, 0);
+        _bd = new BoardDraw(_bdn, Coordinate3D(0.0, 0.0, 0.0), 1, 0);
     }
     
     bool animating = false;
@@ -427,24 +453,29 @@ void MainScene::displayReplay() {
             try {
                 
                 if (_marker) {
-                    Coordinate3D drawPos(30, 55, 30);
-                    Coordinate3D markerPos(50, 55, 22);
+                    Coordinate3D drawPos = Globals::getInstance().getLeBloqSettings()->boardDraw;
                     
-                    int diff = 2 + 0.5;
+                    Coordinate3D markerPos(37.5, 55, 25);
+                    
+                    float diff = 1.0f;
                     
                     drawPos.x += _currentReplay->getPlayedPiece().position.x * diff;
                     drawPos.z += _currentReplay->getPlayedPiece().position.y * diff;
                     
                     drawPos = drawPos - markerPos;
                     
+                    drawPos.y = 0;
+                    
                     LinearAnimation *ani = new LinearAnimation(1.0f);
                     
-                    Coordinate3D stp = Coordinate3D(0, 0, 0);   //  replace with starting point
-                    Coordinate3D endp = drawPos;                //  replace with ending point
+                    Coordinate3D stp = Coordinate3D(0, 0, 0);
+                    Coordinate3D endp = drawPos;
+                    
+                    Coordinate3D upper(0, 2, 0);
                     
                     ani->addControlPoint(stp);
-                    ani->addControlPoint(stp + Coordinate3D(0, 5, 0));
-                    ani->addControlPoint(endp + Coordinate3D(0, 5, 0));
+                    ani->addControlPoint(stp + upper);
+                    ani->addControlPoint(endp + upper);
                     ani->addControlPoint(endp);
                     
                     ani->start();
@@ -497,7 +528,11 @@ void MainScene::displayReplay() {
 }
 
 void MainScene::displayBoard() {
-    _blankAppearance->apply();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
+    _wac++;
+    
+    _p1Appearance->apply();
     
     Rectangle *obj = new Rectangle(Coordinate2D(0, 0), Coordinate2D(2, 2));
     
@@ -509,7 +544,7 @@ void MainScene::displayBoard() {
         
         glPushName(DEFAULT_NAME);
         
-        for (int i = 0; i < 3; i++) {
+        for (int i = 1; i < 3; i++) {
             glPushMatrix();
             
             {
@@ -518,6 +553,13 @@ void MainScene::displayBoard() {
                 
                 glLoadName(i * 500);
                 
+                for (Appearance *a : _anf->appearances)
+                    if (a->getId() == "button") {
+                        a->apply();
+                        
+                        break;
+                    }
+                        
                 obj->draw();
             }
             
@@ -525,6 +567,13 @@ void MainScene::displayBoard() {
         }
         
         std::vector<LeBloqTile> tiles = LeBloq::getInstance().getCurrentGameState().getBoard().getScoredTiles();
+        
+        if (_currentReplay)
+            try {
+                tiles = _currentReplay->getCurrentState().getBoard().getScoredTiles();
+            } catch (...) {
+                tiles = _currentReplay->getPreviousState().getBoard().getScoredTiles();
+            }
         
         for (int r = 0; r < LeBloq::getInstance().getBoardSize().x; r++) {
             glPushMatrix();
@@ -541,10 +590,29 @@ void MainScene::displayBoard() {
                         glRotatef(90, 0, 1, 0);
                         glPushName(c);
                         
-                        _blankAppearance->apply();
+                        
+                        
+                        if (_wac > 20) {
+                            if (c % 2) {
+                                if (r % 2)
+                                    _scrubBlack->apply();
+                                else
+                                    _scrubWhite->apply();
+                            } else {
+                                if (r % 2)
+                                    _scrubWhite->apply();
+                                else
+                                    _scrubBlack->apply();
+                            }
+                        }
                         
                         for (LeBloqTile tile : tiles)
                             if (tile.position.x == r && tile.position.y == c) {
+                                
+                                glBindTexture(GL_TEXTURE_2D, 0);
+                                
+                                _p1Appearance->setTextureWrap(Coordinate2D(1, 1));
+                                _p2Appearance->setTextureWrap(Coordinate2D(1, 1));
                                 
                                 if (tile.scoringPlayer == 1)
                                     _p1Appearance->apply();

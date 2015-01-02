@@ -25,8 +25,6 @@ LeBloqState LeBloq::_parseOK(std::string answer) {
     
     int nextPlayer = (_gameStates.size() ? (getCurrentGameState().getPlayer() == 1 ? 2 : 1) : 2);
     
-    std::cout << "Next Player: " << nextPlayer << std::endl;
-    
     int winner = 0;
     
     bool playing = true;
@@ -48,13 +46,9 @@ LeBloqState LeBloq::_parseOK(std::string answer) {
 int LeBloq::_checkWinner(LeBloqBoard board) {
     std::string message = "checkWinner(" + PrologParser::boardRepresentationToProlog(board.getBoardRepresentation()) + "," + std::to_string(_boardSizeX) + "," + std::to_string(_boardSizeY) + ").";
     
-    std::cout << "[Check Winner Debug] " << message << std::endl;
-    
     _conn->write(message);
     
     int winner = atoi(_conn->read().c_str());
-    
-    std::cout << "Winner State: " << winner << std::endl;
     
     return winner;
 }
@@ -76,8 +70,6 @@ LeBloqState LeBloq::newGame(int x, int y) {
     
     _gameStart = (unsigned int) time(NULL);
     _turnStart = _gameStart;
-    
-    std::cout << newState.getPlayer() << std::endl;
     
     while (_gameStates.size())
         _gameStates.pop();

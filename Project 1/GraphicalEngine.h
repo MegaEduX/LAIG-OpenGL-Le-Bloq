@@ -10,7 +10,7 @@
 #define Project_1_GraphicalEngine_h
 
 #include "Transform.h"
-#include "Primitive.h"
+#include "Primitives.h"
 #include "Texture.h"
 #include "Appearance.h"
 #include "Coordinate.h"

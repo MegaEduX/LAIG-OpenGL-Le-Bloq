@@ -44,6 +44,10 @@ public:
         return _to;
     }
     
+    void setDestination(Coordinate3D dest) {
+        _to = dest;
+    }
+    
     void apply();
     
 };

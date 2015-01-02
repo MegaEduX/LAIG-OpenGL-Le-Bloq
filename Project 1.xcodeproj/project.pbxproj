@@ -12,6 +12,19 @@
 		6F1AAAC019D7411D00EB4950 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F1AAABE19D7411D00EB4950 /* Light.cpp */; };
 		6F1AAAC319D742F900EB4950 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F1AAAC119D742F900EB4950 /* Camera.cpp */; };
 		6F2523E71A13C1B30013E362 /* libGLEW.1.11.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2523E61A13C1B30013E362 /* libGLEW.1.11.0.dylib */; };
+		6F30EB961A573B9F00FB55B7 /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EB941A573B9F00FB55B7 /* Rectangle.cpp */; };
+		6F30EB991A573BA600FB55B7 /* Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EB971A573BA600FB55B7 /* Triangle.cpp */; };
+		6F30EB9C1A573BAD00FB55B7 /* UnitCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EB9A1A573BAD00FB55B7 /* UnitCube.cpp */; };
+		6F30EB9F1A573BBB00FB55B7 /* Cylinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EB9D1A573BBB00FB55B7 /* Cylinder.cpp */; };
+		6F30EBA21A573BC100FB55B7 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EBA01A573BC100FB55B7 /* Sphere.cpp */; };
+		6F30EBA51A573BCA00FB55B7 /* Torus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EBA31A573BCA00FB55B7 /* Torus.cpp */; };
+		6F30EBA81A573BD000FB55B7 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EBA61A573BD000FB55B7 /* Plane.cpp */; };
+		6F30EBAB1A573BDE00FB55B7 /* Patch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EBA91A573BDE00FB55B7 /* Patch.cpp */; };
+		6F30EBAE1A573BE500FB55B7 /* Vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EBAC1A573BE500FB55B7 /* Vehicle.cpp */; };
+		6F30EBB11A573BEB00FB55B7 /* Flag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EBAF1A573BEB00FB55B7 /* Flag.cpp */; };
+		6F30EBB41A573BF600FB55B7 /* Table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EBB21A573BF600FB55B7 /* Table.cpp */; };
+		6F30EBB71A573BFF00FB55B7 /* ScoreView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EBB51A573BFF00FB55B7 /* ScoreView.cpp */; };
+		6F30EBBA1A573C0500FB55B7 /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F30EBB81A573C0500FB55B7 /* Text.cpp */; };
 		6F6F2EDA19D5CAB600982CC9 /* Appearance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F6F2ED819D5CAB600982CC9 /* Appearance.cpp */; };
 		6F707C2A19DC3F8800A238AC /* Coordinate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F707C2919DC3F8800A238AC /* Coordinate.cpp */; };
 		6F72E9891A140D0800BD596D /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F72E9871A140D0800BD596D /* Shader.cpp */; };
@@ -25,7 +38,6 @@
 		6F9B4FC819D1DC7400B0A240 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9B4FC719D1DC7400B0A240 /* OpenGL.framework */; };
 		6F9B4FCA19D1DC7A00B0A240 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9B4FC919D1DC7A00B0A240 /* GLUT.framework */; };
 		6F9B4FCF19D1EB9800B0A240 /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F9B4FCD19D1EB9800B0A240 /* Transform.cpp */; };
-		6F9B4FD219D1EBD800B0A240 /* Primitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F9B4FD019D1EBD800B0A240 /* Primitive.cpp */; };
 		6F9B4FDE19D1F9E900B0A240 /* Global.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F9B4FDC19D1F9E900B0A240 /* Global.cpp */; };
 		6F9B4FE119D2F74800B0A240 /* libCGF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9B4FDF19D2F74800B0A240 /* libCGF.a */; };
 		6F9B4FE219D2F74800B0A240 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9B4FE019D2F74800B0A240 /* libtinyxml.a */; };
@@ -66,6 +78,33 @@
 		6F1AAAC219D742F900EB4950 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		6F1AAAC519D7490400EB4950 /* GraphicalException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphicalException.h; sourceTree = "<group>"; };
 		6F2523E61A13C1B30013E362 /* libGLEW.1.11.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.11.0.dylib; path = /usr/local/Cellar/glew/1.11.0/lib/libGLEW.1.11.0.dylib; sourceTree = "<absolute>"; };
+		6F30EB941A573B9F00FB55B7 /* Rectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rectangle.cpp; sourceTree = "<group>"; };
+		6F30EB951A573B9F00FB55B7 /* Rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rectangle.h; sourceTree = "<group>"; };
+		6F30EB971A573BA600FB55B7 /* Triangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Triangle.cpp; sourceTree = "<group>"; };
+		6F30EB981A573BA600FB55B7 /* Triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Triangle.h; sourceTree = "<group>"; };
+		6F30EB9A1A573BAD00FB55B7 /* UnitCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UnitCube.cpp; sourceTree = "<group>"; };
+		6F30EB9B1A573BAD00FB55B7 /* UnitCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitCube.h; sourceTree = "<group>"; };
+		6F30EB9D1A573BBB00FB55B7 /* Cylinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cylinder.cpp; sourceTree = "<group>"; };
+		6F30EB9E1A573BBB00FB55B7 /* Cylinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cylinder.h; sourceTree = "<group>"; };
+		6F30EBA01A573BC100FB55B7 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
+		6F30EBA11A573BC100FB55B7 /* Sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
+		6F30EBA31A573BCA00FB55B7 /* Torus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Torus.cpp; sourceTree = "<group>"; };
+		6F30EBA41A573BCA00FB55B7 /* Torus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Torus.h; sourceTree = "<group>"; };
+		6F30EBA61A573BD000FB55B7 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
+		6F30EBA71A573BD000FB55B7 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
+		6F30EBA91A573BDE00FB55B7 /* Patch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Patch.cpp; sourceTree = "<group>"; };
+		6F30EBAA1A573BDE00FB55B7 /* Patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Patch.h; sourceTree = "<group>"; };
+		6F30EBAC1A573BE500FB55B7 /* Vehicle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vehicle.cpp; sourceTree = "<group>"; };
+		6F30EBAD1A573BE500FB55B7 /* Vehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vehicle.h; sourceTree = "<group>"; };
+		6F30EBAF1A573BEB00FB55B7 /* Flag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Flag.cpp; sourceTree = "<group>"; };
+		6F30EBB01A573BEB00FB55B7 /* Flag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flag.h; sourceTree = "<group>"; };
+		6F30EBB21A573BF600FB55B7 /* Table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Table.cpp; sourceTree = "<group>"; };
+		6F30EBB31A573BF600FB55B7 /* Table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Table.h; sourceTree = "<group>"; };
+		6F30EBB51A573BFF00FB55B7 /* ScoreView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScoreView.cpp; sourceTree = "<group>"; };
+		6F30EBB61A573BFF00FB55B7 /* ScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreView.h; sourceTree = "<group>"; };
+		6F30EBB81A573C0500FB55B7 /* Text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Text.cpp; sourceTree = "<group>"; };
+		6F30EBB91A573C0500FB55B7 /* Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text.h; sourceTree = "<group>"; };
+		6F30EBBB1A573DAC00FB55B7 /* Primitives.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Primitives.h; sourceTree = "<group>"; };
 		6F5BFDFA19DA132500C0F88E /* Component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Component.h; sourceTree = "<group>"; };
 		6F6F2ED819D5CAB600982CC9 /* Appearance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Appearance.cpp; sourceTree = "<group>"; };
 		6F6F2ED919D5CAB600982CC9 /* Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Appearance.h; sourceTree = "<group>"; };
@@ -105,7 +144,6 @@
 		6F9B4FC919D1DC7A00B0A240 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		6F9B4FCD19D1EB9800B0A240 /* Transform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Transform.cpp; sourceTree = "<group>"; };
 		6F9B4FCE19D1EB9800B0A240 /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transform.h; sourceTree = "<group>"; };
-		6F9B4FD019D1EBD800B0A240 /* Primitive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Primitive.cpp; sourceTree = "<group>"; };
 		6F9B4FD119D1EBD800B0A240 /* Primitive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Primitive.h; sourceTree = "<group>"; };
 		6F9B4FD419D1EC1A00B0A240 /* Coordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coordinate.h; sourceTree = "<group>"; };
 		6F9B4FD719D1F8B800B0A240 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
@@ -151,6 +189,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F30EB931A573B8E00FB55B7 /* Primitives */ = {
+			isa = PBXGroup;
+			children = (
+				6F30EBBB1A573DAC00FB55B7 /* Primitives.h */,
+				6F9B4FD119D1EBD800B0A240 /* Primitive.h */,
+				6F30EB951A573B9F00FB55B7 /* Rectangle.h */,
+				6F30EB941A573B9F00FB55B7 /* Rectangle.cpp */,
+				6F30EB981A573BA600FB55B7 /* Triangle.h */,
+				6F30EB971A573BA600FB55B7 /* Triangle.cpp */,
+				6F30EB9B1A573BAD00FB55B7 /* UnitCube.h */,
+				6F30EB9A1A573BAD00FB55B7 /* UnitCube.cpp */,
+				6F30EB9E1A573BBB00FB55B7 /* Cylinder.h */,
+				6F30EB9D1A573BBB00FB55B7 /* Cylinder.cpp */,
+				6F30EBA11A573BC100FB55B7 /* Sphere.h */,
+				6F30EBA01A573BC100FB55B7 /* Sphere.cpp */,
+				6F30EBA41A573BCA00FB55B7 /* Torus.h */,
+				6F30EBA31A573BCA00FB55B7 /* Torus.cpp */,
+				6F30EBA71A573BD000FB55B7 /* Plane.h */,
+				6F30EBA61A573BD000FB55B7 /* Plane.cpp */,
+				6F30EBAA1A573BDE00FB55B7 /* Patch.h */,
+				6F30EBA91A573BDE00FB55B7 /* Patch.cpp */,
+				6F30EBAD1A573BE500FB55B7 /* Vehicle.h */,
+				6F30EBAC1A573BE500FB55B7 /* Vehicle.cpp */,
+				6F30EBB01A573BEB00FB55B7 /* Flag.h */,
+				6F30EBAF1A573BEB00FB55B7 /* Flag.cpp */,
+				6F30EBB31A573BF600FB55B7 /* Table.h */,
+				6F30EBB21A573BF600FB55B7 /* Table.cpp */,
+				6F30EBB61A573BFF00FB55B7 /* ScoreView.h */,
+				6F30EBB51A573BFF00FB55B7 /* ScoreView.cpp */,
+				6F30EBB91A573C0500FB55B7 /* Text.h */,
+				6F30EBB81A573C0500FB55B7 /* Text.cpp */,
+			);
+			name = Primitives;
+			sourceTree = "<group>";
+		};
 		6F86FE9819DAE4F700FC9C52 /* Header-Only Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +335,7 @@
 		6F9B4FE619D2FA6000B0A240 /* Graphical Engine */ = {
 			isa = PBXGroup;
 			children = (
+				6F30EB931A573B8E00FB55B7 /* Primitives */,
 				6F86FE9819DAE4F700FC9C52 /* Header-Only Classes */,
 				6F99464919FE73E800664F17 /* Animation.h */,
 				6F99464819FE73E800664F17 /* Animation.cpp */,
@@ -278,8 +352,6 @@
 				6F9B4FDC19D1F9E900B0A240 /* Global.cpp */,
 				6F1AAABF19D7411D00EB4950 /* Light.h */,
 				6F1AAABE19D7411D00EB4950 /* Light.cpp */,
-				6F9B4FD119D1EBD800B0A240 /* Primitive.h */,
-				6F9B4FD019D1EBD800B0A240 /* Primitive.cpp */,
 				6F9B4FCE19D1EB9800B0A240 /* Transform.h */,
 				6F9B4FCD19D1EB9800B0A240 /* Transform.cpp */,
 				6F72E9881A140D0800BD596D /* Shader.h */,
@@ -393,24 +465,36 @@
 			files = (
 				6F1AAAC019D7411D00EB4950 /* Light.cpp in Sources */,
 				6FFE09061A27840B00831802 /* PrologParser.cpp in Sources */,
+				6F30EB9F1A573BBB00FB55B7 /* Cylinder.cpp in Sources */,
 				6F9B4FE519D2FA1D00B0A240 /* MainScene.cpp in Sources */,
+				6F30EBA51A573BCA00FB55B7 /* Torus.cpp in Sources */,
 				6F86FE9F19DAEF8800FC9C52 /* ReferenceParser.cpp in Sources */,
 				6FFE09031A27785F00831802 /* SocketClient.cpp in Sources */,
 				6F0E0EAA19ED62840098F4B0 /* ANFLoader.cpp in Sources */,
 				6FFE09001A27774900831802 /* LeBloq.cpp in Sources */,
 				6F9B4FCF19D1EB9800B0A240 /* Transform.cpp in Sources */,
-				6F9B4FD219D1EBD800B0A240 /* Primitive.cpp in Sources */,
 				6F14270E1A2B7BEC0044C1CA /* LeBloqReplay.cpp in Sources */,
+				6F30EBA81A573BD000FB55B7 /* Plane.cpp in Sources */,
+				6F30EB9C1A573BAD00FB55B7 /* UnitCube.cpp in Sources */,
 				6F9B4F8F19D1D5E600B0A240 /* ANFParser.cpp in Sources */,
+				6F30EB961A573B9F00FB55B7 /* Rectangle.cpp in Sources */,
 				6F86FE9C19DAE6B600FC9C52 /* Additions.cpp in Sources */,
 				6FF7A29D19DDA77300372B39 /* Interface.cpp in Sources */,
+				6F30EBBA1A573C0500FB55B7 /* Text.cpp in Sources */,
+				6F30EBB11A573BEB00FB55B7 /* Flag.cpp in Sources */,
 				6F72E9891A140D0800BD596D /* Shader.cpp in Sources */,
 				6FA53CD71A4491E4003F2539 /* LeBloqAI.cpp in Sources */,
+				6F30EBA21A573BC100FB55B7 /* Sphere.cpp in Sources */,
+				6F30EBB41A573BF600FB55B7 /* Table.cpp in Sources */,
 				6F86FE9719DAE27500FC9C52 /* Color.cpp in Sources */,
 				6F707C2A19DC3F8800A238AC /* Coordinate.cpp in Sources */,
+				6F30EB991A573BA600FB55B7 /* Triangle.cpp in Sources */,
 				6F1AAAC319D742F900EB4950 /* Camera.cpp in Sources */,
 				6FDDCFF51A2A21DB0090CEFA /* LeBloqBoard.cpp in Sources */,
 				6F9B4FDE19D1F9E900B0A240 /* Global.cpp in Sources */,
+				6F30EBAB1A573BDE00FB55B7 /* Patch.cpp in Sources */,
+				6F30EBAE1A573BE500FB55B7 /* Vehicle.cpp in Sources */,
+				6F30EBB71A573BFF00FB55B7 /* ScoreView.cpp in Sources */,
 				6F6F2EDA19D5CAB600982CC9 /* Appearance.cpp in Sources */,
 				6F99464A19FE73E800664F17 /* Animation.cpp in Sources */,
 				6F9B4F7E19D1D45C00B0A240 /* main.cpp in Sources */,
