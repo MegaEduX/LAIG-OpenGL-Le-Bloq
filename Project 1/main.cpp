@@ -41,7 +41,7 @@ int main(int argc, const char * argv[]) {
     
     //  ANFLoader::getInstance().setANFPath("/Users/MegaEduX/proj3-test/Sample.anf");
     
-    ANFLoader::getInstance().setANFPath("/Users/MegaEduX/proj3-test/Scrublordie/Cena1.anf");
+    ANFLoader::getInstance().setANFPath("/Users/MegaEduX/proj3-test/Final/1stScene.anf");
     
     result = ANFLoader::getInstance().loadANF();
 

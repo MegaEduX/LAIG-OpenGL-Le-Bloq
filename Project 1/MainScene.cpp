@@ -319,11 +319,8 @@ void MainScene::displayPieces() {
             }
         }
         
-        if (!_bdn) {
-            std::cout << "This can not happen! Throw an exception here!" << std::endl;
-            
-            return;
-        }
+        if (!_bdn)
+            throw new MainSceneCreationException("PieceNode not found! This is an error in your ANF.");
         
         _bd = new BoardDraw(_bdn, Coordinate3D(0.0, 0.0, 0.0), 2, 0);
     }

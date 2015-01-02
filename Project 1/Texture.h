@@ -12,6 +12,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "CGFapplication.h"
+
 #include "CGFtexture.h"
 
 #include "GraphicalException.h"
@@ -50,7 +52,14 @@ class Texture {
         if (_cachedTexture != nullptr)
             delete _cachedTexture;
         
-        _cachedTexture = new CGFtexture(_filePath);
+        try {
+            _cachedTexture = new CGFtexture(_filePath);
+        } catch (GLexception& ex) {
+            std::cout << "Failure to load texture " << _filePath << std::endl;
+            
+            throw ex;
+        }
+        
     }
     
 public:
